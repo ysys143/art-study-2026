@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grossberg Ch.2 -- Interactive Simulations</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --surface: #faf8f5;
+    --surface2: #f0ede8;
+    --border: #eae6e0;
+    --text: #2d2b28;
+    --text-muted: #9b9590;
+    --blue: #4a7fb5;
+    --green: #5a9a72;
+    --red: #c06058;
+    --yellow: #c49a3c;
+    --accent: #bf6a42;
+    --accent-light: rgba(191,106,66,.06);
+    --accent-mid: rgba(191,106,66,.12);
+    --radius: 10px;
+    --sidebar-w: 280px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Pretendard', sans-serif;
+    font-size: 14px;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  #sidebar-header h1 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: .3px;
+  }
+  #sidebar-header .sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  #sidebar-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px 0;
+  }
+  .nav-section {
+    padding: 10px 16px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .nav-item {
+    padding: 9px 16px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background .15s, border-color .15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-item:hover { background: var(--surface2); }
+  .nav-item.active {
+    background: var(--accent-light);
+    border-left-color: var(--text);
+  }
+  .nav-item .nav-fig {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-mid);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .nav-item .nav-label {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .nav-item.disabled {
+    opacity: .35;
+    cursor: default;
+    pointer-events: none;
+  }
+  .nav-item.disabled .nav-fig {
+    background: rgba(155,149,144,.08);
+    color: var(--text-muted);
+  }
+
+  /* MAIN */
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #topbar {
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  #topbar h2 {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  #topbar .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    background: rgba(90,154,114,.1);
+    color: var(--green);
+  }
+  #content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .card-desc strong { color: var(--text); }
+
+  /* EQUATION BOX */
+  .eq-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .eq-box {
+    flex: 1;
+    min-width: 280px;
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  /* MODEL TOGGLE */
+  .model-toggles {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .model-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all .15s;
+    user-select: none;
+  }
+  .model-toggle .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    transition: opacity .15s;
+  }
+  .model-toggle.active {
+    border-color: currentColor;
+    background: var(--surface2);
+  }
+  .model-toggle:not(.active) {
+    opacity: .4;
+  }
+  .model-toggle:not(.active) .dot { opacity: .3; }
+  .model-toggle:hover { background: var(--surface2); }
+
+  .eq-box .eq-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+  .eq-box .eq-label .bad { color: var(--red); }
+  .eq-box .eq-label .good { color: var(--green); }
+  .eq-box .katex { font-size: 1.1em; }
+
+  /* CONTROLS */
+  .controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .control-group label {
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 90px;
+  }
+  .control-group input[type=range] {
+    width: 160px;
+    accent-color: var(--accent);
+    height: 4px;
+  }
+  .control-group .val {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    min-width: 36px;
+    font-weight: 600;
+  }
+
+  /* CHART GRID */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .chart-card .chart-label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chart-card .chart-label .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* BAR VIS */
+  .bar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .bar-section {
+    text-align: center;
+  }
+  .bar-section .bar-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+  .bar-group {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    height: 120px;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  .bar-col {
+    width: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .bar-fill {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: height .3s ease;
+    min-height: 1px;
+  }
+  .bar-val {
+    font-size: 9px;
+    font-family: monospace;
+    color: var(--text-muted);
+    margin-top: 4px;
+    position: absolute;
+    bottom: -16px;
+  }
+  .bar-limit {
+    position: absolute;
+    left: 0; right: 0;
+    border-top: 1px dashed;
+    opacity: .3;
+  }
+  .bar-limit-label {
+    position: absolute;
+    right: 2px;
+    font-size: 8px;
+    font-weight: 600;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .legend-item .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* PHASE INDICATOR */
+  .phase-indicator {
+    text-align: center;
+    padding: 10px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .phase-indicator .phase-val {
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* INSIGHT */
+  .insight {
+    padding: 12px 16px;
+    background: rgba(90,154,114,.06);
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .insight strong { color: var(--green); }
+
+  /* RATIO COMPARISON */
+  .ratio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .ratio-section { text-align: center; }
+  .ratio-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .ratio-detail {
+    font-size: 10px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .ratio-subtitle {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ratio-bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    height: 100px;
+  }
+  .ratio-bar-col {
+    width: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ratio-bar-fill {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: height .3s ease;
+    min-height: 2px;
+  }
+  .ratio-bar-pct {
+    font-size: 10px;
+    font-family: monospace;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .ratio-verdict {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+    font-weight: 500;
+  }
+  .ratio-verdict.good {
+    background: rgba(90,154,114,.08);
+    color: var(--green);
+    border: 1px solid rgba(90,154,114,.2);
+  }
+  .ratio-verdict.bad {
+    background: rgba(192,96,88,.08);
+    color: var(--red);
+    border: 1px solid rgba(192,96,88,.2);
+  }
+  .ratio-verdict.neutral {
+    background: var(--surface2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 900px) {
+    .chart-grid { grid-template-columns: 1fr; }
+    .bar-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1>Grossberg Ch.2</h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+    <div class="nav-section">Simulations</div>
+    <div class="nav-item" data-page="fig2_09">
+      <span class="nav-fig">2.9</span>
+      <span class="nav-label">Additive vs Shunting</span>
+    </div>
+    <div class="nav-item" data-page="fig2_11">
+      <span class="nav-fig">2.11</span>
+      <span class="nav-label">MTM & LTM Dynamics</span>
+    </div>
+    <div class="nav-item" data-page="fig2_19">
+      <span class="nav-fig">2.19</span>
+      <span class="nav-label">Noise-Saturation Dilemma</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_24">
+      <span class="nav-fig">2.24</span>
+      <span class="nav-label">Membrane Equation</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_25">
+      <span class="nav-fig">2.25</span>
+      <span class="nav-label">Weber Law & Shift</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_27">
+      <span class="nav-fig">2.27</span>
+      <span class="nav-label">Mudpuppy Retina</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_28">
+      <span class="nav-fig">2.28</span>
+      <span class="nav-label">Adaptation Level</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_30">
+      <span class="nav-fig">2.30</span>
+      <span class="nav-label">Noise Suppression</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_31">
+      <span class="nav-fig">2.31</span>
+      <span class="nav-label">Pattern Matching</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_33">
+      <span class="nav-fig">2.33</span>
+      <span class="nav-label">Opposites Attract</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_34">
+      <span class="nav-fig">2.34</span>
+      <span class="nav-label">DOG/SOG Contours</span>
+    </div>
+    <div class="nav-item disabled" data-page="fig2_37">
+      <span class="nav-fig">2.37</span>
+      <span class="nav-label">Modeling Methodology</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2 id="page-title">Figure 2.19-2.23: Noise-Saturation Dilemma</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+    <!-- ===== PAGE: Fig 2.9-2.10 Additive vs Shunting ===== -->
+    <div class="page" id="page-fig2_09" style="display:none">
+      <div class="card">
+        <div class="card-title">Additive vs Shunting Model</div>
+        <div class="card-desc">
+          <strong>Additive Model</strong>(Fig 2.9)은 입력이 활동에 그냥 더해지므로, 활동에 상한/하한이 없다.
+          <strong>Shunting Model</strong>(Fig 2.10)은 입력이 (B - x)와 곱해지므로, 활동이 자동으로 [0, B] 범위에 묶인다.
+          같은 입력을 넣었을 때 두 모델의 반응이 어떻게 다른지 비교한다.
+        </div>
+        <div class="eq-row">
+          <div class="eq-box">
+            <div class="eq-label"><span class="bad">Additive</span></div>
+            <div id="eq-additive"></div>
+          </div>
+          <div class="eq-box">
+            <div class="eq-label"><span class="good">Shunting</span></div>
+            <div id="eq-shunting"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-xi" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6">뉴런 i의 <strong>막 활동(membrane activity)</strong>. 막 전압 V를 [0, B] 범위로 정규화한 상태 변수. 피질 세포의 발화율(firing rate)에 대응.</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-Ii" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6">뉴런 i로 들어오는 <strong>흥분성 시냅스 전류</strong>. 광수용체·시냅스 전도도 등 외부 자극을 대표. Shunting에서 (B−x)와 곱해져 자동 이득 제어(AGC)를 수행.</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-A" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>수동 막 전도도</strong>에 비례하는 감쇠율. 자극이 없을 때 세포를 정지 전위(resting potential)로 복귀시키는 생리적 누설 전류(leak current)를 모델링.</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-B" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>흥분성 포화전압(reversal potential)</strong>. 세포 내부보다 높은 Na⁺/Ca²⁺ 평형전위에 해당. x→B일수록 (B−x)→0, 즉 입력이 더 들어와도 활동이 포화되지 않고 비율을 유지.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Parameters</div>
+        <div class="controls-row">
+          <div class="control-group">
+            <label>Input <em>I</em></label>
+            <input type="range" id="p09-slider-I" min="0" max="1000" step="1" value="720">
+            <span class="val" id="p09-val-I">1.00</span>
+          </div>
+          <div class="control-group">
+            <label>Decay <em>A</em></label>
+            <input type="range" id="p09-slider-A" min="0.1" max="10" step="0.1" value="1">
+            <span class="val" id="p09-val-A">1.0</span>
+          </div>
+          <div class="control-group">
+            <label>Upper bound <em>B</em></label>
+            <input type="range" id="p09-slider-B" min="1" max="20" step="0.5" value="10">
+            <span class="val" id="p09-val-B">10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model toggles -->
+      <div class="model-toggles">
+        <button class="model-toggle active" id="p09-toggle-add" style="color:var(--red)" onclick="toggleModel09('add')">
+          <span class="dot" style="background:var(--red)"></span>Additive
+        </button>
+        <button class="model-toggle active" id="p09-toggle-shunt" style="color:var(--green)" onclick="toggleModel09('shunt')">
+          <span class="dot" style="background:var(--green)"></span>Shunting
+        </button>
+      </div>
+
+      <!-- Charts: 3 columns -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+        <div class="chart-card">
+          <div class="chart-label">dx/dt &amp; components</div>
+          <div id="p09-plot-dxdt" style="width:100%;height:280px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">x(t) Activity</div>
+          <div id="p09-plot-time" style="width:100%;height:280px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">Equilibrium x* vs I</div>
+          <div id="p09-plot-eq" style="width:100%;height:280px"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="card-title">Equilibrium Comparison</div>
+        <div class="eq-row">
+          <div class="eq-box">
+            <div class="eq-label"><span class="bad">Additive equilibrium</span></div>
+            <div id="eq-add-eq"></div>
+          </div>
+          <div class="eq-box">
+            <div class="eq-label"><span class="good">Shunting equilibrium</span></div>
+            <div id="eq-shunt-eq"></div>
+          </div>
+        </div>
+        <div class="insight" id="p09-insight">
+          I를 높여보세요. Additive는 I/A로 무한히 커지고, Shunting은 B를 넘지 못합니다.
+        </div>
+      </div>
+
+      <!-- Real-time dynamics -->
+      <div class="card">
+        <div class="card-title">Real-time Dynamics -- x(0) = 0에서 시작</div>
+        <div class="card-desc" style="margin-bottom:10px">
+          슬라이더로 I를 조절하면 시뮬레이션이 리셋되고, x(t)가 0에서 실시간으로 쌓입니다.
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap">
+          <div class="control-group">
+            <label>Input <em>I</em></label>
+            <input type="range" id="p09rt-slider-I" min="0" max="1000" step="1" value="720">
+            <span class="val" id="p09rt-val-I">20.9</span>
+          </div>
+          <button id="p09rt-btn-reset" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[R] Reset</button>
+          <button id="p09rt-btn-pause" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[||] Pause</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start">
+          <div class="chart-card">
+            <div class="chart-label">x(t) -- real-time</div>
+            <div id="p09rt-plot" style="width:100%;height:260px"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <!-- Additive readout -->
+            <div style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.2);border-radius:10px;padding:14px">
+              <div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Additive</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">x(t)</div>
+                  <div id="p09rt-xa" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--red)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">dx/dt</div>
+                  <div id="p09rt-dxa" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--red)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">-Ax</div>
+                  <div id="p09rt-decay-a" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">+I</div>
+                  <div id="p09rt-input-a" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+              </div>
+            </div>
+            <!-- Shunting readout -->
+            <div style="background:rgba(90,154,114,.06);border:1px solid rgba(90,154,114,.2);border-radius:10px;padding:14px">
+              <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Shunting</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">x(t)</div>
+                  <div id="p09rt-xs" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--green)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">dx/dt</div>
+                  <div id="p09rt-dxs" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--green)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">-Ax</div>
+                  <div id="p09rt-decay-s" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">(B-x)I</div>
+                  <div id="p09rt-bxi" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: Fig 2.11 MTM & LTM ===== -->
+    <div class="page" id="page-fig2_11" style="display:none">
+      <div class="card">
+        <div class="card-title">Medium-term & Long-term Memory</div>
+        <div class="card-desc">
+          <strong>MTM</strong>(Habituative Transmitter Gate): 신경전달물질이 활동에 의해 소진되고, 비활성 시 회복된다.
+          <strong>LTM</strong>(Gated Steepest Descent Learning): 시냅스 가중치가 사전/사후 세포의 상관에 따라 학습된다.
+        </div>
+        <div class="eq-row">
+          <div class="eq-box">
+            <div class="eq-label"><span style="color:var(--blue)">MTM: Transmitter Gate</span></div>
+            <div id="eq-mtm"></div>
+          </div>
+          <div class="eq-box">
+            <div class="eq-label"><span style="color:var(--accent)">LTM: Learning Rule</span></div>
+            <div id="eq-ltm"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Parameters</div>
+        <div class="controls-row">
+          <div class="control-group">
+            <label>Activity f(x)</label>
+            <input type="range" id="p11-slider-fx" min="0" max="10" step="0.1" value="0">
+            <span class="val" id="p11-val-fx">0.0</span>
+          </div>
+          <div class="control-group">
+            <label>Target h(x)</label>
+            <input type="range" id="p11-slider-hx" min="0" max="10" step="0.1" value="5">
+            <span class="val" id="p11-val-hx">5.0</span>
+          </div>
+          <div class="control-group">
+            <label style="min-width:50px">Auto</label>
+            <button class="btn" id="p11-btn-pulse" style="font-size:11px">Pulse on/off</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-label">
+            <span class="dot" style="background:var(--blue)"></span>
+            MTM: Transmitter y(t) — depletes when active
+          </div>
+          <div id="p11-plot-mtm" style="width:100%;height:280px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">
+            <span class="dot" style="background:var(--accent)"></span>
+            LTM: Weight z(t) — learns toward h(x)
+          </div>
+          <div id="p11-plot-ltm" style="width:100%;height:280px"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="insight">
+          <strong>MTM:</strong> f(x)가 0이면 y는 K(최대)로 회복. f(x)가 크면 y가 소진(habituation).
+          <strong>LTM:</strong> f(x)가 0이면 학습 정지. f(x) > 0이면 z가 h(x)를 향해 수렴(gated learning).
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: Fig 2.19 Noise-Saturation ===== -->
+    <div class="page" id="page-fig2_19">
+
+    <!-- DESCRIPTION -->
+    <div class="card">
+      <div class="card-title">Problem</div>
+      <div class="card-desc">
+        <strong>유한한 뉴런</strong>(활동 상한 B)으로 <strong>무한한 입력 범위</strong>를 어떻게 처리하는가?
+        셀 간 상호작용이 없으면 입력이 커질수록 모든 셀이 B로 포화되어 패턴(비율) 정보가 사라진다.
+        On-center off-surround 네트워크는 입력이 아무리 커져도 비율을 보존한다.
+      </div>
+      <div class="eq-row">
+        <div class="eq-box">
+          <div class="eq-label"><span class="bad">No Interaction</span></div>
+          <div id="eq-no-int"></div>
+        </div>
+        <div class="eq-box">
+          <div class="eq-label"><span class="good">On-center Off-surround</span></div>
+          <div id="eq-on-center"></div>
+        </div>
+      </div>
+      <div class="insight">
+        <strong>핵심:</strong> 상호작용 없는 모델은 I가 커지면 모든 x_i가 B로 수렴한다.
+        On-center off-surround 모델은 I가 커져도 x_i가 B * theta_i로 수렴하여 <strong>비율이 보존</strong>된다.
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="card">
+      <div class="card-title">Parameters</div>
+      <div class="controls-row">
+        <div class="control-group">
+          <label>Total input <em>I</em></label>
+          <input type="range" id="slider-I" min="0" max="1000" step="1" value="300">
+          <span class="val" id="val-I">0.10</span>
+        </div>
+        <div class="control-group">
+          <label>Upper bound <em>B</em></label>
+          <input type="range" id="slider-B" min="1" max="20" step="0.5" value="10">
+          <span class="val" id="val-B">10</span>
+        </div>
+        <div class="control-group">
+          <label>Decay <em>A</em></label>
+          <input type="range" id="slider-A" min="0.1" max="10" step="0.1" value="1">
+          <span class="val" id="val-A">1.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE -->
+    <div class="phase-indicator" id="phase-label">
+      <span class="phase-val">I = 1.0</span> &mdash; Low input: both models similar
+    </div>
+
+    <!-- RATIO COMPARISON — the key insight -->
+    <div class="card">
+      <div class="card-title">Pattern Ratio Comparison</div>
+      <div class="card-desc" style="margin-bottom:12px">
+        아래 바는 각 그룹 내에서 <strong>최대값 = 100%</strong>로 정규화한 것입니다.
+        입력 패턴의 비율이 출력에서도 유지되는지를 봅니다.
+      </div>
+      <div class="ratio-grid">
+        <div class="ratio-section">
+          <div class="ratio-title">Input Pattern</div>
+          <div class="ratio-detail">&theta; = [.40, .30, .20, .10]</div>
+          <div class="ratio-subtitle">4 : 3 : 2 : 1</div>
+          <div class="ratio-bars" id="ratio-input"></div>
+        </div>
+        <div class="ratio-section">
+          <div class="ratio-title" style="color:var(--red)">No Interaction</div>
+          <div class="ratio-detail">x = B&theta;I / (A + &theta;I)</div>
+          <div class="ratio-subtitle" id="ratio-no-text">?</div>
+          <div class="ratio-bars" id="ratio-no-int"></div>
+        </div>
+        <div class="ratio-section">
+          <div class="ratio-title" style="color:var(--green)">On-center Off-surround</div>
+          <div class="ratio-detail">x = B&theta;I / (A + I)</div>
+          <div class="ratio-subtitle" id="ratio-oc-text">?</div>
+          <div class="ratio-bars" id="ratio-on-center"></div>
+        </div>
+      </div>
+      <div id="ratio-verdict" class="ratio-verdict"></div>
+    </div>
+
+    <!-- ABSOLUTE ACTIVITY -->
+    <div class="card">
+      <div class="card-title">Absolute Activity (raw values)</div>
+      <div class="bar-grid">
+        <div class="bar-section">
+          <div class="bar-title">Input Pattern (theta)</div>
+          <div class="bar-group" id="bars-input"></div>
+        </div>
+        <div class="bar-section">
+          <div class="bar-title" style="color:var(--red)">No Interaction</div>
+          <div class="bar-group" id="bars-no-int">
+            <div class="bar-limit" id="limit-no" style="border-color:var(--red)">
+              <span class="bar-limit-label" style="color:var(--red)">B</span>
+            </div>
+          </div>
+        </div>
+        <div class="bar-section">
+          <div class="bar-title" style="color:var(--green)">On-center Off-surround</div>
+          <div class="bar-group" id="bars-on-center">
+            <div class="bar-limit" id="limit-oc" style="border-color:var(--green)">
+              <span class="bar-limit-label" style="color:var(--green)">B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="legend" style="margin-top:16px">
+        <div class="legend-item"><span class="dot" style="background:#c06058"></span>Cell 1 (theta=0.40)</div>
+        <div class="legend-item"><span class="dot" style="background:#c49a3c"></span>Cell 2 (theta=0.30)</div>
+        <div class="legend-item"><span class="dot" style="background:#5a9a72"></span>Cell 3 (theta=0.20)</div>
+        <div class="legend-item"><span class="dot" style="background:#4a7fb5"></span>Cell 4 (theta=0.10)</div>
+      </div>
+    </div>
+
+    <!-- PLOTLY CHARTS -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-label">
+          <span class="dot" style="background:var(--red)"></span>
+          No Interaction: x = B*theta*I / (A + theta*I)
+        </div>
+        <div id="plotly-left" style="width:100%;height:320px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-label">
+          <span class="dot" style="background:var(--green)"></span>
+          On-center Off-surround: x = B*theta*I / (A + I)
+        </div>
+        <div id="plotly-right" style="width:100%;height:320px"></div>
+      </div>
+    </div>
+
+    </div><!-- /page-fig2_19 -->
+
+  </div>
+</div>
+
+<script>
+// -- Log scale slider --
+function sliderToI(v) {
+  // 0 -> 0.001, 500 -> 1, 1000 -> 1000
+  return Math.pow(10, (v / 1000) * 6 - 3);
+}
+
+// -- Parameters --
+const thetas = [0.40, 0.30, 0.20, 0.10];
+const colors = ['#c06058','#c49a3c','#5a9a72','#4a7fb5'];
+const n = thetas.length;
+
+let B = 10, A = 1, totalI = sliderToI(300);
+
+// -- KaTeX render --
+document.addEventListener('DOMContentLoaded', () => {
+  katex.render(
+    String.raw`x_i = \frac{B\,\theta_i\, I}{A + \theta_i\, I} \;\xrightarrow{I\to\infty}\; B`,
+    document.getElementById('eq-no-int'), { displayMode: true }
+  );
+  katex.render(
+    String.raw`x_i = \frac{B\,\theta_i\, I}{A + I} \;\xrightarrow{I\to\infty}\; B\theta_i`,
+    document.getElementById('eq-on-center'), { displayMode: true }
+  );
+  initBars();
+  initRatioBars();
+  buildCurves();
+  updateBars();
+  updateRatios();
+  updatePhaseLabel();
+});
+
+// -- Plotly curves --
+function eqNoInt(theta, I) { return (B * theta * I) / (A + theta * I); }
+function eqOnCenter(theta, I) { return (B * theta * I) / (A + I); }
+
+function buildCurves() {
+  const Is = [];
+  for (let e = -3; e <= 3; e += 0.02) Is.push(Math.pow(10, e));
+
+  const tracesL = [], tracesR = [];
+  for (let c = 0; c < n; c++) {
+    tracesL.push({
+      x: Is, y: Is.map(I => eqNoInt(thetas[c], I)),
+      mode: 'lines', name: 'theta=' + thetas[c],
+      line: { color: colors[c], width: 2.5 }
+    });
+    tracesR.push({
+      x: Is, y: Is.map(I => eqOnCenter(thetas[c], I)),
+      mode: 'lines', name: 'theta=' + thetas[c],
+      line: { color: colors[c], width: 2.5 }
+    });
+  }
+
+  const vLine = {
+    type: 'line', x0: Math.log10(Math.max(totalI, 0.001)), x1: Math.log10(Math.max(totalI, 0.001)), y0: 0, y1: B * 1.1,
+    line: { color: '#bf6a4266', width: 2, dash: 'dot' }
+  };
+  const hLine = {
+    type: 'line', x0: -3, x1: 3, y0: B, y1: B,
+    line: { color: '#c0605833', width: 1, dash: 'dash' }
+  };
+
+  const layout = {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: '#faf8f5',
+    font: { color: '#9b9590', size: 11, family: 'system-ui' },
+    margin: { l: 48, r: 16, t: 8, b: 40 },
+    xaxis: { title: 'Total Input I', type: 'log', gridcolor: '#eae6e0', range: [-3, 3], zeroline: false },
+    yaxis: { title: 'x_i', gridcolor: '#eae6e0', range: [0, B * 1.15], zeroline: false },
+    showlegend: false,
+    shapes: [vLine, hLine]
+  };
+
+  Plotly.react('plotly-left', tracesL, layout, { responsive: true, displayModeBar: false });
+  Plotly.react('plotly-right', tracesR, layout, { responsive: true, displayModeBar: false });
+}
+
+// -- Bar visualization --
+function initBars() {
+  const barH = 100;
+  ['bars-input', 'bars-no-int', 'bars-on-center'].forEach((id, secIdx) => {
+    const container = document.getElementById(id);
+    // Keep existing limit lines
+    const existing = container.querySelector('.bar-limit');
+
+    for (let i = 0; i < n; i++) {
+      const col = document.createElement('div');
+      col.className = 'bar-col';
+
+      const fill = document.createElement('div');
+      fill.className = 'bar-fill';
+      fill.id = id + '-fill-' + i;
+      fill.style.background = colors[i];
+      fill.style.height = '0px';
+
+      const val = document.createElement('div');
+      val.className = 'bar-val';
+      val.id = id + '-val-' + i;
+      val.textContent = '0';
+
+      col.appendChild(fill);
+      col.appendChild(val);
+      container.appendChild(col);
+    }
+  });
+}
+
+function updateBars() {
+  const maxH = 100;
+
+  for (let i = 0; i < n; i++) {
+    // Input pattern
+    const inputH = (thetas[i] / 0.5) * maxH;
+    document.getElementById('bars-input-fill-' + i).style.height = inputH + 'px';
+    document.getElementById('bars-input-val-' + i).textContent = thetas[i].toFixed(2);
+
+    // No interaction equilibrium
+    const valNo = eqNoInt(thetas[i], totalI);
+    const hNo = (valNo / (B * 1.1)) * maxH;
+    document.getElementById('bars-no-int-fill-' + i).style.height = hNo + 'px';
+    document.getElementById('bars-no-int-val-' + i).textContent = valNo.toFixed(1);
+
+    // On-center equilibrium
+    const valOc = eqOnCenter(thetas[i], totalI);
+    const hOc = (valOc / (B * 1.1)) * maxH;
+    document.getElementById('bars-on-center-fill-' + i).style.height = hOc + 'px';
+    document.getElementById('bars-on-center-val-' + i).textContent = valOc.toFixed(1);
+  }
+
+  // Update B limit lines
+  const limitY = (B / (B * 1.1)) * maxH;
+  const limitNo = document.getElementById('limit-no');
+  const limitOc = document.getElementById('limit-oc');
+  if (limitNo) limitNo.style.bottom = (20 + limitY) + 'px';
+  if (limitOc) limitOc.style.bottom = (20 + limitY) + 'px';
+}
+
+// -- Ratio bars --
+function initRatioBars() {
+  ['ratio-input', 'ratio-no-int', 'ratio-on-center'].forEach(id => {
+    const container = document.getElementById(id);
+    for (let i = 0; i < n; i++) {
+      const col = document.createElement('div');
+      col.className = 'ratio-bar-col';
+
+      const fill = document.createElement('div');
+      fill.className = 'ratio-bar-fill';
+      fill.id = id + '-fill-' + i;
+      fill.style.background = colors[i];
+      fill.style.height = '0px';
+
+      const pct = document.createElement('div');
+      pct.className = 'ratio-bar-pct';
+      pct.id = id + '-pct-' + i;
+      pct.textContent = '';
+
+      col.appendChild(fill);
+      col.appendChild(pct);
+      container.appendChild(col);
+    }
+  });
+}
+
+function updateRatios() {
+  const maxH = 90;
+  const inputMax = Math.max(...thetas);
+
+  // Compute values
+  const valsNo = thetas.map(th => eqNoInt(th, totalI));
+  const valsOc = thetas.map(th => eqOnCenter(th, totalI));
+  const maxNo = Math.max(...valsNo);
+  const maxOc = Math.max(...valsOc);
+
+  // Normalized ratios (max = 1.0)
+  const ratioInput = thetas.map(th => th / inputMax);
+  const ratioNo = maxNo > 0 ? valsNo.map(v => v / maxNo) : valsNo.map(() => 0);
+  const ratioOc = maxOc > 0 ? valsOc.map(v => v / maxOc) : valsOc.map(() => 0);
+
+  // Update bars
+  function setRatioBars(prefix, ratios) {
+    for (let i = 0; i < n; i++) {
+      document.getElementById(prefix + '-fill-' + i).style.height = (ratios[i] * maxH) + 'px';
+      document.getElementById(prefix + '-pct-' + i).textContent = (ratios[i] * 100).toFixed(0) + '%';
+    }
+  }
+  setRatioBars('ratio-input', ratioInput);
+  setRatioBars('ratio-no-int', ratioNo);
+  setRatioBars('ratio-on-center', ratioOc);
+
+  // Ratio text (relative to max, as integer proportions)
+  function toRatioStr(ratios) {
+    const min = Math.min(...ratios.filter(r => r > 0.01));
+    if (min <= 0) return '? : ? : ? : ?';
+    const scaled = ratios.map(r => r / min);
+    // Use integers if close enough, otherwise 1 decimal
+    const allInt = scaled.every(s => Math.abs(s - Math.round(s)) < 0.15);
+    return scaled.map(s => allInt ? Math.round(s) : s.toFixed(1)).join(':');
+  }
+  document.getElementById('ratio-no-text').textContent = toRatioStr(ratioNo);
+  document.getElementById('ratio-oc-text').textContent = toRatioStr(ratioOc);
+
+  // Cosine similarity between input ratios and output ratios
+  function cosSim(a, b) {
+    let dot = 0, magA = 0, magB = 0;
+    for (let i = 0; i < a.length; i++) { dot += a[i]*b[i]; magA += a[i]*a[i]; magB += b[i]*b[i]; }
+    return (magA > 0 && magB > 0) ? dot / (Math.sqrt(magA) * Math.sqrt(magB)) : 0;
+  }
+  const simNo = cosSim(ratioInput, ratioNo);
+  const simOc = cosSim(ratioInput, ratioOc);
+
+  const verdict = document.getElementById('ratio-verdict');
+  if (totalI < 3) {
+    verdict.className = 'ratio-verdict neutral';
+    verdict.innerHTML = 'I가 낮아 두 모델 모두 입력 패턴과 유사합니다. I를 높여보세요.';
+  } else {
+    const pctNo = (simNo * 100).toFixed(1);
+    const pctOc = (simOc * 100).toFixed(1);
+    verdict.className = 'ratio-verdict bad';
+    verdict.innerHTML =
+      'No Interaction: 입력 패턴과 유사도 <strong>' + pctNo + '%</strong> — 비율이 무너지고 있습니다!<br>' +
+      'On-center: 입력 패턴과 유사도 <strong>' + pctOc + '%</strong> — 비율이 보존됩니다.';
+  }
+}
+
+// -- Phase label --
+function updatePhaseLabel() {
+  const el = document.getElementById('phase-label');
+  let msg;
+  if (totalI < 5) msg = 'Low input: both models similar';
+  else if (totalI < 30) msg = 'Medium input: no-interaction saturating...';
+  else msg = 'High input: no-interaction ALL at B, on-center preserves ratios!';
+  el.innerHTML = '<span class="phase-val">I = ' + totalI.toFixed(1) + '</span> &mdash; ' + msg;
+}
+
+// -- Slider bindings --
+const sliderI = document.getElementById('slider-I');
+const sliderB = document.getElementById('slider-B');
+const sliderA = document.getElementById('slider-A');
+
+function onSliderChange() {
+  totalI = sliderToI(parseFloat(sliderI.value));
+  B = parseFloat(sliderB.value);
+  A = parseFloat(sliderA.value);
+
+  document.getElementById('val-I').textContent = totalI < 0.1 ? totalI.toExponential(1) : totalI < 10 ? totalI.toFixed(2) : totalI.toFixed(1);
+  document.getElementById('val-B').textContent = B;
+  document.getElementById('val-A').textContent = A.toFixed(1);
+
+  updatePhaseLabel();
+  buildCurves();
+  updateBars();
+  updateRatios();
+}
+
+sliderI.addEventListener('input', onSliderChange);
+sliderB.addEventListener('input', onSliderChange);
+sliderA.addEventListener('input', onSliderChange);
+
+// -- Page switching --
+const pageTitles = {
+  fig2_09: 'Figure 2.9-2.10: Additive vs Shunting Model',
+  fig2_11: 'Figure 2.11: MTM & LTM Dynamics',
+  fig2_19: 'Figure 2.19-2.23: Noise-Saturation Dilemma',
+};
+const pageInited = {};
+
+function switchPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+
+  const page = document.getElementById('page-' + pageId);
+  if (page) page.style.display = 'block';
+
+  const nav = document.querySelector('.nav-item[data-page="' + pageId + '"]');
+  if (nav) nav.classList.add('active');
+
+  document.getElementById('page-title').textContent = pageTitles[pageId] || pageId;
+
+  // Init page on first visit
+  if (!pageInited[pageId]) {
+    pageInited[pageId] = true;
+    if (pageId === 'fig2_09') initPage09();
+    if (pageId === 'fig2_11') initPage11();
+  }
+
+  // Persist last visited page
+  try { localStorage.setItem('grossberg_page', pageId); } catch(e) {}
+}
+
+document.querySelectorAll('.nav-item:not(.disabled)').forEach(item => {
+  item.addEventListener('click', () => switchPage(item.dataset.page));
+});
+
+// =============================================
+// PAGE: Fig 2.9-2.10 Additive vs Shunting
+// =============================================
+function initPage09() {
+  katex.render(String.raw`\frac{d}{dt}x_i = -Ax_i + I_i`, document.getElementById('eq-additive'), { displayMode: true });
+  katex.render(String.raw`\frac{d}{dt}x_i = -Ax_i + (B - x_i)I_i`, document.getElementById('eq-shunting'), { displayMode: true });
+  katex.render(String.raw`x_i`, document.getElementById('var-xi'), { displayMode: false });
+  katex.render(String.raw`I_i`, document.getElementById('var-Ii'), { displayMode: false });
+  katex.render(String.raw`A`, document.getElementById('var-A'), { displayMode: false });
+  katex.render(String.raw`B`, document.getElementById('var-B'), { displayMode: false });
+  katex.render(String.raw`x^* = \frac{I}{A} \;\;\text{(unbounded!)}`, document.getElementById('eq-add-eq'), { displayMode: true });
+  katex.render(String.raw`x^* = \frac{BI}{A+I} \leq B`, document.getElementById('eq-shunt-eq'), { displayMode: true });
+  updatePage09();
+  setTimeout(() => { setupEqDragListener(); setupHoverSync(); initPage09rt(); }, 300);
+}
+
+let p09_showAdd = true, p09_showShunt = true;
+let p09_sim = { ts: [], xAdd: [], xShunt: [], dxAdd: [], dxShunt: [] };
+function toggleModel09(model) {
+  if (model === 'add') {
+    p09_showAdd = !p09_showAdd;
+    document.getElementById('p09-toggle-add').classList.toggle('active', p09_showAdd);
+  } else {
+    p09_showShunt = !p09_showShunt;
+    document.getElementById('p09-toggle-shunt').classList.toggle('active', p09_showShunt);
+  }
+  updatePage09();
+}
+
+function updatePage09() {
+  const rawI = parseFloat(document.getElementById('p09-slider-I').value);
+  const pI = Math.pow(10, (rawI / 1000) * 6 - 3);
+  const pA = parseFloat(document.getElementById('p09-slider-A').value);
+  const pB = parseFloat(document.getElementById('p09-slider-B').value);
+
+  document.getElementById('p09-val-I').textContent = pI < 0.1 ? pI.toExponential(1) : pI < 10 ? pI.toFixed(2) : pI.toFixed(1);
+  document.getElementById('p09-val-A').textContent = pA.toFixed(1);
+  document.getElementById('p09-val-B').textContent = pB;
+
+  // Time evolution (sub-stepping for numerical stability)
+  const totalTime = 10, plotPoints = 200;
+  const dtPlot = totalTime / plotPoints;
+  const subSteps = Math.max(20, Math.ceil((pA + pI) * dtPlot * 5));
+  const dtSub = dtPlot / subSteps;
+  const ts = [], xAdd = [], xShunt = [], dxAdd = [], dxShunt = [];
+  const compDecayA = [], compI_add = [], compDecayS = [], compBxI = [];
+  let xa = 0, xs = 0;
+  for (let s = 0; s <= plotPoints; s++) {
+    ts.push(s * dtPlot);
+    xAdd.push(xa);
+    xShunt.push(xs);
+    dxAdd.push(-pA * xa + pI);
+    dxShunt.push(-pA * xs + (pB - xs) * pI);
+    // Components
+    compDecayA.push(-pA * xa);      // -Ax (additive decay)
+    compI_add.push(pI);              // +I (additive input, constant)
+    compDecayS.push(-pA * xs);       // -Ax (shunting decay)
+    compBxI.push((pB - xs) * pI);    // (B-x)I (shunting input)
+    for (let ss = 0; ss < subSteps; ss++) {
+      xa += (-pA * xa + pI) * dtSub;
+      xs += (-pA * xs + (pB - xs) * pI) * dtSub;
+    }
+  }
+
+  p09_sim = { ts, xAdd, xShunt, dxAdd, dxShunt };
+
+  const yMaxTime = Math.max(pI / pA * 1.1, pB * 1.3);
+  const layoutTime = {
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#faf8f5',
+    font: { color: '#9b9590', size: 11, family: 'system-ui' },
+    margin: { l: 48, r: 16, t: 8, b: 40 },
+    xaxis: { title: 'Time', gridcolor: '#eae6e0', zeroline: false, range: [0, totalTime], fixedrange: true },
+    yaxis: { title: 'x(t)', gridcolor: '#eae6e0', range: [0, yMaxTime], zeroline: false },
+    showlegend: true,
+    legend: { x: 0.02, y: 0.98, font: { size: 10 } },
+    shapes: [
+      { type: 'line', x0: 0, x1: totalTime, y0: pB, y1: pB, line: { color: '#5a9a7244', width: 1.5, dash: 'dash' } },
+    ],
+    annotations: [
+      { x: totalTime * 0.95, y: pB, text: 'B=' + pB, showarrow: false, font: { size: 10, color: '#5a9a72' }, yshift: 10 }
+    ]
+  };
+
+  const tracesTime = [];
+  const lastT = ts[ts.length - 1];
+  if (p09_showAdd) {
+    tracesTime.push({ x: ts, y: xAdd, mode: 'lines', name: 'Additive', line: { color: '#c06058', width: 2.5 } });
+    tracesTime.push({ x: [lastT], y: [xAdd[xAdd.length - 1]], mode: 'markers', name: 'Add eq', marker: { color: '#c06058', size: 8, symbol: 'circle' }, showlegend: false });
+  }
+  if (p09_showShunt) {
+    tracesTime.push({ x: ts, y: xShunt, mode: 'lines', name: 'Shunting', line: { color: '#5a9a72', width: 2.5 } });
+    tracesTime.push({ x: [lastT], y: [xShunt[xShunt.length - 1]], mode: 'markers', name: 'Shunt eq', marker: { color: '#5a9a72', size: 8, symbol: 'circle' }, showlegend: false });
+  }
+  // Hover: tangent lines (Add, Shunt) + dots — always added at end (indices -4 to -1)
+  tracesTime.push({ x: [], y: [], mode: 'lines', name: 'tangent-add', line: { color: 'rgba(192,96,88,0.35)', width: 1.5 }, showlegend: false, hoverinfo: 'skip' });
+  tracesTime.push({ x: [], y: [], mode: 'markers', name: 'dot-add', marker: { color: 'rgba(192,96,88,0.6)', size: 8, line: { color: '#fff', width: 1.5 } }, showlegend: false, hoverinfo: 'skip' });
+  tracesTime.push({ x: [], y: [], mode: 'lines', name: 'tangent-shunt', line: { color: 'rgba(90,154,114,0.35)', width: 1.5 }, showlegend: false, hoverinfo: 'skip' });
+  tracesTime.push({ x: [], y: [], mode: 'markers', name: 'dot-shunt', marker: { color: 'rgba(90,154,114,0.6)', size: 8, line: { color: '#fff', width: 1.5 } }, showlegend: false, hoverinfo: 'skip' });
+  Plotly.react('p09-plot-time', tracesTime, layoutTime, { responsive: true, displayModeBar: false });
+
+  // dx/dt chart
+  const layoutDxdt = {
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#faf8f5',
+    font: { color: '#9b9590', size: 11, family: 'system-ui' },
+    margin: { l: 48, r: 16, t: 8, b: 40 },
+    xaxis: { title: 'Time', gridcolor: '#eae6e0', zeroline: false, range: [0, totalTime], fixedrange: true },
+    yaxis: { title: 'dx/dt', gridcolor: '#eae6e0', zeroline: true, zerolinecolor: '#ccc', zerolinewidth: 1.5 },
+    showlegend: true,
+    legend: { x: 0.02, y: 0.98, font: { size: 10 } },
+  };
+
+  const tracesDxdt = [];
+  if (p09_showAdd) {
+    tracesDxdt.push({ x: ts, y: dxAdd, mode: 'lines', name: 'dx/dt Add', line: { color: '#c06058', width: 2.5 } });
+    tracesDxdt.push({ x: ts, y: compDecayA, mode: 'lines', name: '-Ax (Add)', line: { color: '#c06058', width: 1, dash: 'dash' }, opacity: 0.4 });
+    tracesDxdt.push({ x: ts, y: compI_add, mode: 'lines', name: '+I', line: { color: '#9b9590', width: 1, dash: 'dot' }, opacity: 0.4 });
+  }
+  if (p09_showShunt) {
+    tracesDxdt.push({ x: ts, y: dxShunt, mode: 'lines', name: 'dx/dt Shunt', line: { color: '#5a9a72', width: 2.5 } });
+    tracesDxdt.push({ x: ts, y: compDecayS, mode: 'lines', name: '-Ax (Shunt)', line: { color: '#5a9a72', width: 1, dash: 'dash' }, opacity: 0.4 });
+    tracesDxdt.push({ x: ts, y: compBxI, mode: 'lines', name: '(B-x)I', line: { color: '#4a7fb5', width: 1, dash: 'dot' }, opacity: 0.5 });
+  }
+  // Hover: dots on dx/dt chart
+  tracesDxdt.push({ x: [], y: [], mode: 'markers', name: 'hov-add', marker: { color: 'rgba(192,96,88,0.6)', size: 9, line: { color: '#fff', width: 1.5 } }, showlegend: false, hoverinfo: 'skip' });
+  tracesDxdt.push({ x: [], y: [], mode: 'markers', name: 'hov-shunt', marker: { color: 'rgba(90,154,114,0.6)', size: 9, line: { color: '#fff', width: 1.5 } }, showlegend: false, hoverinfo: 'skip' });
+  Plotly.react('p09-plot-dxdt', tracesDxdt, layoutDxdt, { responsive: true, displayModeBar: false });
+
+  // Equilibrium vs I
+  const Is = [];
+  for (let e = -3; e <= 3; e += 0.03) Is.push(Math.pow(10, e));
+  const eqAdd = Is.map(i => i / pA);
+  const eqShunt = Is.map(i => (pB * i) / (pA + i));
+
+  const eqYmax = Math.min(Math.max(pI / pA * 1.3, pB * 1.3), pB * 3);
+  const eqAtI_add = pI / pA;
+  const eqAtI_shunt = (pB * pI) / (pA + pI);
+
+  const layoutEq = {
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#faf8f5',
+    font: { color: '#9b9590', size: 11, family: 'system-ui' },
+    margin: { l: 48, r: 16, t: 8, b: 40 },
+    xaxis: { title: 'Input I', type: 'log', gridcolor: '#eae6e0', range: [-3, 3], zeroline: false },
+    yaxis: { title: 'x*', gridcolor: '#eae6e0', range: [0, eqYmax], zeroline: false },
+    showlegend: true,
+    legend: { x: 0.02, y: 0.98, font: { size: 10 } },
+    dragmode: false,
+    shapes: [
+      { type: 'line', x0: -3, x1: 3, y0: pB, y1: pB, line: { color: '#5a9a7244', width: 1, dash: 'dash' } },
+    ]
+  };
+
+  const tracesEq = [];
+  // Vertical line as a trace (avoids log-axis shape coordinate issues)
+  tracesEq.push({ x: [pI, pI], y: [0, eqYmax], mode: 'lines', name: 'I=' + pI.toFixed(1),
+    line: { color: '#bf6a42aa', width: 2, dash: 'dot' }, showlegend: false, hoverinfo: 'skip' });
+  if (p09_showAdd) {
+    tracesEq.push({ x: Is, y: eqAdd, mode: 'lines', name: 'Additive: I/A', line: { color: '#c06058', width: 2.5 } });
+    tracesEq.push({ x: [pI], y: [eqAtI_add], mode: 'markers+text', name: 'Add@I',
+      marker: { color: '#c06058', size: 9, symbol: 'circle', line: { color: '#fff', width: 1.5 } },
+      text: [eqAtI_add.toFixed(1)], textposition: 'top right', textfont: { size: 10, color: '#c06058' },
+      showlegend: false });
+  }
+  if (p09_showShunt) {
+    tracesEq.push({ x: Is, y: eqShunt, mode: 'lines', name: 'Shunting: BI/(A+I)', line: { color: '#5a9a72', width: 2.5 } });
+    tracesEq.push({ x: [pI], y: [eqAtI_shunt], mode: 'markers+text', name: 'Shunt@I',
+      marker: { color: '#5a9a72', size: 9, symbol: 'circle', line: { color: '#fff', width: 1.5 } },
+      text: [eqAtI_shunt.toFixed(1)], textposition: 'top left', textfont: { size: 10, color: '#5a9a72' },
+      showlegend: false });
+  }
+  Plotly.react('p09-plot-eq', tracesEq, layoutEq, { responsive: true, displayModeBar: false });
+
+  // Insight
+  const eqA = pI / pA;
+  const eqS = (pB * pI) / (pA + pI);
+  document.getElementById('p09-insight').innerHTML =
+    'Additive 평형: <strong>' + eqA.toFixed(1) + '</strong> (상한 없음) &nbsp;|&nbsp; ' +
+    'Shunting 평형: <strong>' + eqS.toFixed(1) + '</strong> (상한 B=' + pB + ')' +
+    (eqA > pB * 1.5 ? '<br>Additive가 B를 훨씬 초과했습니다! Shunting은 여전히 B 이내.' : '');
+}
+
+['p09-slider-I', 'p09-slider-A', 'p09-slider-B'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updatePage09);
+});
+
+// Drag on equilibrium chart → set I value
+let p09_dragSetup = false;
+function setupEqDragListener() {
+  if (p09_dragSetup) return;
+  const el = document.getElementById('p09-plot-eq');
+  if (!el) return;
+
+  let dragging = false;
+  function getIFromMouse(e) {
+    const xa = el._fullLayout.xaxis;
+    const rect = el.querySelector('.plotarea,.nsewdrag');
+    if (!rect) return null;
+    const bb = rect.getBoundingClientRect();
+    const frac = (e.clientX - bb.left) / bb.width;
+    const logVal = xa.range[0] + frac * (xa.range[1] - xa.range[0]);
+    return Math.pow(10, logVal);
+  }
+  function applyI(e) {
+    const newI = getIFromMouse(e);
+    if (!newI || newI <= 0) return;
+    const clampedI = Math.max(0.001, Math.min(1000, newI));
+    const sliderVal = ((Math.log10(clampedI) + 3) / 6) * 1000;
+    document.getElementById('p09-slider-I').value = Math.round(sliderVal);
+    updatePage09();
+  }
+
+  // Use the drag layer (.nsewdrag) for mouse events
+  const dragLayer = el.querySelector('.nsewdrag');
+  if (!dragLayer) return;
+
+  dragLayer.addEventListener('mousedown', function(e) {
+    dragging = true;
+    applyI(e);
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (dragging) applyI(e);
+  });
+  window.addEventListener('mouseup', function() {
+    dragging = false;
+  });
+
+  p09_dragSetup = true;
+}
+
+// Hover on x(t) → tangent line + dx/dt marker sync via restyle
+let p09_hoverSetup = false;
+function setupHoverSync() {
+  if (p09_hoverSetup) return;
+  const timePlot = document.getElementById('p09-plot-time');
+  const dxdtPlot = document.getElementById('p09-plot-dxdt');
+  if (!timePlot || !dxdtPlot) return;
+
+  function findIdx(t) {
+    const s = p09_sim;
+    if (!s.ts.length) return 0;
+    let best = 0;
+    for (let i = 1; i < s.ts.length; i++) {
+      if (Math.abs(s.ts[i] - t) < Math.abs(s.ts[best] - t)) best = i;
+    }
+    return best;
+  }
+
+  // Hover traces are the last 4 in timePlot, last 2 in dxdtPlot
+  // timePlot: [...main traces..., tangent-add, dot-add, tangent-shunt, dot-shunt]
+  // dxdtPlot: [...main traces..., hov-add, hov-shunt]
+  function getTimePlotLen() { return (timePlot.data || []).length; }
+  function getDxdtLen()     { return (dxdtPlot.data || []).length; }
+
+  timePlot.on('plotly_hover', function(data) {
+    if (!data || !data.points || !data.points[0]) return;
+    // Only respond to hover on main curves (not our own hover traces)
+    const pt = data.points[0];
+    const t = pt.x;
+    const idx = findIdx(t);
+    const s = p09_sim;
+    const nTime = getTimePlotLen();
+    const nDxdt = getDxdtLen();
+    const iTA = nTime - 4, iDA = nTime - 3, iTS = nTime - 2, iDS = nTime - 1;
+    const iHA = nDxdt - 2, iHS = nDxdt - 1;
+
+    // Normalize tangent to fixed length in axis-normalized space
+    const fl = timePlot._fullLayout;
+    const xRange = (fl && fl.xaxis && fl.xaxis.range) ? (fl.xaxis.range[1] - fl.xaxis.range[0]) : 10;
+    const yRange = (fl && fl.yaxis && fl.yaxis.range) ? (fl.yaxis.range[1] - fl.yaxis.range[0]) : 25;
+    const NORM_LEN = 0.54; // fraction of x-range for tangent half-width (normalized)
+    function tangentPts(t, x, slope) {
+      const slopeN = slope * (xRange / yRange); // slope in normalized coords
+      const dt = NORM_LEN * xRange / Math.sqrt(1 + slopeN * slopeN);
+      return [[t - dt, t + dt], [x - slope * dt, x + slope * dt]];
+    }
+
+    const xa = s.xAdd[idx]   || 0, da = s.dxAdd[idx]   || 0;
+    const xs = s.xShunt[idx] || 0, ds = s.dxShunt[idx] || 0;
+
+    if (p09_showAdd) {
+      const [tx, ty] = tangentPts(t, xa, da);
+      Plotly.restyle(timePlot, { x: [tx], y: [ty] }, [iTA]);
+      Plotly.restyle(timePlot, { x: [[t]], y: [[xa]] }, [iDA]);
+      Plotly.restyle(dxdtPlot, { x: [[t]], y: [[da]] }, [iHA]);
+    }
+    if (p09_showShunt) {
+      const [tx, ty] = tangentPts(t, xs, ds);
+      Plotly.restyle(timePlot, { x: [tx], y: [ty] }, [iTS]);
+      Plotly.restyle(timePlot, { x: [[t]], y: [[xs]] }, [iDS]);
+      Plotly.restyle(dxdtPlot, { x: [[t]], y: [[ds]] }, [iHS]);
+    }
+  });
+
+  timePlot.on('plotly_unhover', function() {
+    const nTime = getTimePlotLen();
+    const nDxdt = getDxdtLen();
+    for (let i = nTime - 4; i < nTime; i++) Plotly.restyle(timePlot, { x: [[]], y: [[]] }, [i]);
+    for (let i = nDxdt - 2; i < nDxdt; i++) Plotly.restyle(dxdtPlot, { x: [[]], y: [[]] }, [i]);
+  });
+
+  p09_hoverSetup = true;
+}
+
+// =============================================
+// PAGE: Fig 2.11 MTM & LTM
+// =============================================
+let p11_anim = null;
+let p11_data = { ts: [], ys: [], zs: [], fs: [], y: 1, z: 0.5, t: 0, pulsing: false, pulseOn: false };
+
+function initPage11() {
+  katex.render(String.raw`\frac{dy}{dt} = H(K - y) - L\,f(x)\,y`, document.getElementById('eq-mtm'), { displayMode: true });
+  katex.render(String.raw`\frac{dz}{dt} = M\,f(x)\big(h(x) - z\big)`, document.getElementById('eq-ltm'), { displayMode: true });
+
+  document.getElementById('p11-btn-pulse').addEventListener('click', () => {
+    p11_data.pulsing = !p11_data.pulsing;
+    document.getElementById('p11-btn-pulse').classList.toggle('active', p11_data.pulsing);
+  });
+
+  p11_anim = setInterval(stepPage11, 50);
+}
+
+function stepPage11() {
+  const d = p11_data;
+  const H = 0.5, K = 1.0, L = 0.3, M = 0.2;
+  let fx = parseFloat(document.getElementById('p11-slider-fx').value);
+  const hx = parseFloat(document.getElementById('p11-slider-hx').value);
+
+  // Auto pulse
+  if (d.pulsing) {
+    if (Math.floor(d.t / 3) % 2 === 0) { fx = 5; d.pulseOn = true; }
+    else { fx = 0; d.pulseOn = false; }
+    document.getElementById('p11-slider-fx').value = fx;
+    document.getElementById('p11-val-fx').textContent = fx.toFixed(1);
+  }
+
+  const dt = 0.1;
+  for (let i = 0; i < 3; i++) {
+    d.y += (H * (K - d.y) - L * fx * d.y) * dt;
+    d.z += (M * fx * (hx - d.z)) * dt;
+    d.t += dt;
+  }
+
+  d.ts.push(d.t);
+  d.ys.push(d.y);
+  d.zs.push(d.z);
+  d.fs.push(fx);
+
+  // Keep last 300 points
+  if (d.ts.length > 300) {
+    d.ts.shift(); d.ys.shift(); d.zs.shift(); d.fs.shift();
+  }
+
+  const layoutBase = {
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#faf8f5',
+    font: { color: '#9b9590', size: 11, family: 'system-ui' },
+    margin: { l: 48, r: 16, t: 8, b: 40 },
+    xaxis: { title: 'Time', gridcolor: '#eae6e0', zeroline: false },
+    showlegend: true,
+    legend: { x: 0.02, y: 0.98, font: { size: 10 } }
+  };
+
+  Plotly.react('p11-plot-mtm', [
+    { x: d.ts, y: d.ys, mode: 'lines', name: 'y (transmitter)', line: { color: '#4a7fb5', width: 2.5 } },
+    { x: d.ts, y: d.fs.map(f => f / 10), mode: 'lines', name: 'f(x)/10', line: { color: '#9b9590', width: 1, dash: 'dot' } },
+  ], { ...layoutBase, yaxis: { title: 'y', gridcolor: '#eae6e0', range: [0, 1.1], zeroline: false } },
+  { responsive: true, displayModeBar: false });
+
+  Plotly.react('p11-plot-ltm', [
+    { x: d.ts, y: d.zs, mode: 'lines', name: 'z (weight)', line: { color: '#bf6a42', width: 2.5 } },
+    { x: d.ts, y: d.ts.map(() => hx), mode: 'lines', name: 'h(x) target', line: { color: '#c49a3c', width: 1, dash: 'dash' } },
+  ], { ...layoutBase, yaxis: { title: 'z', gridcolor: '#eae6e0', range: [0, Math.max(hx * 1.2, 6)], zeroline: false } },
+  { responsive: true, displayModeBar: false });
+}
+
+['p11-slider-fx', 'p11-slider-hx'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    document.getElementById('p11-val-fx').textContent = parseFloat(document.getElementById('p11-slider-fx').value).toFixed(1);
+    document.getElementById('p11-val-hx').textContent = parseFloat(document.getElementById('p11-slider-hx').value).toFixed(1);
+  });
+});
+
+// =============================================
+// Real-time dynamics (bottom of fig2_09)
+// =============================================
+let p09rt_anim = null;
+let p09rt_paused = false;
+let p09rt_state = { xa: 0, xs: 0, t: 0, tsArr: [], xaArr: [], xsArr: [] };
+
+function p09rt_getParams() {
+  const raw = parseFloat(document.getElementById('p09rt-slider-I').value);
+  const pI = Math.pow(10, (raw / 1000) * 6 - 3);
+  const pA = parseFloat(document.getElementById('p09-slider-A').value);
+  const pB = parseFloat(document.getElementById('p09-slider-B').value);
+  return { pI, pA, pB };
+}
+
+function p09rt_reset() {
+  const { pI } = p09rt_getParams();
+  p09rt_state = { xa: 0, xs: 0, t: 0, tsArr: [0], xaArr: [0], xsArr: [0] };
+  const disp = pI < 0.1 ? pI.toExponential(1) : pI < 10 ? pI.toFixed(2) : pI.toFixed(1);
+  document.getElementById('p09rt-val-I').textContent = disp;
+  p09rt_renderNumbers({ xa: 0, xs: 0, dxa: 0, dxs: 0, pI, pA: p09rt_getParams().pA, pB: p09rt_getParams().pB });
+}
+
+function p09rt_renderNumbers({ xa, xs, dxa, dxs, pI, pA, pB }) {
+  const fmt = v => (v >= 0 ? '+' : '') + v.toFixed(3);
+  document.getElementById('p09rt-xa').textContent = xa.toFixed(3);
+  document.getElementById('p09rt-dxa').textContent = fmt(dxa);
+  document.getElementById('p09rt-xs').textContent = xs.toFixed(3);
+  document.getElementById('p09rt-dxs').textContent = fmt(dxs);
+  document.getElementById('p09rt-decay-a').textContent = fmt(-pA * xa);
+  document.getElementById('p09rt-input-a').textContent = fmt(pI);
+  document.getElementById('p09rt-decay-s').textContent = fmt(-pA * xs);
+  document.getElementById('p09rt-bxi').textContent = fmt((pB - xs) * pI);
+}
+
+function p09rt_step() {
+  if (p09rt_paused) return;
+  const { pI, pA, pB } = p09rt_getParams();
+  const s = p09rt_state;
+  const dt = 0.05;
+  const subSteps = Math.max(10, Math.ceil((pA + pI) * dt * 5));
+  const dtSub = dt / subSteps;
+  for (let i = 0; i < subSteps; i++) {
+    s.xa += (-pA * s.xa + pI) * dtSub;
+    s.xs += (-pA * s.xs + (pB - s.xs) * pI) * dtSub;
+  }
+  s.t += dt;
+
+  const dxa = -pA * s.xa + pI;
+  const dxs = -pA * s.xs + (pB - s.xs) * pI;
+
+  s.tsArr.push(s.t);
+  s.xaArr.push(s.xa);
+  s.xsArr.push(s.xs);
+
+  // Keep 600 points max
+  if (s.tsArr.length > 600) { s.tsArr.shift(); s.xaArr.shift(); s.xsArr.shift(); }
+
+  const yMax = Math.max(pI / pA * 1.1, pB * 1.3, 1);
+  const traces = [];
+  if (p09_showAdd) traces.push({ x: s.tsArr, y: s.xaArr, mode: 'lines', name: 'Additive', line: { color: '#c06058', width: 2 } });
+  if (p09_showShunt) traces.push({ x: s.tsArr, y: s.xsArr, mode: 'lines', name: 'Shunting', line: { color: '#5a9a72', width: 2 } });
+
+  Plotly.react('p09rt-plot', traces, {
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#faf8f5',
+    font: { color: '#9b9590', size: 11, family: 'system-ui' },
+    margin: { l: 48, r: 16, t: 8, b: 40 },
+    xaxis: { title: 'Time', gridcolor: '#eae6e0', zeroline: false },
+    yaxis: { title: 'x(t)', gridcolor: '#eae6e0', range: [0, yMax], zeroline: false },
+    showlegend: true,
+    legend: { x: 0.02, y: 0.98, font: { size: 10 } },
+    shapes: [{ type: 'line', x0: s.tsArr[0], x1: s.t, y0: pB, y1: pB,
+      line: { color: '#5a9a7244', width: 1, dash: 'dash' } }]
+  }, { responsive: true, displayModeBar: false });
+
+  p09rt_renderNumbers({ xa: s.xa, xs: s.xs, dxa, dxs, pI, pA, pB });
+}
+
+function initPage09rt() {
+  p09rt_reset();
+  p09rt_anim = setInterval(p09rt_step, 50);
+
+  document.getElementById('p09rt-slider-I').addEventListener('input', () => {
+    p09rt_reset();
+  });
+  document.getElementById('p09rt-btn-reset').addEventListener('click', p09rt_reset);
+  document.getElementById('p09rt-btn-pause').addEventListener('click', function() {
+    p09rt_paused = !p09rt_paused;
+    this.textContent = p09rt_paused ? '[>] Resume' : '[||] Pause';
+  });
+}
+
+// Restore last visited page (runs after all init code)
+(function() {
+  let startPage = 'fig2_09';
+  try {
+    const saved = localStorage.getItem('grossberg_page');
+    if (saved && document.getElementById('page-' + saved)) startPage = saved;
+  } catch(e) {}
+  switchPage(startPage);
+})();
+</script>
+</body>
+</html>

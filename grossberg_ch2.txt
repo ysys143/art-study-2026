@@ -1,0 +1,2814 @@
+2
+How a Brain Makes a Mind
+Physics and psychology split as brain theories
+were born
+
+A historical watershed: When physicists
+were also neuroscientists
+Several of the greatest physicists during the nineteenth century were also great psychologists or neuroscientists. Surprisingly, this was no longer true at the beginning of the
+twentieth century. Why not? An answer to this question clari!es the kind of problem
+that linking mind to brain is, and the nature of recent progress in doing so. I will briefly
+frame this answer in terms of the issues that confronted these great scientists at the end
+of the nineteenth century.
+In addition to carrying out great work in physics, scientists such as Hermann von
+Helmholtz in Germany, Clerk Maxwell in England, and Ernst Mach in Austria also
+made seminal contributions to psychology and neuroscience. Their interests in the
+structure of physical space and time were enhanced by a fascination with psychological
+space and time. Their contributions to understanding the observed world developed
+side-by-side their analysis of the observer.
+For example, every physicist knows about the Mach numbers which help to understand supersonic flight, and about the influence of Mach’s critique of classical physical
+concepts about space and time upon Albert Einstein’s thinking during his development of General Relativity Theory. Mach is also famous, however, for his investigation
+of the Mach bands in vision. Mach bands are perceived bright and dark bands that do
+not match the measured physical luminances in these visual displays, as illustrated
+in Figure 2.1. Surprisingly few scientists have studied both Mach numbers and Mach
+bands in school. Indeed, in 1914 Mach expressed “the profound conviction that the
+foundations of science as a whole, and of physics in particular, await their next great elucidations from the side of biology, and especially from the analysis of the sensations . . .
+Psychological observation on the one side and physical observation on the other may
+make such progress that they will ultimately come into contact, and that in this way
+new facts may be brought to light. The result of this investigation will not be a dualism but rather a science which, embracing both the organic and the inorganic, shall
+
+50
+
+Conscious MIND Resonant BRAIN. Stephen Grossberg, Oxford University Press. © Oxford University Press 2021.
+DOI: 10.1093/oso/9780190070557.003.0002
+
+How a Brain Makes a Mind
+
+FIGURE 2.1. Along the boundaries between adjacent shades of
+gray, lateral inhibition makes the darker area appear even darker,
+and the lighter area appear even lighter.
+
+interpret the facts that are common to the two departments” (Mach, 1914).
+In a similar vein, every physicist knows about
+Maxwell’s fundamental contributions to electromagnetic
+theory, notably the famous Maxwell’s equations, upon
+which so many modern inventions—electric lights, computers, electric household appliances of all kinds, telephones, radio, TV, cell phones, etc.—are based. Maxwell
+also made famous contributions to the molecular theory
+of gases. Maxwell is often considered one of the top three
+theoretical physicists to have ever lived, along with Isaac
+Newton and Albert Einstein (Harman, 1990). In addition
+to these great contributions to physics, Maxwell was an influential psychologist. He developed a “trichromatic color
+theory” which anticipated the discovery that there are
+three distinct classes of color-sensitive photoreceptors, or
+cones, in the normal human retina.
+Helmholtz’s life in many ways epitomizes an interdisciplinary scienti!c career that crossed seamlessly between
+biology and physics. Trained as a medical doctor, his experiments on the velocity of electrical signals in nerve
+pathways and how they caused movements led him to help
+discover the Principle of Conservation of Energy, which
+is one of the cornerstones of nineteenth-century physics.
+He also made fundamental contributions to optics, which
+served as a foundation for his classical contributions to
+visual perception (Helmholtz, 1866). His work in physical
+acoustics likewise supported his major contributions to
+understanding auditory perception and music (Helmholtz,
+1875). Thus, during the last half of the nineteenth century,
+a number of great scientists functioned successfully in an
+interdisciplinary research mode and made lasting contributions to both the physical sciences, and the psychological and brain sciences.
+It is often accepted as a truism that success breeds success, just as money makes money. The great interdisciplinary successes of Helmholtz, Maxwell, and Mach might
+have been expected to breed droves of dedicated interdisciplinary disciples. This did not, however, occur. In the next
+generation of physicists, Albert Einstein himself, in a letter
+
+|
+
+51
+
+to his friend Queen Elizabeth of Belgium in 1933, wrote:
+“Most of us prefer to look outside rather than inside ourselves; for in the latter case we see but a dark hole, which
+means: nothing at all.” We see a “dark hole, which means
+nothing at all” because the neural computations that regulate our daily experiences are inaccessible to us due to the
+property of cognitive impenetrability. Because of this impenetrability, we can behave in a world of interacting percepts, feelings, and ideas without having to worry about,
+or to be distracted by, our individual nerve cells, electrical
+potentials, and chemical transmitters. We experience the
+apparent simplicity of our behavioral mastery rather than
+the actual complexity of its generative neural machinery.
+Once we acknowledge that neural computations are
+not intuitively obvious, we should not be surprised that
+they may seem strange or even bizarre when we !nally discover them, albeit also conceptually simple once you learn
+to think in a new way about how brains self-organize. Once
+we acknowledge that neural computations generate behaviors in an interactive fashion across large networks of neurons, we should not be surprised if the boundary between
+external reality and internal illusion cannot be sharply
+drawn. These themes will be dramatically illustrated when
+I explain how our brains see, starting in Chapter 3.
+These considerations do not, however, explain why
+even Einstein was uninterested in trying to cast scienti!c
+light on the “dark hole” of the mind. Why did not Einstein
+try to build upon the insights of his predecessors Maxwell
+and Mach in psychology and neuroscience, in the way that
+he did in physics through his great work on the kinetic
+theory of gases and relativity theory?
+Einstein’s comment reflects a major schism that occurred between the physical and brain sciences towards
+the end of the nineteenth century. Scientists whose work
+was previously greatly energized by interdisciplinary investigations of physics and psychology were rapidly replaced by scientists who rarely had even a rudimentary
+knowledge of the other !eld. Although the explosion
+of scienti!c knowledge during the twentieth century,
+with its attendant specialization, surely contributed to
+this schism, deeper intellectual factors were, I believe,
+the immediate trigger. An understanding of these factors is useful for appreciating the scienti!c climate in
+which modeling how the brain works has been carried
+out during most of the twentieth century, and the nature
+of the major scienti!c revolution that we are now experiencing, and which has been accelerating during the last
+half-century.
+Basic causes of this schism emerged from the scienti!c discoveries of the very pioneers, such as Helmholtz,
+Maxwell, and Mach, who built such successful interdisciplinary careers. Two examples from Helmholtz’s work on
+visual perception are illustrative.
+
+52
+
+|
+
+Conscious MIND Resonant BRAIN
+
+The Three N’s: Nonlinear,
+Nonlocal, and Nonstationary
+Color !eory. Isaac Newton reported in 1704 his great
+discovery that white light is composed of equal intensities of all the visible wavelengths of light (Newton, 1704).
+Newton showed this by using a prism to refract the different colored components of white light into a rainbow.
+The Newtonian de!nition of white light is based on measuring the light at individual positions in space. In contrast,
+Helmholtz realized that the average color of a scene is perceived to be desaturated; that is, it tends to look more white
+than it really is. Thus, if the scene is illuminated with a certain hue—say reddish at sunset or bluish if you are under
+water—then that color tends to be neutralized so that we
+can better see the “real” colors of objects in the scene.
+As Helmholtz began to realize, conscious percepts of
+colors, including white, depend upon the relationships
+between multiple lit positions of a scene or picture. Thus,
+instead of being reducible to measurements at each position, the analysis of how humans perceive white light at
+each position necessitates an investigation of long-range
+(or nonlocal) interactions across the positions of a network. These network interactions help to compensate for
+variable illumination conditions, or to “discount the illuminant,” so that humans and other species can better see
+the actual colors of visible surfaces under a wide variety of
+illumination conditions.
+The neural process whereby an illuminant is discounted is still the subject of intensive experimental and
+theoretical investigation. Discounting the illuminant
+somehow “divides out” the illuminant so that the real
+colors of a scene can be perceived. Any process, like division, that involves operations other than addition and subtraction is said to be nonlinear. How the brain discounts
+the illuminant using nonlocal and nonlinear interactions
+will be discussed in Chapter 3.
+Learning, expectation, and matching. Helmholtz faced
+another barrier when he attempted to conceptualize the
+process of visual perception. As I noted in Chapter 1, he
+developed the doctrine of unconscious inference to express
+the idea that we often perceive what we expect to perceive
+based on past learning. Helmholtz’s doctrine is recast in
+the more modern terminology of Adaptive Resonance
+Theory in Figure 2.2. This !gure illustrates how environmentally activated inputs can drive a bottom-up learning
+process, via adaptive weights or long-term memory (LTM)
+traces, that determines which cells will selectively respond
+to these inputs in the future. These selective cells are called
+recognition categories. When recognition categories are activated, they can trigger the read-out of learned top-down
+
+expectations via their own LTM traces. Such expectations
+are matched against the bottom-up inputs across a network of feature-selective cells. These top-down expectations play the role of an unconscious inference. In order
+to simplify the !gure, arrays of connections between processing stages are represented by a single connection. This
+simpli!ed notation is used throughout the book, where
+appropriate.
+The bottom-up and top-down signals cooperate and
+compete through the matching process. The effect of this
+matching process is to generate a consensus that leads
+to the !nal percept by using excitatory (or cooperative)
+bottom-up and top-down signals to select and focus attention upon expected combinations of features, and inhibitory (or competitive) interactions within each processing level to suppress irrelevant features and categories.
+Cooperative and competitive matching also requires nonlinear and nonlocal interactions. In addition, the bottomup and top-down learning processes are nonstationary;
+that is, they are processes that change their LTM traces
+through time in order to adapt to a changing world.
+In summary, Helmholtz’s experimental discoveries
+led him to at least instinctively realize that a theoretical
+understanding of visual perception would require the discovery of new nonlinear, nonlocal, and nonstationary intuitive concepts and mathematical equations. In contrast,
+much physical theorizing during the nineteenth century
+used linear, local, and stationary mathematics. Since theoretical scientists rely upon appropriate mathematical
+concepts and methods with which to express and develop
+
+FIGURE 2.2. Feature-category resonances enable us to rapidly
+learn how to recognize objects without experiencing catastrophic forgetting. Attentive matching between bottom-up
+feature pattern inputs and top- down expectations prevent catastrophic forgetting by focusing object attention upon expected
+patterns of features, while suppressing outlier features that
+might otherwise have caused catastrophic forgetting if they were
+learned also.
+
+How a Brain Makes a Mind
+
+their deepest intuitive ideas, the inability of nineteenthcentury physical concepts and mathematics to explain
+psychological and neurobiological data created an intellectual crisis for all theorists who might have wished to
+study mind and brain.
+This schism was exacerbated by the fact that the major
+revolutions of twentieth-century physics could be supported by nineteenth-century mathematics. For example,
+Einstein’s Special Theory of Relativity needed only elementary algebra to carry out its computations (Einstein,
+1905). The genius in this theory was in knowing what was
+fundamental and how to think about it. When Einstein
+realized that he needed a more advanced type of mathematics to express the intuitions that led to the theory of
+General Relativity (Einstein, 1915), his burden was significantly lightened by the help he received from his friend,
+Marcel Grossmann, who introduced him to nineteenthcentury Riemannian geometry, which provided a perfect
+tool. As the early developers of quantum mechanics, such
+as Werner Heisenberg and Max Born, struggled to express their intuitive insights, they too were greatly aided
+by nineteenth-century mathematics, notably the theory
+of matrices. Quantum mechanics also bene!ted from the
+existence of linear operator theory that had been significantly developed by one of the greatest nineteenth- and
+early twentieth-century mathematicians, David Hilbert.
+
+A century of controversy as
+a ma or scientific revolution
+is born
+A major approach-avoidance hereby arose in the practice
+of theoretical science at the end of the nineteenth century:
+Theoretical physicists abandoned psychology and neuroscience to rapidly fashion physical theories about the external
+world that could be quantitatively supported by available
+mathematical concepts and methods. Psychologists and
+neuroscientists returned the favor by abandoning physical
+concepts and mathematics that seemed irrelevant to their
+data and, over time, by also eschewing and even denigrating theoretical and mathematical training in general. This
+bifurcation was already apparent during the unfolding of
+Helmholtz’s scienti!c life. Beginning his career as a medical doctor, and progressing to his interdisciplinary studies
+that crossed between mind, brain, and the external physical world, he ended his career as the !rst President and
+Director of the new Physico-Technical Institute in Berlin
+after leaving psychology and physiology behind.
+Left without an appropriate framework of concepts
+and mathematical techniques for interpreting and unifying their experiments, psychologists and neuroscientists
+nonetheless went about accumulating one of the largest
+
+|
+
+53
+
+and most sophisticated sets of databases in the history of
+science. Remarkably, they accomplished this feat during a
+century of controversy that was spawned by the unavailability of a unifying theoretical and mathematical framework for explaining their data. Even as recently as 1975,
+Ernest Hilgard and Gordon Bower noted on page 2 of their
+classic textbook Theories of Learning that “Psychology
+seems to be constantly in a state of ferment and change, if
+not of turmoil and revolution” (Hilgard and Bower, 1975).
+While most mind and brain experimentalists ignored theory, and most theorists looked for more hospitable frontiers, there arose the widespread tendency to !ll
+this theoretical vacuum by interpreting brain function in
+terms of whatever technology happened to be current. The
+ever-expanding list of technological metaphors to which
+the brain has been compared includes telegraph circuits,
+hydraulic systems, information processing channels,
+digital computers, linear control systems, catastrophes
+(in the mathematical sense of René Thom (Thom, 1977),
+holograms, spin glasses, Bayesian networks, and Deep
+Learning. All of these metaphors have been unable to explain substantial databases that link mind and brain, since
+none of them arose from a sustained analysis of mind and
+brain data.
+The schism between physics and neuroscience encouraged many physicists to believe that no theories of mind
+and brain exist. An inquiry about available theories by an
+interested physicist more often than not would con!rm
+this impression, because the schism prevented most experimental psychologists and neuroscientists from getting the
+training needed to understand and value the theories that
+were already explaining, and in a principled way, difficult
+nonlinear, nonlocal, and nonstationary data about mind
+and brain. Indeed, experimentalists who might otherwise
+have understood the signi!cance of these new insights
+from properties of their own data typically had no theoretical or mathematical training at all. This gap in training
+created serious literacy and communication problems over
+and beyond the very real intellectual challenges inherent
+in understanding the phenomena themselves.
+I hope that this brief summary helps to put into historical perspective why it has taken so long to begin to theoretically understand how a brain can give rise to a mind. Such
+progress required the introduction of a new scienti!c paradigm that simultaneously discovered new conceptual intuitions and new mathematics with which to understand the
+nonlinear, nonlocal, and nonstationary laws that link brain
+to mind. In many scienti!c revolutions, such as relativity
+theory and quantum mechanics, once the new physical intuitions were discovered, relevant mathematics was available with which to convert them into rigorous theoretical
+science. In the mind and brain sciences, we have not been
+so lucky, since both new intuitions and new mathematics
+needed to be developed. The Newtonian revolution was also
+of this kind, since Newton had to both derive the laws of
+
+54
+
+|
+
+Conscious MIND Resonant BRAIN
+
+celestial mechanics and to discover calculus with which to
+mathematically analyze them. My own scienti!c work since
+1957, when I was a Freshman in Dartmouth College, has
+been devoted to introducing and developing foundational
+intuitions, mathematics, and the behavioral and neural
+models built upon them into the mind-brain sciences. I
+could never have imagined then how much I would be able
+to discover and understand with the help of many gifted
+PhD student, postdoctoral fellow, and faculty collaborators.
+As in the case of the Newtonian revolution, the mindbrain revolution is a difficult one to understand. Without
+new interdisciplinary intuitions about the functional
+meaning of the data, there is no possibility of understanding. But without new mathematics, there is no way to
+realize these intuitions in rigorous neural models that can
+be communicated to other scientists in a compelling way.
+It needs also to be said that, once one realizes how to think
+intuitively about various of these processes, many of their
+key ideas can be described simply in story form. This book
+is devoted to telling you some of these stories.
+What cannot be achieved in this way is a sense of the
+inevitability of these ideas. That can best be seen, !rst, by
+understanding how elegantly key psychological facts arise
+as emergent, or interactive, properties of neural networks
+and, second, by seeing how the most basic properties of
+brain designs and mechanisms can be proved with simple
+mathematics, often with little more than elementary algebra and simple properties of differential equations. I will
+include some of this mathematics in the book to show you
+what I mean, but the book can be enjoyed and understood
+without it.
+Fortunately for the !eld as a whole, during the past
+thirty years, a number of new academic departments,
+research centers, societies, and journals have been established with which to expedite the discovery and transmission of this new interdisciplinary knowledge. I have
+been fortunate to have had the opportunity to found and
+lead several of these institutions. My 2010 essay Towards
+Building a Neural Networks Community (Grossberg,
+2010) provides a personal account of how this happened to
+me. This essay can also be downloaded from sites.bu.edu/
+steveg/!les/2016/06/GrossbergNNeditorial2010.pdf.
+
+The Astonishing Hypothesis
+Today, as during the time of great pioneering scientists like
+Helmholtz, Maxwell, and Mach, we are confronted with
+the same fundamental questions: How are our experiences
+of the world represented by the brain? How can we !nd
+a method and a language to connect two such apparently
+different types of descriptions? Finding the link between
+mind and brain is particularly important if we ever want
+to understand consciousness: A theory of consciousness
+
+that cannot explain psychological experiences and data
+fails to deal with the contents of consciousness.
+Francis Crick, who is most famous for his classical
+Nobel Prize–winning work on understanding DNA,
+published a book in 1994, with the arresting title The
+Astonishing Hypothesis, in which he discussed some aspects of consciousness (Frick, 1994). The astonishing hypothesis refers to the fact that all of our mental phenomena
+arise from activities of the nerve cells, or neurons, of our
+brains. Crick claimed that “this hypothesis is so alien to
+the ideas of most people alive today that it can truly be
+called astonishing” (p. 3). Why is that? For centuries, due
+to the problem of cognitive impenetrability, people did not
+even realize that the brain is the seat of the mind. We are
+immediately aware of our own personal behavioral experiences, but have to be taught about neurons in school. Even
+after being taught, the activities of individual nerve cells
+do not look at all like our daily experiences.
+
+Brains are designed to
+control behavioral success
+A species could have the most beautiful neurons imaginable, but if these individual neurons were not properly designed to be able to interact together in correctly designed
+neural networks to cause adaptive behaviors, then that species could not survive evolution’s challenges. Thus, any
+theory that hopes to link brain to mind, using design principles that have been shaped by evolution, needs to describe
+the computational level on which brain mechanisms interact to control behavioral success. Such interactive properties are often called emergent properties, because they are
+not properties of the individual neurons taken in isolation.
+Measuring emergent brain properties directly is not
+something that even the most advanced experimental
+techniques can do easily, although recent methods using
+electrode arrays to simultaneously record from multiple
+neurons in multiple brain areas are approaching this goal,
+as in many experiments of MIT neuroscientist Earl Miller
+and his colleagues; e.g., Wutz et al. (2018). Even the very
+existence of neurons was a controversial issue at the beginning of the twentieth century. At that time, even this
+most basic fact about the brain was vigorously debated
+by two of the greatest names in neuroscience—Ramon y
+Cajal of Spain and Camillo Golgi of Italy. It was such a
+hot issue that a strange thing happened on the day in 1906
+that Cajal and Golgi shared the Nobel Prize in Physiology
+or Medicine for their experimental work in neuroscience.
+Golgi had discovered a revolutionary staining method
+whereby brain tissue could be visualized. Using his
+method, he thought that nerve !bers were part of a continuous electrical network, or reticulum, and thus proposed
+
+How a Brain Makes a Mind
+
+his Reticular Theory. Cajal modi!ed the Golgi method
+to discover that individual neurons exist. Cajal’s Neuron
+Doctrine is now taken for granted as gospel. However, on
+the day that Cajal and Golgi shared the Nobel Prize, Golgi
+used his own Nobel lecture to deny that individual neurons
+exist, even as Cajal asserted that they do (e.g., Warmflash,
+2016)! Controversy existed then in psychology and neuroscience, and it continues to exist today. How could it be
+otherwise, given the complexity of the subject matter, and
+its importance to human identity and society?
+
+Keeping the forest, trees,
+and leaves all in view
+How can such different levels of description—behavior,
+neural networks, and individual neurons in all their
+complexity—be kept in mind all at once? This is a little
+like trying to keep in mind everything that is known about
+a whole forest, its individual trees, and all the leaves on all
+the trees. Such a feat requires the use of a scienti!c language that is powerful enough to simultaneously express
+all three levels in a natural way, including the emergent
+properties of very large numbers of interacting neurons
+that map onto properties of behavior. As is often the case
+in science, this is best done using a mathematical language,
+since only mathematics has the precision to express such
+complexity in direct and unambiguous terms.
+Despite the widespread prejudice that “math is hard,” in
+reality mathematics can make difficult concepts and mechanisms much simpler to understand. That is why scientists
+have always turned to mathematics to express their most
+profound insights. Differential equations are the universally accepted mathematical formalism in many scienti!c
+disciplines, including physics, because they describe how
+events evolve in time. They are called “differential” equations because they describe the rates, or “differentials,”
+with which processes evolve in time. By summing up, or
+integrating, all of these changes through time, one can predict how the processes evolve as time goes on. It turns out
+that just a few different types of differential equations, indexed properly to keep track of which neurons they are describing, can conveniently describe the dynamics of huge
+numbers of individual neurons, how they interact in neural
+networks, and the behavioral properties that emerge from
+these interactions. Such a language has been getting developed within the !eld of neural networks for the last sixty
+years, with steadily accelerating progress since the 1960s.
+As I remarked above, I began my own odyssey to discover intuitive concepts and mathematical equations
+that link brain to mind in 1957 when I was a Freshman
+undergraduate student at Dartmouth College. I then
+had the thrilling experience, triggered when I took the
+
+|
+
+55
+
+Introductory Psychology course, of discovering laws
+for short-term memory (STM), medium-term memory
+(MTM), and long-term memory (LTM) whose variants
+are still used by most computational neuroscientists. By
+showing how these interacting laws could explain data
+about human learning, I introduced, by example, the paradigm of using systems of nonlinear differential equations
+to describe neural networks whose emergent properties
+match observable behaviors.
+Despite these successes, given the anti-theoretical paradigm that governed the mind and brain sciences then, it took
+ten years, until 1967 (Grossberg, 1967, 1968d) before I could
+get these results published in archival journals. After that,
+it took many more years before they began to have a large
+scienti!c impact. The central intellectual project of my life
+continues to be one of contributing to the exciting paradigm
+of explaining how our brains make our minds, how these
+insights help to explain what goes wrong in our brains when
+we are afflicted with mental disorders, and how these discoveries can be used to develop biologically-inspired solutions to
+large-scale problems in engineering and technology.
+Given this rocky start, I am particularly grateful that this
+combination of biological discovery and technological innovation has been acknowledged by awards from several scienti!c
+societies, including most recently the 2015 Norman Anderson
+Lifetime Achievement Award of the Society of Experimental
+Psychologists (http://www.sepsych.org/awards.php), the 2017
+Frank Rosenblatt Award in computational neuroscience of
+the Institute of Electrical and Electronics Engineers (http://
+sites.ieee.org/r1/2016/08/24/r1-fellow- stephen- grossbergreceive-ieee-frank-rosenblatt-award/), and the 2019 Donald
+O. Hebb award of the International Neural Network Society
+(https://www.inns.org).
+
+hy differential e uations
+The case of phonemic
+restoration
+Let me give you a concrete example, right away, of why
+differential equations are so important in linking brain to
+mind. In Chapter 1, I mentioned the phenomenon of phonemic restoration (Figure 1.22). I pointed out that, when
+listening to words like “delivery” and “deliberation”, replacing the “v” and “b” with broad-band noise still enables
+the complete words to be heard, but replacing the letters
+with silence does not support restoration. Likewise, given
+a rapidly presented sentence with broad-band noise immediately occurring before “eel is on the . . . ,” if the last word
+after “the” is “table,” then “noise-eel” can sound like “meal,”
+whereas if the last word is “wagon,” then “noise-eel” can
+sound like “wheel,” and so on. I suggested that, as words,
+
+56
+
+| Conscious MIND Resonant BRAIN
+
+or other sequences of auditory items, enter your brain, they
+are stored in a working memory, as in Figures 1.6 and 1.23.
+As sequences of items enter the working memory, they are
+categorized at a higher processing level. Each of these categories responds selectively to a list of items that is stored
+in working memory, and is thus called a list chunk. List
+chunks continue to compete for dominance as more items
+are stored in working memory (Figure 1.23a), in order to
+choose the list chunk that best represents, or predicts, the
+currently stored sequence of items. As this competition for
+list chunk dominance unfolds through time, the winning
+list chunks start to activate top-down learned expectations
+that get matched against the stored working memory items
+(Figure 1.23b). The matching process selects those items
+that match the sounds which are expected in the sentence, and suppresses those that are not. As the selected
+bottom-up and top-down signals cyclically reinforce each
+other through feedback exchanges, the selected neuronal
+activities start to “resonate,” or to mutually reinforce one
+another (Figures 1.23c and 1.23d), until we become conscious of the resonating activities, but not necessarily all
+of the sounds, including noise, that were initially stored in
+the working memory.
+Given that a resonant event may lag behind the environmental inputs that cause it, we need to distinguish
+perceived psychological time from the times at which
+inputs are presented. In particular, we need to explain how
+“future” inputs—like “wagon”—can influence the conscious perception of “past” inputs—as when “noise-eel”
+sounds like “wheel”. The “formal” time variable that is
+used to de!ne the “differentials” in the underlying differential equations also labels the times at which the inputs
+turn on and off. The times at which we consciously hear
+sounds like “wheel” are emergent properties of these differential equations.
+These emergent properties explain how sounds may be
+consciously perceived to flow from past to future, in the
+order that they were received in “formal time”, despite the
+fact that future contextual information can alter what we
+consciously perceive in the past. I suggest that this is accomplished by a resonant wave that develops from past to
+future, even while it incorporates future contextual constraints into its top-down matching process, until each
+event in the resonance equilibrates. Only the resonant
+wave enters consciousness. It is driven by external inputs
+in the order that they are received, but it can incorporate
+future constraints into the resonance until the time that
+the resonance becomes suprathreshold and conscious.
+This resonant wave is called an Item-List resonance (Table
+1.4) because winning list chunks select and bind together
+compatible sequences of items that are stored in working
+memory to determine what we consciously hear.
+The hypothesis that “conscious speech is a resonant
+wave” represents a revolutionary break from previous
+concepts about how speech and language work, and from
+
+current approaches to speech technology, such as the ones
+that we experience every day when we use Siri on our
+iPhones. In order to represent such a resonant process, we
+need to distinguish the external input rate from the internal rate at which resonance evolves. Because external
+events may occur at variable rates, the internal processing
+rate must have a !ner time scale than any detectable external rate. The internal rate must also be faster than the
+resonance time scale that emerges as a result of bottom-up
+and top-down interactions. Differential equations provide
+a natural language for describing such a resonance because
+their variables are parameterized by a fast enough “formal
+time” scale to evolve moment-by-moment in response to
+external and internal inputs that may arrive at arbitrary
+times. Hopefully, when such resonant dynamics are incorporated into our iPhones, Siri’s descendants will be able
+to rapidly and stably learn in more challenging acoustic
+contexts.
+
+From behavior to brain:
+Autonomous adaptation
+to a changing world
+As part of my discovery of laws for STM, MTM, and LTM,
+I also introduced a theoretical method model of discovery
+and development that has led to more theoretical breakthroughs over the years than I could ever have imagined.
+This method clari!es the proper level of description for
+linking brain to mind, and operationalizes a sense in
+which one cannot “derive the whole brain” in one step. Just
+as biological evolution operated in stages over millennia,
+this method embodies a theoretical cycle that carries out
+a kind of conceptual evolution, leading to the discovery of
+neural models that are capable of ever !ner levels of description of brain architecture and dynamics, along with
+correspondingly deeper and broader explanatory and predictive ranges.
+For me, it has been critical to begin with psychological data, typically scores or even hundreds of behavioral experiments in a particular problem domain, such
+as vision, audition, cognitive information processing,
+cognitive-emotional interactions, or sensory-motor control. One begins with behavioral data because brain evolution needs to achieve behavioral success. One works
+with large amounts of data because otherwise too many
+seemingly plausible, but incorrect, hypotheses about how
+the brain works cannot be ruled out. The great thing about
+starting with behavioral data is that, in many !elds of psychology, tons of such data have been reported and replicated during the past century. The full corpus of psychological data represents one of the largest databases of any
+science. Although any good theorist can probably suggest
+
+How a Brain Makes a Mind
+
+multiple explanations of a few facts, trying to !nd even one
+principled explanation of the data from hundreds of experiments is a very challenging task, and one that has led
+me to make many surprising discoveries.
+One also needs to incorporate the key fact that our
+minds can adapt on their own to changing environmental
+conditions, even if they are not told that or how these conditions have changed. One thus needs to frontally attack
+the problem of how an individual autonomously adapts
+in real time to a changing world that is filled with unexpected events. Knowing how to do this is currently an art
+form. There are no algorithms at present that can assure
+success in this endeavor. It requires that one be able to
+translate piles of static data curves into hypotheses about
+an underlying mental process that is evolving continuously in time within each individual mind. Doing this well
+requires that one develops intuition into the functional
+meaning that is hidden in these piles of static data curves,
+and have enough modeling training to express one’s intuitions with appropriate mathematical concepts and equations. How to do this is one of the most important things
+that I tried to teach to my PhD students and postdoctoral
+fellows. I will describe this theoretical method in more
+detail later in this chapter.
+
+Why does the brain use
+neural networks
+Whenever I have carried out an analysis of how an individual’s behavior autonomously adapts to a changing world,
+no matter what faculty of intelligence was being analyzed,
+I have always been led to a model that looks like part of a
+brain or, more exactly, like a neural network, or network
+of interacting neurons. When this !rst happened to me in
+1957, I knew no neuroscience. My !rst neural network naturally grew out of an analysis of psychological data about
+how humans do verbal learning, notably how individuals learn lists of words or other lexical items by practicing
+them multiple times, and then recall them one item at a
+time later on. This is a kind of data that forces you to think
+about what is happening through time.
+It was only when I talked to some premedical student
+friends of mine, who were studying neuroscience, that I
+began to realize that my psychological analysis of learning
+dynamics had managed to derive basic properties of the
+brain. Processes that my friends were learning about in
+their neuroscience studies—including nerve cell bodies,
+the axons along which signals travel between neurons, the
+synaptic knobs at the ends of the axons, the chemical transmitters that are produced in the synaptic knobs and released by them in response to axonal signals, the synapses
+into which the chemical transmitters are released before
+
+|
+
+57
+
+they activate the next nerve cell body, and the cell body potentials whereby neurons get activated or inhibited by their
+inputs from these synapses (Figure 2.3)—were already represented in my behaviorally-derived neural network! I had
+used psychological data to derive the basic facts about the
+Neuron Doctrine, without having known anything about
+this Doctrine. This realization was incredibly exciting to
+me, and illustrated the power of this theoretical method.
+Having linked mind to brain, I began to voraciously read
+everything that I could get my hands on about neuroscience. The experience of deriving new insights about the
+brain by studying the mind has repeated itself scores of
+times over the years. I like to say that, whereas I am known
+as one of the fathers of the !eld of neural networks, I have
+never tried to derive a neural network!
+Although these behaviorally-derived neural networks
+have always included known brain mechanisms, the functional meaning of these brain mechanisms has often been
+surprising, because the psychological analyses whereby
+they were derived included new insights about their emergent properties. Behaviorally-derived neural networks
+have also often predicted the existence of unknown psychological and neural data, and scores of these predictions
+have been supported by subsequent psychological, neurophysiological, anatomical, and even biochemical experiments from !ve to thirty years after the predictions were
+made. This theoretical method is thus emphatically not
+just a way to !t known data.
+In summary, there is a succinct answer to the basic
+question: Why does a brain look the way that it does? The
+answer seems to be this:
+Brains look the way they do to be able to achieve autonomous adaptation in real time of individual behavior
+to a changing world that is filled with unexpected events.
+In other words, brain networks de!ne a natural computational embodiment of design principles whereby individuals can adapt on their own to a changing world,
+and this is why brain anatomies look the way that they do.
+Models of such brain networks naturally incorporate the
+types of nonlinear, nonlocal, and nonstationary processes
+that scientists like Helmholtz, Maxwell, and Mach had already begun to realize are essential.
+
+FIGURE 2.3. Some basic anatomical and physiological properties of individual neurons. See the text for additional discussion.
+
+58
+
+| Conscious MIND Resonant BRAIN
+
+First love: Serial learning,
+events that go “backwards
+in time”, and the middle is
+a muddle
+When I took Introductory Psychology in 1957, I studied
+data about human verbal learning and animal discrimination learning, among other topics. To me, these data
+were !lled with philosophical paradoxes that I found very
+exciting.
+For example, data about serial verbal learning in
+humans (Figure 2.4) seemed to suggest that events can go
+“backwards in time”. I was therefore forced to ask: What is
+time? Why does it always seem to proceed from the past to
+the future. Or does it? These data also directed me to confront basic questions about what sort of spaces our minds
+create in order to represent events that can go backwards
+in time. Questions about space and time are also among
+the most fundamental ones that great physicists have pondered over the centuries, notably Newton and Einstein.
+They also arise ubiquitously in psychological data.
+A serial learning experiment is often run by presenting subjects with a list of items. The subjects’ task is, in response to a currently seen item, to guess the next item in a
+list, before showing that item, and then asking the subject
+what item follows that item, and so on until the entire list
+is presented. This is called the serial anticipation method.
+Then the list is repeated and practiced again until a criterion for learning the entire list is reached, such as being
+able to correctly guess all the next items twice throughout
+the list. The serial anticipation method is thus just a way to
+analyze how Practice Makes Perfect.
+
+FIGURE 2.4. Serial learning paradigm: Learning the temporal
+order of events by practicing them in the order that they occur
+in time.
+
+The rate with which the items are presented within the
+list is called the intra-trial interval, and the rest interval
+between successive list presentations is called the intertrial interval (Figure 2.4). Varying each of these rates can
+cause major changes in the speed of learning and in the
+distribution of errors that are made while learning.
+The simplest case occurs when learning a short list AB.
+Remarkably, one then also learns to perform the reverse
+list BA with higher probability. This property is called
+“backward learning” and it is sometimes said to illustrate
+“symmetry of associations”. However, this is far from the
+whole story, since we all know that if C later occurs, the
+longer list ABC can easily be learned. To understand this
+simple fact of life actually confronts us with both a scienti!c and a philosophical problem. In particular, suppose
+that the intra-trial interval between A and B, and between
+B and C, is duration w. To further !x ideas, suppose that
+w is chosen between 1 to 4 seconds in duration. After B
+occurs, but before C occurs, the subject experiences just
+the list AB for a duration of w seconds before C occurs, so
+backward associations should start to form from B to A
+during that time interval.
+Despite this initial learning, somehow, after C is also
+presented, the learned “forward” association from B to C
+becomes stronger than the “backward” association from
+B to A, so that the list ABC can be learned. Symmetry
+of associations clearly no longer holds when we learn
+longer lists! Rather, it seems that forward associations are
+stronger than backward associations so that the “global
+arrow in time” of the list ABC can be learned from past to
+future. Why is this? What sort of spatial and temporal interactions can make this happen? Remarkably, this is just
+the kind of thing that naturally happens if the events A, B,
+and C activate their own item categories within a neural
+network!
+Before going further, let us immediately acknowledge
+that such results demand an explanation using differential
+equations in which events that occur at different moments
+through time, such as A, then B, and then C, can dramatically change learning outcomes.
+Further evidence that a neural network is behind this
+“asymmetry between the future and the past” is a classical
+piece of data that is called the bowed serial position curve.
+The bowed serial position curve obtains when a longer list
+is presented again and again on multiple learning trials
+until a learning criterion for the entire list is reached.
+One then plots the cumulative number of errors, summed
+across all the learning trials, against list position, and !nds
+the kind of error curves that are qualitatively summarized
+in Figure 2.5. Figure 2.5 redraws data curves from a series
+of classical experiments that the great American psychologist Carl Hovland published in 1938 (Hovland, 1938a,
+1938b, 1938c). Here the short intra-trial interval is two
+seconds long and the longer intra-trial interval is four seconds long, whereas the short inter-trial interval W is six
+
+How a Brain Makes a Mind
+
+FIGURE 2.5. Bowed serial position curve. This kind of data
+emphasizes the importance of modeling how our brains give rise
+to our minds using nonlinear systems of di!erential equations.
+
+seconds long and the long inter-trial interval W equals two
+minutes and six seconds long. Intuitively, the list is presented either quickly or slowly, followed by a little rest or a
+lot of rest before it is presented again. Hovland used these
+different intra-trial and inter-trial intervals in list learning
+experiments with different groups of subjects.
+The error curves in Figure 2.5 are said to be “bowed”
+because the beginning and the end of a list are learned and
+remembered more easily than the middle. This property is
+characteristic of many life experiences that unfold as sequences of events through time. It is often the case that
+we can better remember how they began and ended than
+what happened in between. The middle is a muddle! I like
+to give the example of a torrential love affair whose beginning and end are vividly remembered, but a lot of details
+in between can seem to be a blur. The bowed serial position
+curve is, moreover, asymmetric, with the most errors occurring at list positions nearer to the end than the beginning of the list. When I !rst studied these data in 1957, I
+wondered if the asymmetric bowed error curve could also
+arise from the asymmetry between the strength of future
+and past associations, such as BC vs BA.
+
+|
+
+59
+
+learning all past items in the list. This is thus a massive
+“backward effect in time”. To better understand why this
+is so, imagine a situation where the entire list is presented
+with an intra-trial interval of w and an inter-trial interval
+of W = w. For example, if the list is the alphabet A, B, C, . . . ,
+X, Y, Z, turn on a masking stimulus w time units after Z is
+presented. Design the masking stimulus to interfere with
+further processing of the alphabet. Repeat this procedure
+on multiple learning trials, and then test how many errors
+occur at each list position.
+If the mask succeeds in interfering with further processing of the alphabet on each learning trial, then there
+should be an increasing number of errors at later list positions, as illustrated in the top curve of 2.6. The increase
+of errors with list position can be attributed to associative
+interference from the list items that occurred before each
+tested list position. More errors would occur at the latest
+positions in the list because the occurrence of more earlier
+items could cause more associative interference. In particular, the most errors should occur at the end of the list.
+Another way of saying this is that a monotonically increasing error curve is what we would expect if only the past
+influenced the future.
+However, if W is larger than w, and no masking stimulus is presented between learning trials, then a bowed
+error curve will obtain, as illustrated by the bottom curve
+of Figure 2.6, and as it does in all the data curves in Figure
+2.5. In effect, letting W become larger than w defines Z
+as the last item in the list due to the non-occurrence of
+any letter after Z between the time that the intra-trial interval is exceeded and the next learning trial begins. This
+fact again argues for differential equations to represent
+the passage of time so that, after the non-occurrence of a
+letter after Z, the brain’s internal dynamics can continue
+
+Asymmetry between
+past and future: How the
+occurrence of “nothing”
+in uences learning
+It is important to realize that these bows imply that the
+non-occurrence of future items influences the difficulty of
+
+FIGURE 2.6. The bowed serial position curve illustrates the
+sense in which “events can go backwards in time” during serial
+learning.
+
+60
+
+| Conscious MIND Resonant BRAIN
+
+to influence the ease of learning at earlier positions in
+the list.
+The importance of associative interference between
+items can be highlighted by contrasting learning with
+short vs. long intra-trial intervals w, and short vs. long
+inter-trial intervals W, as Hovland did. If the list is presented quickly (w = two seconds), then a lot of associative
+interference can occur because the activations, or STM
+traces, that are caused by many previously occurring items
+can simultaneously remain active. If there is also a short
+rest period (W = six seconds), as in the red curve in Figure
+2.5, then there is not enough time for this interference to
+subside between successive list presentations, so there are
+more errors at all list positions than in any other condition, but many more errors near the list middle.
+If the list is presented quickly (w = two seconds) but
+with a long rest period (W = two minutes and six seconds),
+as in the green curve, then there is enough time between
+successive list presentations for interference to subside. As
+a result, errors in the list middle collapse the most, and
+errors are fewer at all list positions.
+If the list is presented more slowly (w = four seconds),
+then fewer STM traces of previously presented items are
+simultaneously active, so there are fewer errors at all list
+positions, as the blue and purple curves illustrate. Thus,
+if the items are presented slowly enough, increasing the
+inter-trial interval has a smaller effect on reducing errors
+at all list positions.
+Position-speci!c error gradients in performance also
+illustrate “backwards in time” dynamics (Figure 2.7).
+Testing an item at the list beginning tends to cause recall
+errors of items later in the list, with fewer errors made for
+items further from the list beginning. Such errors, taken
+together, are called an anticipatory error gradient. In
+contrast, testing an item near the list end tends to cause
+
+FIGURE 2.7. Position-specific forward and backward error gradients illustrate how associations can form in both the forward
+and backward directions in time before the list is completely
+learned.
+
+recall errors of items earlier in the list, again with fewer
+errors made for items much earlier in the list. Such errors,
+taken together, are called a perseverative error gradient.
+Presenting items near the list middle combines both types
+of gradients, with more anticipatory errors than perseverative errors, thereby creating a bowed error gradient. The
+error gradients near the middle of the list thus, once again,
+reflect the “asymmetry between past and future”.
+How do both forward and backward learning occur?
+How can the non-occurrence of future items influence the
+past? Serial learning data hereby raise a number of basic
+problems that need to be solved to better understand all
+phenomena about serial order in behavior, whether we are
+thinking about language, motor skills, or spatial navigation in a complex environment. I gradually realized that
+a solution required a real-time theory using differential
+equations that could describe how learning changes LTM
+values through time as the number and distribution of
+STM traces change in response to different list presentation conditions.
+
+What is the functional
+stimulus: Items or se uence
+chunks
+Before moving forward, I hasten to note that backward effects in time are just one of many intellectual challenges
+that serial learning data force upon us. Indeed, one of the
+main issues in serial learning is: What is the functional
+stimulus? This issue is illustrated by the fact that transfer of
+learning from serial learning to paired associate learning is
+much worse than from paired associate to serial learning.
+Unlike serial learning, where the same item order is repeated over and over again on successive learning trials,
+during paired associate learning, individual stimulusresponse pairs can be presented in any order on successive
+learning trials. For example, on a given trial, the item pairs
+AB, CD, EF, . . . may be presented in that temporal order,
+but on the next trial the same pairs may be presented again,
+but in a different temporal order EF, CD, AB, . . . , with the
+recall task being to predict the second item in each pair
+after seeing the !rst one (e.g., B given A), and doing so
+before the second item is also presented. The asymmetric
+transfer occurs when the paired associate pairs are also
+successive items in the serial list. Asymmetric transfer
+means that some prior paired associate learning improves
+the learning of a compatible serial list much more than the
+converse.
+Many scientists from the 1930s through the 1960s
+struggled with these transfer data, which imply that the
+functional stimulus in serial learning is not the individual
+items of the list. But then, what is the functional stimulus?!
+
+How a Brain Makes a Mind
+
+|
+
+61
+
+I gradually realized how sequences of items
+that are stored in a working memory can be unitized into learned list chunks during serial learning
+(Figures 1.23 and 1.24). This can happen because
+the same list order is repeated over and over.
+These list chunks are the functional units that
+predict the next item in a serially learned list, not
+the individual items that are presented by the experimentalist. In order to make this hypothesis
+precise, I had to jump into cognitive studies to
+discover how working memories are designed,
+and how list chunks are learned from them. My
+neural models eventually showed how to design
+cognitive Item-Order-Rank working memories
+and the Masking Field list chunk learning networks with which they interact, as the discussion
+in Chapter 1 has illustrated. Chapter 12 will explain how these working memories are designed
+and list chunks are learned from them, as well as FIGURE 2.8. The existence of forward and backward associations, such as
+how these core ingredients help to explain and from A to B and from B to A is naturally explained by a network of neurons
+predict a breathtaking amount of data about au- with their own activities or STM traces, and bidirectional connections bedition, speech, language, cognition, and sensory- tween them with their own adaptive weights or LTM traces.
+motor control. My !rst article about neural
+models of working memory and list chunks was
+decaying back to zero. Because of this persistence, the acpublished in 1978, However, in 1957 I was worried about
+tivities were also called short-term memory (STM) traces.
+much simpler problems.
+I could then see how the simultaneous persistence of STM
+
+From serial learning
+to neural networks:
+Discovering the dynamics
+of STM and LTM
+These data about forward and backward learning, the bowed
+serial position curve, and position-dependent error gradients
+forced me into a neural network formalism (Figure 2.8), In
+such a network, activities of cells code for recently occurring
+events. In the case of learning the list AB, cells coding A and
+then B would be activated. In particular, when list items like
+A and B are presented, inputs to the corresponding cells turn
+on their activities, or STM traces. That is why these cells are
+said to be content-addressable. A major challenge for me, and
+other cognitive scientists, was to explain how such contentaddressable item categories are learned. I will explain this in
+Chapters 5 and 9, starting with discoveries that I began to
+publish in 1976. In 1957, however, I could only assume that
+these item categories exist, and hope to explain how they are
+learned sometime in the future.
+After receiving an input, an item category’s activity
+would persist for awhile, even after its input shut off, before
+
+traces across multiple item categories could cause the associative learning and interference that leads to the bowed
+serial error curve.
+The STM variables are different from more slowly
+varying learning variables, which are also called longterm memory (LTM) traces, or adaptive weights. Due
+to the network connections, there can be different LTM
+traces to code for the lists AB and BA. These are the variables z AB and zBA, respectively, in Figure 2.8. Thus, a network geometry with distinct, and directed, connections
+from A to B, and from B to A, with different LTM traces at
+the synapse of each connection, made backward learning
+easy to understand, at least qualitatively, because these
+associations can both be learned when the item categories of A and B are simultaneously active. More generally,
+the dynamically changing spatial pattern of all the STM
+trace activities through time drove the learning of the
+LTM traces, and was, in turn, altered by the read-out of
+these LTM traces through time, in response to different
+sequences of inputs to the network. Although I could intuitively see how these interacting STM and LTM traces
+could explain the list learning data, the trick was to !nd
+the correct STM and LTM laws to actually do it! I was able
+to do this in 1957-58, and variants of these laws are still
+used ubiquitously today to explain many different kinds
+of psychological and neurobiological data about human
+and animal learning.
+
+62
+
+| Conscious MIND Resonant BRAIN
+
+Dissociating STM
+and LTM: Bilateral
+hippocampectomy in HM
+
+On the shoulders of giants:
+The functional units of STM
+and LTM are spatial patterns
+
+The distinction between STM and LTM should not be
+taken for granted. Due to the strong interactions between
+these distinct processes, they can be confused or lumped
+together. This kind of uncertainty was especially true
+when I derived my laws for these processes in 1957. To
+remind us of how very long ago this was, in the same year,
+1957, William Scoville and Brenda Milner published their
+landmark paper about the effects on learning and memory
+of bilaterally removing the hippocampus, and adjacent
+structures (Scoville and Milner, 1957). The effects of this
+ablation illustrated that properties of STM and LTM could
+be dissociated.
+This surgery was carried out in an effort to control
+intractable epilepsy in the patient who was called HM
+to protect his privacy. HM was revealed to be Henry
+Molaison after his death in 2008 at the age of 82. His
+surgery was done in 1952, when Henry was 27 years old.
+Henry retained many cognitive functions after his surgery, but had severe de!cits in committing to LTM new
+explicit and conscious memories of experienced events,
+memories that are often lumped together as declarative
+memory. Although Henry could store recent events in
+STM, if he was distracted, all trace of these events could
+be abolished. For example, one could be introduced to
+Henry, and receive his warm welcome, leave the room,
+and come in to be introduced again with Henry none
+the wiser.
+Despite Henry’s profound declarative memory de!cits, his procedural memory for learning and remembering motor skills remained intact, even though he had no
+conscious recollection of having practiced the skill. Many
+scientists interviewed and tested Henry over the years to
+better understand how the hippocampus contributes to
+learning and memory. The Scoville and Milner article
+also triggered thousands of additional clinical and experimental studies on multiple humans and animals to
+better understand how learning and memory work, and
+many of the resulting de!cits can currently be mechanistically explained by the cognitive and cognitiveemotional interactions in Adaptive Resonance Theory.
+In particular, the different properties of declarative and
+procedural memories illustrate the brain’s organization
+into computationally complementary cortical processing streams (Table 1.1). Several subsequent chapters will
+be devoted to explaining how these different processes
+work, and how they break down in amnesic individuals
+like HM.
+
+Learning at the model’s synapses was part of a time-honored
+tradition of associative learning by many great psychologists, including Ivan Pavlov (Pavlov, 1927), Donald Hebb
+(Hebb, 1949), Clark Hull (Hull, 1943), Edward Thorndike
+(Thorndike, 1927), B. F. Skinner (Skinner, 1938), Edward
+Tolman (Tolman, 1948), and William Estes (Estes, 1950).
+However, how learning works in my STM-LTM model
+went beyond the concepts of these great scientists.
+That is true because my conceptual and mathematical
+analyses of these networks in the 1960s showed that the
+functional units of learning are distributed patterns, or vectors, of LTM traces across a network, not individual traces
+between a particular pair of cells; e.g., Grossberg (1968c).
+Indeed, analysis of such patterns in the case of serial
+learning enabled me to understand data like the bowed
+serial position curve; e.g., Grossberg (1969c). In order for
+a pattern of LTM traces to match, through learning, a pattern of STM traces, some of the LTM traces may need to
+increase, while others need to decrease. Thus, my LTM laws
+combined what some scientists would later call Hebbian
+(increasing LTM strength) and anti-Hebbian (decreasing
+LTM strength) properties. In other words, an LTM trace
+increases (Hebbian) as it learns to match a large STM activity, or decreases (anti-Hebbian) as it learns to match a
+small STM activity.
+This conclusion contradicts the famous Hebb Postulate
+that practice always strengthens associations. Hebb wrote
+in 1949 that “when the axon of cell A is near enough to
+excite a cell B . . . A’s efficacy, as one of the cells !ring B is
+increased” (Hebb, 1949). Despite its great constructive effects on the research of many scientists, the Hebb Postulate
+is wrong, and it is wrong for a fundamental reason: Hebb
+chose the wrong computational unit. The unit is not a
+single pathway. Instead, the unit of LTM is a pattern of
+LTM traces that is distributed across a network. When one
+needs to match an LTM pattern to an STM pattern, then
+both increases and decreases of LTM strength are needed.
+The Hebb postulate fails for a basic reason that does
+not depend upon this insight: If in fact an LTM trace
+could only increase, and if all LTM traces have a !nite
+upper bound, then there could come a time when an LTM
+trace reached its maximum value. After that time, further
+learning with that LTM trace would be impossible, even if
+the world changed.
+This problem does not occur with the LTM laws that
+I introduced, because my LTM traces can increase or
+decrease as changing environmental demands require.
+
+How a Brain Makes a Mind
+
+|
+
+63
+
+I was !rst led to this conclusion by analyzing how learning
+of a spatial pattern stay constant through time, even if
+occurs at different list positions to explain serial learning
+their total activities oscillate together. This result led me to
+data. I called the learning law that could explain these data
+predictions about synchronous dynamics in the mid-1970s
+gated steepest descent learning. During gated steepest dethat influenced the experimental work of neurophysioloscent learning, an LTM trace (e.g., zAB in Figure 2.8) tracks
+gists like Charles Gray and Wolf Singer (Gray and Singer,
+and approaches the value of a post-synaptic STM signal
+1989) and Reinhard Eckhorn and his colleagues (Eckhorn
+(e.g., x B in Figure 2.8) through time (steepest descent).
+et al., 1988) in the 1980s.
+Learning only occurs when a pre-synaptic STM “samIn this way, I derived, during my Freshman year at
+pling” signal (e.g., x A in Figure 2.8 is active enough, and
+Dartmouth in 1957-58, the paradigm of using systems of
+thereby opens a learning “gate” that enables steepest denonlinear differential equations to describe neural netscent to occur. Gated steepest descent learning also proved
+works whose STM and LTM interactions explain and preto be invaluable to explain many other kinds of learning
+dict quite a bit of psychological and neurobiological data.
+as well, including the bottom-up learning that tunes the
+I called the simplest versions of this model the Additive
+adaptive !lters that choose recognition categories and the
+Model and the Shunting Model.
+top-down learning of expectations that select the critical
+The Additive Model got its name from the fact that
+feature patterns upon which attention is focused (Figures
+each cell’s activity is the result of influences that add
+1.25 and 2.2). These processes are explained in Chapter 5 as
+their effects on its rate of change. Figure 2.9 describes the
+part of the competitive learning, self-organizing map, and
+Additive Model equation and de!nes its various terms,
+ART models. The fact that LTM traces in the brain exhibit
+including the decay rate of the activity xi, the sum of all
+gated steepest descent properties started to be con!rmed
+positive and negative feedback signals from other cells,
+experimentally by neurophysiologists like Wolf Singer and
+and any external inputs from the world. Understanding of
+William (“Chip”) Levy 20 years later (Levy, Brassel, and
+the book does not, however, depend upon knowing this or
+Moore, 1983; Levy and Desmond, 1985; Rauschecker and
+other equations that I will occasionally mention.
+Singer, 1979; Singer, 1983).
+Additive responses to arbitrarily large inputs can lead
+Despite the fact that the Hebb postulate cannot posto activities that have no upper or lower bounds, since
+sibly be the whole truth, and that learning laws like gated
+every increment in an input can cause a proportional insteepest descent !t behavioral and neurobiological data
+crement in the resulting activity. But all cells have !xed,
+better, many psychologists and neuroscientists continue to
+indeed small, bounds on their activities. This is a basic
+invoke the term “Hebbian learning” to describe any exproperty of all cells, whether they are in your brain or
+ample of associative learning. Some may wish to do this to
+your kidney: In!nity does not exist in biology! I therefore
+honor Hebb’s many contributions to memory research, dealso introduced the Shunting Model, of which the Additive
+spite the fact that his hypothesis about how learning works
+Model is a special case. The Shunting Model keeps cell acwas wrong. On the other hand, Hebb was not the !rst, or
+tivities within !xed upper and lower bounds (Figure 2.10)
+even the greatest, pioneer of memory research. There were
+using what are called automatic gain control terms (red
+other greats before him or as his contemporaries.
+We should not overlook the seminal contributions of memory researchers such as Pavlov, Hull,
+Thorndike, Skinner, Tolman, and Estes, among
+others. My own preference is to be clear about the
+speci!c hypotheses in different learning laws and
+their historical origins, and to give them functional names, like gated steepest descent, that reflect how they work. Only in this way can one
+avoid confusion about different learning properties and build upon previous discoveries in an ef!cient and rational way.
+My mathematical analyses in the mid-1960s
+to early 1970s proved that the LTM traces learn a
+time average of the spatial patterns of STM traces
+that are active when the sampling signal is on. As
+Chapter 5 will explain, these LTM traces encode
+the relative activities of the STM traces that characterize the spatial patterns. Said in another way,
+the LTM traces learn the synchronous part of FIGURE 2.9. The Additive Model describes how multiple e!ects add up inthese STM patterns, since the relative activities fluence the activities, or STM, traces of neurons.
+
+64
+
+|
+
+Conscious MIND Resonant BRAIN
+
+FIGURE 2.10. The Shunting Model includes upper and lower
+bounds on neuronal activities. These bounds have the e!ect of
+multiplying additive terms by excitatory and inhibitory automatic
+gain terms that enable such models to preserve their sensitivity
+to inputs whose size may vary greatly in size through time, while
+also approximately normalizing their total activities.
+
+terms in Figure 2.10) that play many useful roles in brain
+dynamics. The Shunting Model embodies the membrane
+equations of neurophysiology, which describe how cell
+potentials respond to their inputs (Hodgkin and Huxley,
+1952). At the time in 1957 that I derived it from psychological considerations, I did not yet know any neurophysiology. Variants of the Additive and Shunting models are
+used today by essentially all biological modelers in computational neuroscience.
+With the Additive and Shunting STM equations before
+us, it is now easy to also write down the simplest versions
+of the medium-term memory, or MTM, law which is realized by a habituative transmitter gate; and the long-term
+memory, or LTM law which is realized by gated steepest
+descent learning (Figure 2.11). MTM changes more slowly
+than STM, and LTM changes even more slowly than MTM.
+The MTM law in Figure 2.11 is called a transmitter gate because it multiplies signals that are activated by STM traces,
+as illustrated by term D ji y ji z ji in Figure 2.10. It is called habituative because the release or inactivation of transmitter
+by these signals, as in term −Lf k ( x k ) yki in Figure 2.11, reduces the efficacy of the signal pathway.
+The LTM law in Figure 2.11 is called gated steepest descent because learning turns on when the learning gate,
+or sampling signal, f k ( x k ) is positive, thereby enabling the
+adaptive weight, or LTM trace, z ki to approach the sampled
+signal hi ( xi ) by steepest descent via term (hi ( xi ) − z ki ). When
+the learning gate shuts off, learning stops, and the adaptive
+weight can remember what it has learned until it turns on
+again, which might not happen for a long time. LTM also
+gates the readout of signals, as term D ji y ji z ji in Figure 2.10
+again illustrates.
+
+FIGURE 2.11. Medium-term memory (MTM) and long-term
+memory (LTM) equations complement the Additive and Shunting
+Models of STM. MTM is typically defined by a chemical transmitter that is released from the synaptic knobs of a neuron (Figure
+2.3). Its release or inactivation in an activity- dependent way is
+also called habituation. LTM defines how associative learning occurs between a pair of neurons whose activities are appropriately
+correlated through time. See the text for details.
+
+All of these equations were needed, for example, to
+de!ne the gated dipole opponent processing circuits in
+Figures 2.8 and 2.9, and their variations and specializations have enabled the explanation and prediction of a vast
+number and variety of psychological and neurobiological
+data. One reason, therefore, for summarizing these equations here, even without a mathematical analysis of them,
+is to illustrate that in the psychological and brain sciences,
+no less than the physical sciences, a small number of fundamental equations can explain and predict many important and interesting data.
+
+Three sources of neural
+network research:
+Binary, linear, and
+continuous-nonlinear
+My own work pioneered biological neural network models
+capable of linking brains to minds, but this was certainly
+not the only historical source of models that have been
+used to explain aspects of how brains work. At least three
+such sources should be noted (Figure 2.12):
+
+Binary models
+McCulloch-Pitts model and the digital computer.
+Binary systems were inspired in part by neurophysiological observations showing that signals between many neurons are carried by all-or-none spikes. When the activity,
+
+How a Brain Makes a Mind
+
+|
+
+65
+
+University in 1956, which he called The Computer and the
+Brain (von Neumann, 1958).
+The McCulloch-Pitts model was not the only contribution to the binary model literature. Eduardo Caianiello
+(Caianiello, 1961), working in Naples, Italy, used a binary
+STM equation that also operated at discrete time steps
+and whose activity was influenced by activities at multiple times in the past. The signals emitted by a Caianiello
+neuron could be +1 if the activity was positive, or 0 if it was
+not, so it eliminated the biologically implausible negative
+signals of the McCulloch-Pitts model.
+
+FIGURE 2.12. Three sources of neural network research: Binary,
+linear, and continuous and nonlinear. My own work has contributed primarily to the third.
+
+or potential, of a neuron exceeds a !ring threshold, then a
+spike can be generated and can travel, without decrement,
+down the axon of the neuron for long distances (Figure
+2.3). Spikes may be triggered more frequently as the cell
+activity increases, so that increasingly active cells can emit
+spikes with an ever higher frequency that can have an increasingly large impact on neurons that receive its signals.
+The binary stream was initiated by a classical article
+that was published in 1943 by Warren McCulloch and
+Walter Pitts when they were working at MIT (McCulloch
+and Pitts, 1943). Their model describes a threshold logic
+system. The activities, or STM traces, xi of the ith node
+in such a network interact in discrete time according to
+the equation in the upper left panel of Figure 2.12. In this
+equation, the signum function, denoted by sgn, can take
+on the values +1 if w > 0, 0 if w = 0, and –1 if w < 0. In
+particular, a cell generates a binary signal, or spike, with
+amplitude +1 if the activity is positive. The negative signal
+–1 when the activity is negative has no analog in neuronal
+signaling, however. Its role in the McCulloch-Pitts model
+was to enable the computation of useful logical operations,
+as indicated by the arresting title of their article: “A Logical
+Calculus of the Ideas Immanent in Nervous Activity”. The
+model’s goal was thus to demonstrate how complex logical operations could be computed just by using suitable
+combinations of +1, 0, and –1 signals between multiple elements in a computing network.
+The McCulloch-Pitts model had an influence far
+beyond the !eld of neural networks. One of its most enduring influences was upon John Von Neumann, one of the
+greatest mathematicians of the twentieth century, when he
+was at the Institute for Advanced Study in Princeton, developing the digital computer that has totally revolutionized our lives. This influence is illustrated by a famous
+series of Silliman Lectures that Von Neumann gave at Yale
+
+Perceptron. In 1958, Frank Rosenblatt, who worked at
+the Cornell Aeronautical Laboratory before he became a
+professor at Cornell University, introduced a STM equation that evolves in continuous time, whose activities can
+spontaneously decay, and which can generate binary signals above a non-zero threshold. Rosenblatt’s equation was
+used in his classical Perceptron model (Rosenblatt, 1958),
+which is a linear classi!er that can learn to separate input
+vectors, and thereby classify them as being in different categories (e.g., cat vs. dog), if they are linearly separable.
+Both Caianiello and Rosenblatt were interested in
+learning, and both introduced equations to change the
+adaptive weights, or LTM traces, in their equations through
+learning. However, in both models, interactions between
+STM and LTM were uncoupled in order to simplify the
+analysis: First there would be a change in STM, then the algorithm would allow LTM to adjust to it, and then the cycle
+would repeat. This meant that these models did not operate
+autonomously in real time, where both STM and LTM would
+adjust to changing contingencies as they occurred. These
+LTM equations also had a digital aspect. The Caianiello LTM
+equations increased or decreased at constant rates until they
+hit !nite upper or lower bounds.
+From Perceptrons to Back Propagation and Deep
+Learning. I had the pleasure of knowing both Caianiello
+and Rosenblatt. Frank Rosenblatt died tragically in a
+boating accident when he was only 43 years old. His pioneering work is having a major impact even today. His ambitious goals are illustrated by the fact that he followed his
+1958 article about the Perceptron model with a classical
+1962 book called Principles of Neurodynamics (Rosenblatt,
+1962). Although the original Perceptron model had only an
+input layer and output layer of neurons with which to classify linearly separable patterns into two categories, Frank
+realized that classi!ers with more layers were needed, and
+introduced the name “back propagation” to describe how
+the adaptive weights in such an expanded network would
+be trained. He did not, however, translate this heuristic insight into a computationally competent back propagation
+algorithm.
+Variants of the back propagation model were introduced independently by several authors, including
+
+66
+
+| Conscious MIND Resonant BRAIN
+
+Shun-Ichi Amari in 1972 in Japan (Amari, 1972), Paul
+Werbos in 1974 as part of his PhD thesis at Harvard
+University (Werbos, 1974, 1994), and David Parker in
+1982 in California (Parker, 1982, 1985, 1986, 1987). Paul
+Werbos seems to be the !rst person to have published
+the algorithm in its modern form and use it successfully
+in applications. Back propagation !nally became popular
+in response to an oft-cited article by David Rumelhart,
+Geoffrey Hinton, and Ronald Williams that was published
+in 1986 (Rumelhart, Hinton, and Williams, 1986). Their
+1986 article has often been incorrectly cited as the source
+of the algorithm by people who are unaware of its history.
+Technically, back propagation uses an old idea in
+mathematics, steepest or gradient descent, that goes back
+at least to Carl Friedrich Gauss (Gauss, 1814), who lived
+in Germany between 1777-1855 and was one of the greatest mathematicians who ever lived. Steepest descent works
+by attracting adaptive weights to target values during
+learning trials. In back propagation, the learned weights,
+or LTM traces, need to be transported from where they are
+learned to where they are needed to !lter incoming data.
+That is, the LTM traces are computed at one location in the
+algorithm and their learned values are then moved algorithmically to another location. One can think of this as a
+physical, not just a functional, separation of learning and
+recall. Such a non-local transport of weights has no analog
+in our brains.
+Back propagation became very popular for awhile, and
+helped to develop some useful applications. However, its
+conceptual and practical limitations were soon realized
+by practitioners. As I earlier remarked in the Preface, my
+1988 article in the inaugural issue of the journal Neural
+Networks (Grossberg, 1988) listed 17 major limitations of
+learning by back propagation that were not problems for
+Adaptive Resonance Theory. After this period of cooling
+down, during the past decade, Hinton and his colleagues
+vigorously applied and developed the variant of back propagation that is called Deep Learning (e.g., Hinton et al.,
+2012; LeCun, Bengio, and Hinton, 2015). They were able
+to achieve useful results in multiple applications by exploiting the huge databases that have emerged with the
+World Wide Web (e.g., millions of pictures of cats on the
+World Wide Web), and the incredibly fast computer networks that have evolved at the same time. Deep Learning
+has typically derived these results by carrying out slow
+learning (meaning that adaptive weights change very little
+on each learning trial) using many supervised learning
+trials of large numbers of exemplars from huge databases.
+Many scientists have become excited by the promise of
+Deep Learning, even while acknowledging problems such
+as catastrophic forgetting and poor generalization (Bengio
+and LeCun, 2007).
+Even if Deep Learning generalizes well in response to a
+subset of data, it cannot easily be determined whether the
+knowledge that has been embodied in its adaptive weights
+
+reflect an understanding of the environment that it is predicting. This problem is called the Explainable AI problem,
+and is a subject of current intense interest in the AI community (https://en.wikipedia.org/wiki/Explainable_arti!cial_intelligence). Also see Grossberg (2020a).
+Variants of Deep Learning have been developed to at
+least partially overcome these problems, including using
+unsupervised pre-training before supervised !ne-tuning
+(Erhan et al., 2010). These and other applications of Deep
+Learning have driven a renaissance in AI that has brought
+improved products into our everyday lives, especially
+applications that classify huge databases of images and
+sounds.
+Despite these successes, Deep Learning, being a variant of back propagation, is emphatically not how our
+brains work. Its architecture is not supported by brain
+data, and it does not realize the kinds of general-purpose
+and flexible capabilities that we associate with animal intelligence, including our own. As the Preface has already
+noted, Hinton himself acknowledged this in a 2017 article
+in the September 15, 2017 issue of Axios where he said that
+he is “deeply suspicious” of back-propagation”, that “I suspect that means getting rid of back-propagation . . . I don’t
+think it’s how the brain works. We clearly don’t need all
+the labeled data . . .”, and that “my view is, throw it all away
+and start over” (LeVine, 2017).
+Actually, we do not need to “start over”. One just needs
+to read the mainstream published literature in which,
+over the past 50 years, many fundamental properties of
+human intelligence have been steadily explained and rigorously modeled that Deep Learning cannot explain, including how to quickly learn to classify and predict huge
+non-stationary databases without experiencing catastrophic forgetting. For example, variants of ART models
+can, in fast learning mode, learn to classify a complete
+database on a single learning trial, can do so without experiencing catastrophic forgetting, and its learning can
+after every learning trial be interpreted in terms of fuzzy
+IF-THEN rules.
+
+Linear
+ADELINE and MADELINE. Bernard Widrow at
+Stanford University also drew inspiration from the brain
+to introduce the gradient descent ADELINE adaptive
+pattern recognition algorithm (Widrow, 1962). This algorithm uses a linear !lter with adaptive weights, or LTM
+traces, that slowly converge to values which reduce the
+least mean square of the error between a desired output
+and the current output. Widrow’s models have been used
+in many signal processing applications, including adaptive noise canceling in a wide variety of devices, including
+
+How a Brain Makes a Mind
+
+earphones, communication lines, and modems. These
+algorithms also !nd echoes in back propagation, which
+also learns by gradient descent using a least mean square
+criterion.
+Brain-State-in-a-Box. James Anderson at Brown
+University described his intuitions about neural pattern
+recognition by also adapting concepts from linear system
+theory to represent some aspects of neural dynamics. The
+activities in his model obey a linear equation. However,
+each neuron’s output combines continuous and binary
+properties: Although the outputs increase linearly with
+cell activity within a given range of intermediate values,
+they saturate at negative and positive constant values
+in response to sufficiently small and large activities.
+This output function is charmingly summarized by the
+name of Anderson’s model, Brain-State-in-a-Box, or BSB
+(Anderson, Silverstein, Ritz, and Jones, 1977). The BSB
+model has been used in various pattern classi!cation applications. However, it has several conceptual problems, a
+major one being that its activities can amplify, rather than
+suppress, noise. I had, in fact, mathematically proved how
+to solve this noise suppression problem in my 1973 article about “Contour Enhancement, Short-Term Memory,
+and Constancies in Reverberating Neural Networks”
+(Grossberg, 1973). I summarize in Figure 1.7 how signal
+functions may be chosen to avoid noise ampli!cation.
+From Moore-Penrose pseudo-inverse to Self-Organizing
+Maps. Teuvo Kohonen at Helsinki University also made
+a transition from linear algebra concepts, such as the
+Moore-Penrose pseudoinverse (e.g., Albert, 1972), to more
+biologically motivated models that include nonlinear interactions. In the latter category, Kohonen used a simpli!ed version of a Self-Organizing Map, or SOM, model in
+various applications (e.g., Kohonen, 1984). The SOM model
+feeds the outputs of an adaptive !lter into a competition
+that chooses a winning category, or small set of categories,
+from the cells that receive the largest total inputs through
+the adaptive !lter. These winning categories are used to
+classify incoming data.
+The SOM had earlier been introduced and developed
+in the early 1970s by myself working in Cambridge and
+Boston, and Christoph von der Malsburg, who was then
+working at the Max-Planck Institute for Biophysical
+Chemistry in Göttingen (Grossberg, 1972c, 1976a, 1976b;
+Malsburg, 1973). I had even earlier introduced and mathematically analyzed the learning laws and competitive networks that go into the SOM model, starting in the 1960s
+(e.g., Grossberg, 1968c, 1969c, 1971b, 1973, 1974).
+I will explain how biological SOMs work in Chapter 5,
+including how they can undergo catastrophic forgetting,
+and how they solve the stability-plasticity dilemma, and
+thus do not catastrophically forget, when they are suitably
+
+|
+
+67
+
+embedded within larger Adaptive Resonance Theory, or
+ART, neural architectures. Biological versions of SOMs include essential properties, such as Medium Term Memory,
+or MTM, that the simpli!ed version of Kohonen does not.
+These enhanced SOMs, and the larger ART architectures
+in which they live, are used in a remarkably wide range
+of brain processes, ranging from vision and speech to
+cognitive-emotional interactions and spatial navigation.
+
+Continuous-Nonlinear
+Hartline-Ratliff equation for the horseshoe crab retina.
+Continuous-nonlinear network laws typically arose from
+an analysis of behavioral or brain data. Neurophysiological
+experiments on the lateral eye of the Limulus, or horseshoe crab, led to the award of a Nobel Prize in Physiology
+or Medicine in 1967 to H. Keffer Hartline, who had done
+his work at The Rockefeller Institute for Medical Research
+in Manhattan. Hartline used to collect the crabs on Long
+Island.
+In addition to doing these important experiments,
+Hartline also worked with Floyd Ratliff to model their
+data (Hartline and Ratliff, 1957). This interdisciplinary research provided an inspiring prototype for how cuttingedge neurophysiological experimentation and theoretical
+modeling could be mutually reinforcing. The original
+Hartline-Ratliff model describes network activities at
+steady-state in response to constant inputs. This model
+shows how recurrent inhibition across cells can reduce the
+net activities in the retina; cf. Figures 1.6 and 1.7. An inhibitory feedback signal is generated in the model when
+the cell’s activity exceeds a !ring threshold.
+The Hartline-Ratliff equation was generalized with
+their collaborator William Miller to the Hartline-RatliffMiller model, which models the dynamics of recurrent
+inhibition through time (Ratliff, Hartline, and Miller,
+1963). Figure 2.13 describes how the model’s cell activities ei are transformed into smaller net activities hi
+t
+
+by the sum − ∑ j =1[ ∫ e − A(t −v )h j (v )dv − Γ j ]+ B ji of all the inn
+
+0
+
+hibitory feedback signals. Each inhibitory feedback signal
+is itself a difference of two terms. The !rst term is a timeaverage, from the start time v = 0 to the present time v = t ,
+of the net activity h j (v ) of the jth inhibitory cell as it exponentially decays through time at rate A. The second
+term subtracts the !ring threshold Γ j from the average
+activity to determine the inhibitory feedback signal. The
+Hartline-Ratliff-Miller model is thus a kind of continuous
+threshold-logic system. This model is a precursor of the
+Additive Model that that I had independently discovered
+in 1957-58 (Figure 2.9).
+
+68
+
+|
+
+Conscious MIND Resonant BRAIN
+
+FIGURE 2.13. Hartline’s lab developed a model to describe signal processing by the retina of the horseshoe crab.
+
+Coincidentally, the year 1967 when Hartline won
+the Nobel Prize was also the year that I earned my PhD
+in mathematics from Rockefeller for a thesis that proved
+global limit and oscillation theorems for the neural networks that I had discovered in 1957–58 (see below). My
+neural networks included as a special case the HartlineRatliff-Miller model. I was able to prove these global limit
+and oscillation theorems for networks with an arbitrarily
+large number of neurons, which was an unusual kind of
+theorem in applied mathematics. The theorems characterized all the trajectories of the STM and LTM traces of the
+networks as they learned through time, and thus showed
+how the networks function as content-addressable memories for storing learned patterns.
+Hodgkin-Huxley equations for the squid giant axon.
+Another classical contribution arose from the analysis of
+how the excitable membrane of a single neuron can generate electrical spikes (the red curve in Figure 2.14) that are
+capable of rapidly and non-decrementally traversing the
+axon, or pathway, from one neuron’s cell body to a neuron
+to which it is sending signals. This experimental work was
+done on the squid giant axon because it was big enough to
+allow the electrode to be placed inside it. Sir Alan Hodgkin
+and Sir Andrew Huxley did these epochal experiments both
+at the Physiological Laboratory in Cambridge, England,
+and at the Laboratory of the Marine Biological Association
+in Plymouth, Massachusetts (Hodgkin and Huxley, 1952).
+I call the work epochal because it remains one of the most
+important foundational neurophysiological studies that
+has ever been done. Hodgkin and Huxley also introduced
+the Hodgkin-Huxley model of nerve impulse propagation
+to explain their data about how spikes are generated and
+travel down an axon (Figure 2.14). Theirs was thus another
+inspiring example of a highly successful interdisciplinary
+experimental and modeling enterprise. Their work earned
+them the Nobel Prize in Physiology or Medicine in 1963.
+
+FIGURE 2.14. Hodgkin and Huxley developed a model to explain how spikes travel down the squid giant axon.
+
+Despite its great importance and usefulness, the
+Hodgkin-Huxley model was basically a curve !t to their
+data from a single kind of cell. Later models and mathematical analyses, notably in a classical series of articles by
+Gail Carpenter between 1976 and 1981, provided a more
+robust mathematical de!nition of a generalized HodgkinHuxley model that included many biophysical variations
+which could occur in different kinds of neurons, as well
+as a mathematical analysis of how individual spikes are
+generated in a wide variety of cells. Carpenter also proved
+when and how periodic sequences and bursts of spikes
+could occur under both normal and abnormal conditions
+(Carpenter, 1976, 1977a, 1977b, 1979, 1981). These results
+provided a deep geometrical insight into how and when
+different spiking patterns are caused in large classes of
+model neurons.
+Since the Hodgkin-Huxley equation focuses on individual neurons rather than neural networks, it will not be
+further discussed herein except to note that it provides a
+historical context for the neural network Shunting Model
+that I discovered in 1957-58 and !nally got published in
+1967 in the Proceedings of the National Academy of Sciences
+(Grossberg, 1967; Figure 2.10).
+Linking brain to mind: !e units that govern behavioral
+success are distributed patterns. I hope that these historical comments give the reader a better idea of the stateof-the-art around the time that I introduced the paradigm
+of using nonlinear neural networks to link brain mechanisms to psychological functions in 1957-1958. Despite the
+fact that these laws are foundational and classical today,
+it took a decade to get them published because they represented a major paradigm shift in how the psychological
+and brain sciences were then being studied. This paradigm
+shift is still ongoing today.
+
+How a Brain Makes a Mind
+
+As I have noted above, these discoveries were derived
+from an analysis of how an individual learner adapts autonomously in real time. Because of the psychological origins of this discovery, and the fact that I was so young,
+I did not at the time know anything about how brains work,
+or about the contemporary work of Hodgkin and Huxley.
+Once I realized, however, that my psychologically derived laws explained basic facts about brain dynamics and
+learning, I leaped into the neurobiological literature with
+an enthusiasm that has never abated. The ensuing models
+aimed at explaining interdisciplinary experimental literatures highlighted profound differences between what I was
+doing and the classical results on single neurons, as in the
+work of Hodgkin and Huxley, or small networks of neurons, as in the work of Hartline and Ratliff. Instead, modeling of how an individual’s behavior adapts in real time
+to a changing environment led to new functional insights
+about how our brains look and function, including the
+basic fact that the functional units that govern behavioral
+success are distributed patterns on the network and system
+levels, not single spikes, or sequences or bursts of spikes, in
+individual neurons.
+
+Why does the brain use
+nonlinear multiple-scale
+feedback networks
+With these STM, MTM, and LTM equations in hand, I
+can tell you more about what kind of differential equations
+are needed to explain how a brain gives rise to a mind.
+Essentially all of the known self-adapting behavioral and
+brain systems are nonlinear feedback systems with large
+numbers of components operating over multiple spatial and temporal scales. What do these words mean? As
+I noted in my discussion of Helmholtz’s insights about
+how we “discount the illuminant,” a linear system is one
+in which the “whole is the sum of its parts.” In a linear
+system, the effects of the parts on the whole are just added
+or subtracted. A nonlinear system is one in which this is
+not true. In particular, lots of the effects that occur in the
+brain use multiplication or division. The class of all nonlinear systems is huge, and there are a very large number
+of nonlinear systems that do not describe a brain. The task
+of selecting appropriate nonlinear systems requires a sustained analysis of behavioral and brain data.
+A feedforward system is one in which information flows
+in only one direction: from the outside of the system progressively inward. As noted in my discussion in Chapter 1
+of Helmholtz’s theory of unconscious inference, the brain
+also needs to include feedback. In a feedback system, interactions occur in both directions, both to and from a given
+neuron (Figure 2.2). In the case of phonemic restoration,
+
+|
+
+69
+
+feedback enables an adaptive resonance to occur between
+a working memory that stores a sequence of individual
+events, and list categories that code whole sequences of
+events (Figure 1.23). As noted earlier, this kind of feedback
+is said to be top-down, from deeper in the brain towards
+more peripheral processing stages.
+Another kind of feedback can occur within a given
+neural region, often among cells of a similar type. Such networks are often said to be recurrent (Figure 1.6). Feedback
+can also occur between the brain and its environment, as
+when we use an arm to move an object, while watching
+the object move. The fact that multiple temporal scales are
+needed is evident from the de!nitions of STM, MTM, and
+LTM, with STM variables changing on a time scale of milliseconds, MTM variables changing on a time scale of tens
+or hundreds of milliseconds, and LTM variables changing
+on a time scale of from seconds to a lifetime. For example,
+the process whereby we hear a new word using STM operates more quickly than the learning process whereby we
+remember the word on a future occasion using LTM.
+Multiple spatial scales are needed because the brain
+needs to process object parts as well as wholes. For example, when we look at a face, we can see it as a whole, as
+well as its various distinctive parts, such as the eyes, nose,
+mouth, hair, and even small skin blemishes. Multiple scales
+are also needed to categorize words of different length.
+And so on. Multiple spatial scales can be de!ned using
+the summation signs ∑ that combine all the signals
+from other cells to a given cell. Each modal architecture
+allows different numbers of cells to influence each other,
+ranging from only nearby cells to widespread connections.
+Masking Fields (Figures 1.23 and 1.24) show that a single
+network level can contain multiple scales, in this instance
+to be able to selectively categorize, or chunk, list sequences
+of multiple lengths. Subsequent chapters, notably Chapters
+8 on motion perception, Chapter 11 on form perception,
+and Chapter 12 on speech perception, will illustrate how
+multiple scales work with speci!c examples.
+What about nonlinear feedback? The sums of excitatory and inhibitory signals are feedback signals because,
+just as the kth cell activity xk can influence the ith cell activity xi with such a signal, the ith cell activity can often
+reciprocally influence the kth cell activity in return. This
+happens all the time, whether as schematized in the anatomical diagram of visual system connections in Figure
+0.1, in backward learning in Figure 2.8, or in adaptive resonance in Figures 1.23, 1.24, and 2.2.
+The STM, MTM, and LTM equations in Figures 2.9–
+2.11 enable a more precise description of the kind of nonlinear feedback, and multiple spatial and temporal scales,
+that our brains use. For example, wherever you see the
+variables x (STM), y (MTM), or z (LTM) multiplied in
+Figures 2.9–2.11, that is a nonlinear term. Consider the
+shunting STM equation in Figure 2.10 for de!niteness.
+All the product terms f(x)yz and g(x)YZ are nonlinear. As
+
+70
+
+|
+
+Conscious MIND Resonant BRAIN
+
+I noted earlier in this chapter, these terms say that MTM
+and LTM multiplicatively gate an STM signal f(x) between
+cells before this net signal can influence the recipient cell.
+The equations that these variables obey are the least nonlinear equations that can accomplish their various functional requirements.
+These nonlinear feedback and multiple-scale properties are all easy to describe intuitively, but translating them
+into workable systems, within the tough honesty of mathematics, has always been a big challenge. The hardest thing is
+often to !gure out what problem the brain is trying to solve
+and how it is going about it. For example, realizing that the
+CLEARS mechanisms of Adaptive Resonance Theory are
+related took many years of thought. This book can now be
+written because, after intuition and mathematics successfully combine to discover new organizational principles
+and mechanisms, the resulting insights can often be stated
+as a simple story, without the mathematics. However, as I
+noted above, a full understanding of why a result has the
+properties that it does, along with a sense of its inevitability, does require that one study the underlying mathematical equations and derivations that reveal their implications. Fortunately, many basic conclusions can be proved
+by using just high school mathematics. Deeper properties
+sometimes require additional mathematics for their proof,
+but one can go a long way with simple methods. In all cases,
+mathematics provides the springboard from which we can
+cross the bridge from individual neurons to the emergent
+properties of large networks of interacting neurons that
+map directly onto observable behaviors.
+
+A gedanken experiment for
+solving the noise-saturation
+dilemma in cellular tissues
+Cooperation and competition are universal in biology,
+including in brain networks. I will now explain how the
+brain solves the noise-saturation dilemma in order to illustrate how simple mathematics can rapidly lead to profound conclusions that would otherwise be very difficult to
+understand. I will use a gedanken, or thought, experiment
+to derive the simplest laws that realize this solution. Such
+a gedanken experiment celebrates the triumph of pure
+reason in science by showing how obvious hypotheses,
+with which no one would disagree, together imply conclusions about deep properties of brain organization that required ingenious experiments to discover. One can think
+of such a gedanken experiment as exposing some of the
+evolutionary pressures that led to these properties of brain
+organization.
+The general theme that will be clari!ed by this particular gedanken experiment is why neurons cooperate and
+
+compete. Cooperation and competition are well known
+to occur in biology, one of whose classical cornerstones is
+the transformative work of Charles Darwin, On the Origin
+of Species by Means of Natural Selection in 1859 (Darwin,
+1859), which explained how evolution may be shaped by
+the competitive interactions that drive natural selection.
+Darwin’s work focused on how competition can shape the
+evolution of species. But why is competition ubiquitous on
+the level of cells? The gedanken experiment provides an
+answer that is just as important for non-neural cellular tissues as for brains.
+What is a cell: Computing with cellular patterns. In
+order to proceed, we !rst need to ask: What is a cell? A
+sufficient answer to such a challenging question will not
+be attempted in this book, and indeed is still a work in
+progress throughout biology. However, I can immediately
+state a necessary condition that holds for all cells, whatever else they may be: A cell has only finitely many excitable
+sites that can be turned on or off by external or internal
+inputs. This is just a special case of the claim that in!nity
+does not exist in biology. This fact alone leads to enormous
+conceptual pressure whereby to understand how competition must work in cells, indeed how to solve the noisesaturation dilemma that I summarized in Figure 1.5, if one
+thinks about the problem in the right way. This solution, in
+turn, provides a framework for discussing profound theoretical issues in a uni!ed way, notably the many-faceted
+question: How do we reconcile the probabilistic nature of
+the world with the fact that our behaviors can be carried
+out with deterministic precision?
+I will combine this simple constraint on the de!nition of a cell with the fact that, in order to bridge between
+brain mechanisms and mental functions, one must study
+distributed patterns of activation across a network of cells,
+rather than the activity of an individual cell. This can
+easily be seen by considering some of the facts about vision
+and audition that I described in Chapter 1. One cannot understand how we see and recognize pictures such as those
+in Figures 1.1-1.4, or the sounds such as those in Figure
+1.22, without analyzing how the networks of cells that are
+activated by these pictures or sounds respond to them.
+Responses of individual visual or auditory cells, taken in
+isolation, are usually too ambiguous to control any behavior. The distributed pattern of activity to which these cells
+contribute provides a context in which their individual activities take on functional meaning.
+Noise-saturation dilemma: Pattern processing by cell
+networks without noise or saturation. With this in
+mind, I can immediately ask how activity patterns across
+networks of noisy cells with !nitely many sites maintain their sensitivity to inputs patterns whose overall size
+may change wildly through time. In particular, multiple
+input sources may converge on individual cells, and do so
+
+How a Brain Makes a Mind
+
+at different times and with different amplitudes. How do
+the cells manage to respond without being contaminated
+by either internal cellular noise—when the sizes of their
+inputs are all small—or by saturating their activities at
+their maximal value—when the sizes of all their inputs are
+large? I have called this basic problem the noise-saturation
+dilemma (Figures 1.5 and 2.15).
+Figure 2.15 emphasizes that all of the cell activities xi
+fluctuate within a !nite range of values, indeed such a small
+range of values that oscilloscopes were needed to amplify
+them enough so that they would be visible to experimentalists. H. Keffer Hartline, whose Hartline-Ratliff-Miller
+equation is summarized in Figure 2.13, was an early user of
+oscilloscopes to amplify the signals that he was recording
+from in optic nerve !bers and, later, from networks of cells
+in the retina of the Limulus, or horseshoe crab.
+Despite being restricted to such small activity values,
+cells can respond to input patterns without them being
+unduly contaminated by noise or saturation. Figure 1.5
+already depicted the problem that is avoided in this way
+by illustrating the desired cell activities in response to
+an input pattern, as contrasted with a saturated activity
+pattern in response to large inputs in the lower left, and
+a noisy response in response to small inputs in the lower
+right. To achieve further clarity, Figure 2.16 shows both
+the input patterns, in the left column, and the activity patterns that they could have caused, in the right column, if
+the noise-saturation dilemma were not solved. Showing
+both is needed to understand how this problem can be
+solved.
+The upper left image in Figure 2.16 shows an input pattern Ii across a network of feature-selective cells. Although
+there are only !nitely many cells, the green curve that depicts input size at each cell is interpolated between cells
+for simplicity. This input pattern has two peaks, corresponding to the fact that the inputs to the corresponding
+
+|
+
+71
+
+FIGURE 2.16. To solve the noise-saturation dilemma, individual
+neurons in a network that is receiving a distributed spatial patterns of inputs need to remain sensitive to the ratio of the input
+to them divided by all the inputs in that spatial pattern. Although
+the inputs are delivered to a finite number of neurons, the input
+and activity patterns are drawn continuously across the cells for
+simplicity.
+
+feature-selective cells are the most important. The input
+pattern below this one reduces all the input sizes proportionally, thereby preserving the relative important of
+inputs to the cells, until all the inputs are small. Because all
+of these inputs are sufficiently small, the activity pattern xi
+that they cause is contaminated by noise, as shown in the
+!gure to the right of the input pattern. The lowest input
+pattern increases all the input sizes proportionally, again
+preserving the relative importance of the inputs, until
+even the smallest input is large. Here, even the smallest
+input is sufficiently large that it can turn on all the sites at
+its target cell, as can all the other inputs as well. The result
+is a saturated activity pattern, as illustrated to the right of
+this input pattern.
+Computing ratios: Brightness constancy and contrast as
+two sides of a coin. In order to solve the noise-saturation
+problem, somehow the cells in the network need to remain
+sensitive to the relative sizes, or ratios θi = I i / ∑ I j , of the
+j
+
+FIGURE 2.15. The noise-saturation dilemma: How do neurons
+retain their sensitivity to the relative sizes of input patterns
+whose total sizes can change greatly through time?
+
+inputs, as the total input becomes arbitrarily large. In fact,
+many kinds of data show that neurons can preserve their
+sensitivity to input ratios as total inputs increase without
+changing their relative size. A famous example of this property is called brightness constancy. Brightness constancy
+illustrates the far more general process of discounting the
+illuminant, which enables us to perceive the real colors of
+scenes as we see them under very different illumination
+conditions, a process that I will explain in greater detail in
+Chapter 4. In Figure 2.17, a light gray disk is surrounded
+by a darker gray annulus. A light shines on this entire
+
+72
+
+|
+
+Conscious MIND Resonant BRAIN
+
+FIGURE 2.17. Brightness constancy.
+
+image. The illumination level is chosen to have a series of
+different intensities. No matter what intensity is chosen,
+within a wide range, an observer who is asked to match the
+perceived brightness of the gray disk will always chose the
+same disk from the array of possible matches in the right
+column of the !gure. In other words, the perceived brightness of the gray disk is constant despite changes in overall
+illumination. On the other hand, if only the gray disk were
+illuminated at increasing intensities, with the annulus illuminated at a constant intensity, then the gray disk would
+look progressively brighter.
+When any part of an image is illuminated at higher
+intensities, the relative amount of light that is reflected to
+our eyes remains the same, even while the total amount of
+light increases with the intensity of the incident illumination. Each shade of gray reflects a different fraction of the
+light that it receives. This fraction is called its reflectance,
+with a lighter gray reflecting a larger fraction of light than
+a darker gray. Thus, when the entire image is illuminated
+by the same light intensity, the relative amounts of light
+that are reflected from every position of the image remain
+the same, even while that intensity varies a lot. Our brains
+compute these constant ratios to solve the noise-saturation
+dilemma. However, if only the gray disk receives increasing illumination, then the relative amounts of light that are
+reflected by the disk and the annulus are no longer constant, so brightness constancy is not perceived in this case.
+One implication of the fact that our brains compute
+relative amounts of light is that ratios add up to a constant,
+namely 1. This fact implies another famous visual property
+that is called brightness contrast, which may be understood
+as the other side of the coin to brightness constancy. As
+illustrated by Figure 2.18, consider two images with the
+same gray disk in the middle, but surround one by a darker
+gray annulus than the other one. Then the disk that is surrounded by the darker gray annulus looks brighter than
+the disk that is surrounded by the lighter gray annulus.
+This contrast effect occurs because, if all the ratios sum
+
+FIGURE 2.18. Brightness contrast.
+
+to a constant value, then smaller ratios from the annulus
+will lead to the perception of larger ratios, and thus greater
+brightness, from the disk.
+A thought experiment for solving the noise-saturation
+dilemma in cellular networks. I will now use a simple gedanken, or thought, experiment to explain how our brains
+compute the ratios of input sizes. Despite the simplicity of
+the ideas that I will now describe, they have far reaching
+implications that influence how all kinds of input patterns
+are computed by networks of cells, both throughout our
+brains and in essentially all cellular organs of multicellular
+living creatures.
+All that I need to proceed with the thought experiment is a property that I mentioned above which all
+cells share: They only have !nitely many excitable sites.
+In!nity does not exist in biology! Accordingly, Figure
+2.19 shows a network of cells each of which has the same
+!nite number B of excitable sites, with the ith cell Vi receiving an input Ii that may have any !nite intensity, including zero. Also depicted are the cell activities xi that
+are proportional to the number of excited sites. For simplicity, assume that this proportionality constant is equal
+to 1. We can then conclude that there are B - xi unexcited
+sites in each cell.
+How can inputs Ii saturate all the excitable sites B of
+their cell? Figure 2.20 shows how this can happen using
+the simplest equation whereby an input Ii can excite its
+cell. There are no interactions between the cells in this
+network, as illustrated by the image in the upper right of
+d
+Figure 2.20. The term xi in this equation just describes
+dt
+the rate with which activity xi gets turned on or off through
+time. That is why it is called the time derivative of xi. The
+!rst term − Axi on the right hand side of this equation just
+says that activity xi decays spontaneously (note the minus
+d
+sign that tends to make xi negative) at the !nite rate A
+dt
+
+How a Brain Makes a Mind
+
+|
+
+73
+
+Figure 2.21 shows what happens when each input stays
+constant long enough for all the activities xi to converge to
+zero. To solve for the equilibrium value of each activity xi ,
+d
+just set its rate of change xi equal to zero and rearrange
+dt
+terms in the resulting equation to compute its equilibrium
+value. Then substitute I i = θi I into this equation. And increase the total intensity I . As I increases to sufficiently
+large values, each xi approaches B. In other words, each
+activity across the network saturates at its maximal value.
+The reason for saturation is clear: There is nothing to
+stop unexcited sites from getting excited more and more
+as the total input increases. How, then, must the network be modi!ed to compute the pattern-sensitive ratios
+θi = I i / ∑ I j ? As Figure 2.22 notes, in order for the ith
+j
+
+FIGURE 2.19. Computing with cells: Infinity does not exist in
+
+biology!
+
+FIGURE 2.21. How shunting saturation turns on all of a cell’s
+excitable sites as input intensity increases.
+FIGURE 2.20. Shunting saturation occurs when inputs get
+larger to non-interacting cells.
+
+through time until it reaches an equilibrium value of zero.
+The main action takes place as a result of the second term
+of this equation, namely +( B − xi )I i . This term says that
+the unexcited sites, which number ( B − xi ) can get excited
+d
+(note the plus sign that tends to make xi positive) at a
+dt
+rate that increases with the intensity of the input Ii. The
+multiplicative interaction between these two terms can
+also be described as mass action between unexcited sites
+and input intensity.
+You can see how saturation occurs by writing each
+input Ii as its relative intensity θi times its total intensity
+I = ∑ I j . Thus I i = θi I .
+j
+
+FIGURE 2.22. An on-center o!-surround network is capable of
+computing input ratios.
+
+74
+
+|
+
+Conscious MIND Resonant BRAIN
+
+cell Vi to compute the ratio of all the inputs, interactions
+between the cells are needed so that each cell knows what
+the inputs from the other cells are, which occur in the denominator of the ratio that de!nes θi . Figure 2.22 points to
+what kind of interaction between cells can compute input
+ratios at each cell.
+On-center off-surround anatomies can compute input
+ratios. Figure 2.22 distinguishes the input I i that tries to
+turn on unexcited sites at cell Vi from the other inputs that
+are needed to compute θi . In particular, input I i occurs in
+both the numerator and the denominator of θi , so increasing I i also increases θi . In other words, I i excites the cell. In
+contrast, all of the inputs I k from the other cells occur only
+in the denominator of θi . Increasing any of these inputs
+causes θi to decrease. In other words, all the other inputs
+inhibit the cell.
+Said in another way, each input I i excites its own
+cell and inhibits all the other cells. Figure 2.22 draws
+this kind of interaction in the lower right. It describes
+an on-center off-surround anatomy! Thus, one reason
+why on-center off-surround anatomies are ubiquitous in
+brains and other cellular tissues is that they de!ne interactions that can solve the noise-saturation dilemma,
+and thereby enable cellular networks to process distributed input patterns without noise or saturation even if
+these input patterns arrive with very different intensities
+through time.
+Shunting on-center off-surround networks solve the
+noise-saturation dilemma. Figure 2.22 describes the
+kind of anatomical interactions that can solve the noisesaturation dilemma, but not the dynamics, or neurophysiological laws, that can do so in these anatomies. Figure
+2.23 summarizes the kinds of dynamics that interact in
+these anatomies to accomplish that goal.
+The top equation in Figure 2.23 provides the solution.
+The !rst two terms on the right hand side of this equation are just the ones that, left to themselves, would cause
+saturation, as shown in Figure 2.21. The !rst term allows
+passive decay of activity. The second term + ( B − xi ) I i
+allows unexcited sites ( B − xi ) to be turned on by input I i .
+The third term − xi ∑ I k on the right hand side of the equak ≠i
+
+tion in Figure 2.23 says that excited sites xi are turned off
+(note the minus sign) at a rate proportional to the number
+of excited sites xi times the total input ∑ I k from the offk ≠i
+
+surround of the network.
+When the inputs stay constant for awhile, the activities again converge to constant values, so the time
+d
+xi can be set equal to zero to compute
+derivatives
+dt
+equilibrium activities. When this is done, the following
+
+FIGURE 2.23. The equations for a shunting on-center o!surround network. Shunting terms lead to many beautiful and
+important properties of these networks, which are found ubiquitously, in one form or another, in all cellular tissues.
+
+Minor Mathematical Miracle occurs: Bringing together all
+the input terms that have the common multiple of xi yields
+the term −( A + I i + ∑ I k )xi. Note that the on-center input
+k ≠i
+
+I i and the off-surround input ∑ I k sum to the total input
+k ≠i
+
+I! As a result, the equilibrium activity xi = I i / ( A + I ) has
+the total input I, not the ith input I i , in its denominator, as
+it did in Figure 2.21. If we now substitute I i = θi I into this
+equation and rearrange terms, we !nd the equilibrium activity xi = θi [ BI / ( A + I )] .
+Remarkably, this equilibrium activity xi remains proportional to the ratio θi no matter how large the total input
+I is chosen. The noise-saturation dilemma has been solved!
+It has been solved by using mass action dynamics in an oncenter off-surround anatomy.
+The ability of each equilibrium activity to remain proportional to its ratio is the main property that is needed
+to explain how brightness constancy occurs (Figure 2.17).
+What about brightness contrast (Figure 2.18)? Is the total
+activity conserved? The bottom equation in Figure 2.23
+shows that the answer is Yes. One can see this just by
+adding all the activities and showing that the total activity
+n
+x = ∑ k =1 x k is bounded by B, no matter how large the total
+activity I may be chosen, thereby proving total activity
+normalization.
+Infinite dynamic range, automatic gain control, limited
+capacity, and real-time probabilities. The properties of
+this shunting on-center off-surround network can be described in several ways that are all worth thinking about.
+For one, the fact that cell activities remain proportional
+to the relative input sizes, no matter how large the total
+
+How a Brain Makes a Mind
+
+input becomes, can be called an infinite dynamic range.
+This crucial property arises because the inputs multiply
+the activities, in both the on-center and off-surround of
+the network. This multiplicative property is also called
+automatic gain control because it enables the circuit to
+work well in response to a wide range of input sizes. The
+terms where inputs multiply activities control the equilibrium activities and also the rates with which activities
+converge to equilibrium, with larger inputs causing faster
+reaction rates.
+As I noted in Figure 1.8, the property of total activity
+normalization also occurs in recurrent, or feedback,
+shunting on-center off-surround networks (Figure 1.6)
+that are used to store input patterns in short term memory.
+Total activity normalization implies a limited capacity of
+the network (Posner, 1980). Because of limited capacity,
+when more cells compete, each one will tend to be less
+active. Said in another way, increasing the activity of one
+cell comes at the cost of decreasing the activities of other
+cells. When too many inputs occur, some of their cells may
+thus not be activated enough to overcome their quenching
+threshold, and will not be stored in short term memory
+(Figure 1.9).
+The sum of all of the activities is bounded by a constant in a non-recurrent on-center off-surround network (Figure 2.23). This sum converges through time to
+a constant in a recurrent network (Figure 1.7). Activities
+in such a recurrent network thus behave like probabilities that are dynamically changing through time.
+A larger activity may be interpreted to mean that the
+features coded by its cell population are more probable.
+Various of the neural architectures that this book describes may likewise be interpreted as carrying out one
+or another kind of probabilistic decision making, planning, or the like.
+Deriving the membrane equations of neurophysiological from a thought experiment. The mass action,
+or shunting, dynamics that we have been led to by the
+thought experiment are the dynamics used by neurons.
+They are also called the membrane equations of neurophysiology. The equation at the top of Figure 2.24 shows
+this familiar equation for the variable voltage V of a
+cell in terms of its capacitance C; three constant saturation voltages: an excitatory saturation voltage V+, an
+inhibitory saturation voltage V-, and a passive saturation
+voltage Vp; and three conductances that may or may not
+vary through time: an excitatory conductance g+, an inhibitory conductance g-, and a passive conductance g p.
+When these variables are set equal to the values in the
+lower right of Figure 2.24, the result is the equation at
+the top of Figure 2.23. We have hereby been led to derive
+the membrane equations of neurophysiology from our
+thought experiment.
+
+|
+
+75
+
+FIGURE 2.24. The membrane equations of neurophysiology
+describe how cell voltages change in response to excitatory, inhibitory, and passive input channels. Each channel is described by
+a potential di!erence multiplied by a conductance. With the special choices shown in the lower right hand corner, this equation
+defines a feedforward shunting on- center o!-surround network.
+
+Towards a universal
+developmental code using
+mass action cooperativecompetitive dynamics
+We have actually done a lot more than that, because this
+kind of shunting dynamics solves the noise-saturation dilemma only if it is carried out an on-center off-surround
+anatomy. This basic fact raises the question: Did the membrane equations and on-center off-surround anatomies
+co-evolve during the evolutionary process, so that cell networks could process distributed feature patterns without
+noise or saturation from the earliest stages of the evolution
+of cellular organisms?
+Two languages can equally well describe this result,
+and one of them generalizes to all cellular tissues: On the
+one hand, there are the shunting on-center off-surround
+anatomies that are found in our brains. On the other
+hand, there are the mass action cooperative-competitive
+systems that can be found in all cellular tissues. It is this
+latter language that generalizes throughout the world of
+living cellular organisms and that clari!es an important
+reason why competition occurs, not only to guide natural
+selection on the level of species, but also to support processing of distributed patterns at every organizational level
+in all cellular organisms. This latter language is part of a
+universal developmental code that I will further discuss
+in Chapter 17.
+
+76
+
+|
+
+Conscious MIND Resonant BRAIN
+
+Weber law, adaptation, and shift property. So far, I
+have mostly discussed the simplest feedforward, or nonrecurrent, shunting on-center off-surround network. Even
+this network has important properties that are also found
+in the brain. After describing one of these properties, I
+will show you how the simplest equation can be altered in
+easy incremental steps to realize a wide range of additional
+useful properties. These examples illustrate a kind of conceptual evolution of competitive systems that describes
+and mechanistically organizes the useful properties of
+ever-more-complex non-recurrent shunting on-center
+off-surround networks. I already showed you in Chapter
+1 how different feedback signal functions of a feedback,
+or recurrent, shunting on-center off-surround network
+(Figure 1.6) can support very different transformations of
+input patterns into stored short-term memories (Figures
+1.7-1.9).
+The new property of the simplest non-recurrent network is a manifestation of how solving the noise-saturation
+dilemma enables it to maintain its sensitivity to inputs
+even when the off-surround may vary greatly in strength.
+This shift property is most easily seen by plotting each
+equilibrium activity xi against the logarithm K = ln( I i ) of
+the input I i to its on-center. The subscript i is not included
+in the notation K for simplicity. When this is done, xi ( K , J )
+can be plotted as a function of K for different !xed values
+J = ∑ I k of the total off-surround input. The resulting
+
+FIGURE 2.25. An on-center o!-surround network can respond
+to increasing on- center excitatory inputs without a loss of sensitivity. Instead, as the o!-surround input increases, the region
+of a cell’s maximal sensitivity to an increasing on- center input
+shifts to a range of larger inputs. This is because the o!-surround
+divides the e!ect of the on- center input, an e!ect that is often
+called a Weber law.
+
+k ≠i
+
+plots at the top of Figure 2.25 show how each activity xi
+increases with increases in K when the total off-surround
+input J is !xed at successively larger values J1, J2,. . . As J is
+chosen at successively larger values, the curves of the corresponding activity functions xi shift to the right; hence
+the name shift property. The main point is that each xi
+begins to increase at larger values of K in response to a
+larger choice of J, but the same maximum activity is eventually approached. This property is also called a Weber law
+because it shows how the sensitivity of each cell to excitatory on-center inputs is divided by the size J of the total
+inhibitory input to it.
+The shift property can be proved with simple high
+school algebra. The main idea is shown in the bottom equation in Figure 2.25. Here two of the curves in the !gure,
+with different off-surround inputs J1 and J2, are equated,
+one a shift S of the other. Then one solves for S. The resulting shift S is shown at the lower right of Figure 2.25.
+Shift property and shunting on-center off-surround network in the mudpuppy retina. In 1971, Frank Werblin
+published neurophysiological data from the retina of an
+aquatic salamander called the mudpuppy, or Necturus
+maculosus (Werblin, 1971). His data also describe a shift
+property when the on-center input is plotted in logarithmic coordinates (Figure 2.26). The main point to emphasize is what did not happen: The dynamic range of the
+
+FIGURE 2.26. The mudpuppy retina exhibits the shift property
+that occurs in the feedforward shunting on- center o!-surround
+network in Figure 2.25. As a result, its sensitivity also shifts in
+response to di!erent background o!-surrounds, and therefore
+exhibits no compression (dashed purple lines).
+
+cell responses did not get smaller as the off-surround was
+chosen at larger values, as illustrated by the dashed purple
+curves in Figure 2.26. Thus, the mudpuppy retina solves
+the noise-saturation dilemma, leading one to wonder if
+it does so using a shunting on-center off-surround network. Earlier studies showed that, in fact, an on-center
+off-surround network does exist in the mudpuppy retina.
+As illustrated at the bottom of Figure 2.27, retinal photoreceptors (R) excite their target bipolar cells (B) as well as
+horizontal cells (H) that carry inhibitory off-surround signals to other photoreceptors. Thus, by the time the second
+
+How a Brain Makes a Mind
+
+FIGURE 2.27. A schematic of the on-center o!-surround network that occurs in the mudpuppy retina, including the three
+main cell types: Receptors, horizontal cells, and bipolar cells.
+
+|
+
+77
+
+FIGURE 2.28. Silent inhibition is replaced by hyperpolarization
+when the inhibitory saturating potential is smaller than the passive saturating potential. Then an adaptation level is created that
+determines how big input ratios need to be to activate their cells.
+
+layer of cells in the retina, the bipolar cells, are activated
+by light inputs, the noise-saturation dilemma has already
+been solved.
+
+Carpenter and myself about light adaptation in turtle
+cones (Carpenter and Grossberg, 1981).
+
+Intracellular adaptation within photoreceptors creates a Weber law acting in time. The noise-saturation
+dilemma must actually already be solved in the photoreceptors, even before they activate the bipolar-horizontal
+cell network. This has to happen because, otherwise, individual photoreceptors could saturate in response to intense inputs even before they could generate outputs to the
+bipolar cells and horizontal cells. Indeed, we are capable
+of seeing in bright sunlight as well as in dimly lit rooms,
+at least after undergoing a suitable interval of adaptation
+to the new ambient illumination level. Photoreceptor adaptation is, however, intracellular, not intercellular like an
+on-center off-surround network. Its intracellular process
+adapts through time, rather than across space as in the case
+of an on-center off-surround network, by using a habituative transmitter gate, or medium-term memory (Figures
+2.3 and 2.11), to divide current inputs by a time average
+of previous inputs. In this way, intense ambient illumination causes division of the large current light intensity
+by a time average of recent large light intensities, thereby
+normalizing the response via an intracellular Weber law,
+thereby keeping the cell’s responses within its sensitive dynamic range. Thus, both intracellular adaptation within
+photoreceptors and intercellular adaptation by the oncenter off-surround networks that photoreceptors activate
+both give rise to Weber laws that normalize and maintain
+cell sensitivity in response to inputs that may vary greatly
+through time. Interested readers can !nd a lot of classical
+neurophysiological data about photoreceptor adaptation
+and a model that explains them in a 1981 article by Gail
+
+From silent inhibition to hyperpolarization and adaptation levels. The shift property describes an important
+property of the simplest shunting on-center off-surround
+network by using logarithmic coordinates. Additional
+properties may be realized by re!ning this network in
+simple stages. One such re!nement replaces the property
+of silent inhibition (Figures 2.23 and 2.24). This property
+says that the inhibitory saturation voltage V- and the passive saturation voltage Vp are the same. As a result, no
+matter how strong off-surround inhibition may become,
+the activity or potential of a cell can only be driven towards the equilibrium potential that is de!ned by the passive saturation voltage, but not below it.
+Figure 2.28 replaces silent inhibition by choosing the
+inhibitory saturation voltage V- to be smaller than the passive saturation voltage Vp, so that activities, or voltages, can
+be driven by large enough off-surround inhibitory inputs
+to be smaller than the equilibrium voltage. In the notation
+of the top equation in Figure 2.28, the choice of the inhibitory saturation voltage C that is greater than zero accomplishes this because activity xi may then be driven to the
+negative voltage –C before the term (xi + C) equals zero,
+and thus prevents the off-surround from further inhibiting the activity. When activity xi is less than zero, it is said
+to be hyperpolarized, or less than the equilibrium voltage.
+The other equations in Figure 2.28 use the usual
+method to compute the equilibrium activity that is caused
+by constant inputs. This is described by the last equation
+in Figure 2.28. As in the simplest shunting competitive
+network, a Weber law term ( B + C )I / ( A + I ) multiplies the
+
+78
+
+| Conscious MIND Resonant BRAIN
+
+Adaptation levels require a broken symmetry between
+excitation and inhibition. This fact immediately raises
+the question: How does the brain ensure that enough
+ratios are bigger than the adaptation level? This is necessary to make their activities positive, and some of them
+large enough both to represent important features and to
+trigger output signals to other processing levels.
+All the ratios are, by de!nition, less than one. So too is
+the adaptation level C / ( B + C ), because both the excitatory
+saturation voltage B and the inhibitory saturation voltage
+C are positive. However, if there are n cells in the network,
+and all the ratios sum to one, then quite a few ratios will
+have to be less than 1/n for enough of them to be bigger
+than 1/n.
+These considerations imply that the adaptation level
+C / ( B + C ) needs to be chosen considerably smaller than
+one in order for sufficiently many ratios to be positive. As
+Figure 2.29 summarizes, this implies that B must be much
+larger than C. In other words, the difference between the
+smallest possible activity – C and the equilibrium activity
+0 is much smaller than the difference between the largest
+possible activity B and 0, as illustrated in the upper left
+corner of Figure 2.29. If we consider that an equal distance between these parameters and 0 would be a symmetric solution to how to choose these parameters, then
+what actually occurs represents a broken symmetry between excitatory and inhibition, with excitation favored.
+Consequences of this broken symmetry between excitation and inhibition are ubiquitous throughout our brains.
+
+Informational noise suppression and the selection of potentially informative activity patterns. One property of
+great importance can immediately be derived from this
+broken symmetry. It is one of the properties which ensure
+that noise will be suppressed before it can contaminate
+useful information processing. I have already mentioned
+one kind of noise suppression that is carried out by recurrent shunting on-center off-surround networks. This kind
+of noise is the familiar kind: random or quasi-random
+small endogenous activations of neurons that could otherwise interfere with information processing. Figures 1.7-1.9
+show how signals that are faster-than-linear at small activity levels can suppress this kind of noise.
+There is also another potentially catastrophic kind of
+noise that can occur even when endogenous or external
+inputs may be large. I call this kind of noise informational
+noise. Consider the following example of informational
+noise in order to !x ideas. Suppose that there are multiple inputs converging on individual cells through time.
+Suppose moreover that, during a given time interval, the
+total inputs to each of the cells in the network are equal,
+even though the individual inputs that contribute to these
+total inputs may differ across cells. This state of affairs is illustrated in the top left graph of Figure 2.30. Such an input
+pattern is uniform, or has a zero spatial frequency.
+A uniform input pattern is uninformative. It does
+not provide more evidence for some features over others.
+It would be catastrophic if uniform input patterns could
+drive new learning across a network, since all featurallyselective LTM traces could be wiped out.
+The broken symmetry provides a simple solution to this
+problem. It can quickly transform a uniform input pattern,
+no matter how large its shared input size may be, into a
+zero activity pattern, as illustrated by the !gure on the top
+right of Figure 2.30. Such an activity pattern could not,
+
+FIGURE 2.29. How the adaptation level is chosen to enable
+sufficiently distinct inputs to activate their cells.
+
+FIGURE 2.30. Choosing the adaptation level to achieve informational noise suppression.
+
+relative activity, or ratio, θi of inputs. In addition, there is
+a new term C / ( B + C ) that is called the adaptation level.
+The activity xi is positive if θi is bigger than the adaptation
+level, and negative, or hyperpolarized, if it is smaller than
+the adaptation level.
+
+How a Brain Makes a Mind
+
+for example, drive any learning via gated steepest descent
+(Figure 2.11) because all learning gates would be closed.
+As Chapter 5 will explain, informational noise suppression
+helps to prevent our brains from spuriously using noise to
+learn new recognition categories via the instar learning
+laws that obey the gated steepest descent learning law.
+How does the broken symmetry cause informational
+noise suppression? If the total input to every cell is the same
+for awhile, then each activity will also become the same, so
+that all the cell activity ratios will equal 1/n if there are
+n cells in the network. Noise suppression immediately
+follows by choosing the adaptation level to also equal l/n
+(Figure 2.30). Then all activities will equal zero no matter
+how intense the total input to each cell may be. The choice
+l/n for the adaptation level will also, in response to a nonuniform input pattern, allow quite a few cell activities to be
+positive if enough other cells are hyperpolarized.
+Informational noise suppression and bottom-up/topdown pattern matching. Informational noise suppression has many useful properties, as well. For example, it
+suggests how bottom-up and top-down input patterns to
+a network should be matched. Figure 1.11 called attention
+to this situation by summarizing some of the dynamics
+that occur when a learned top-down expectation is sufficiently badly mismatched with a bottom-up input pattern.
+Chapter 5 will discuss how and why this occurs by introducing and explaining how Adaptive Resonance Theory,
+or ART, works.
+But how should patterns be matched in the !rst place?
+The property of informational noise suppression provided
+an early clue that then evolved into a more precise understanding when ART came on the scene a decade later.
+Figure 2.31 summarizes the main idea. The top image
+shows two input patterns that are out of phase with each
+other, with the most important features of one input pattern occurring where the least important features occur in
+
+FIGURE 2.31. How noise suppression enables matching of
+bottom-up and top- down input patterns.
+
+|
+
+79
+
+the other input pattern, and conversely. When these input
+patterns add at their target cells, the result is a uniform
+input pattern that is suppressed as informational noise. In
+other words, input patterns that are out of phase with each
+other are mismatched and suppressed.
+In contrast, if both input patterns are in phase with
+each other, as in the bottom image of Figure 2.31, then they
+are added and, in fact, ampli!ed by the automatic gain control that occur during shunting dynamics (Figure 2.32).
+These properties were eventually incorporated into the
+ART Matching Rule that describes how such matching
+occurs (Figure 1.25). ART went beyond these heuristics
+by also showing how a top-down expectation, when it acts
+alone, can modulate, sensitize, or prime target cells, but
+not fully activate them. Chapter 5 will explain this and
+much more about how object attention works.
+How does informational noise suppression arise during
+development? Opposites attract! The above examples
+illustrate how useful the property of information noise
+suppression is in many brain processes. But how does it
+arise during development? A big clue, indeed a prediction that goes beyond current data, can be seen by rewriting this property in a different way using the equation
+in Figure 2.33. This equation is easily derived by setting
+the adaptation level C / ( B + C ) equal to 1/n and then
+rearranging terms.
+Rearranging terms is very simple to do, but the implications of the result are potentially profound. This is because the excitatory and inhibitory saturation voltages C
+and B, respectively, on the left hand side of the equation
+are intracellular parameters, whereas the numbers 1 and
+(n-1) on the right hand side of the equation are intercellular parameters, indeed the number of on-center (1) and
+off-surround (n-1) connections of each input Ii to the network, as illustrated by the !gure below the equation.
+
+FIGURE 2.32. Matching amplifies the matched pattern due to
+automatic gain control. See terms I and J in the equation.
+
+80
+
+| Conscious MIND Resonant BRAIN
+
+FIGURE 2.33. An opposite-attracts rule during the development of intercellular connections can lead to a mature network
+that realizes informational noise suppression.
+
+How can such an equality emerge as a result of development? The obvious answer is: Use an Opposite Attracts
+Rule in which the broken intracellular asymmetry between
+inhibitory and excitatory saturation voltages attracts the
+growth of excitatory and inhibitory connections until they
+create and match a broken intercellular asymmetry. Then
+informational noise suppression will follow automatically.
+This way of thinking suggests that varying the degree
+of asymmetry of depolarization to hyperpolarization
+in Figure 2.29 can alter how on-center and off-surround
+connections will grow during development. I do not
+know any experiments that have tried to explain how
+these intracellular biophysical parameters and the ensuing network intercellular connectivity are coordinated to
+achieve informational noise suppression. They would not
+be easy experiments to do, but the answer should be interesting, especially if deviations from informational noise
+suppression covary with predicted properties of a cell’s
+adaptation level.
+From a global off-surround to a distance-dependent one
+that preserves noise suppression. The on-center of the
+network in Figure 2.23 consists of only one cell, or cell
+population, and the off-surround inhibits all other cells
+equally. This is a limiting case of the on-center and offsurround connections that are typically found in vivo. A
+more typical situation is depicted in Figure 2.34. Here,
+the on-center may be narrow, but nonetheless may include several cells. An input to the ith cell will often excite
+nearby cells with a connection strength that decreases in
+a Gaussian manner with distance from the ith cell, as illustrated by the green on-center pro!le in Figure 2.34. The
+off-surround is broader than the on-center, but instead
+of inhibiting all other cells equally, may inhibit all cells
+around the ith cell, including the ith cell, with a strength
+that also decreases in a Gaussian manner with distance,
+
+FIGURE 2.34. How to achieve informational noise suppression
+in a network with multiple parallel processing channels.
+
+but more slowly than the on-center kernel, as illustrated by
+the red off-surround pro!le in Figure 2.34.
+The connections in Figure 2.34 replace the “single
+channel” network of Figure 2.23 with a “multiple channel”
+network in which neighboring cells influence one another,
+but may be hardly influenced, if at all, by cells that are not
+within the span of their off-surround. Because the multiple
+channel anatomy preserves the broken symmetry of narrower on-center than off-surround network connections,
+it can still interact with the intracellular broken symmetry
+to achieve informational noise suppression.
+The top equation in Figure 2.35 describes such a multiple scale network. Instead of the very narrow on-center
+and global off-surround that is depicted in the upper
+left image, there is a Gaussian on-center and a broader
+Gaussian off-surround in the multiple scale network, as
+depicted in the upper right image. These excitatory and
+inhibitory interactions are de!ned by the Gaussian kernels Cki and Eki, respectively. The equilibrium activity xi is
+shown in the lower left of Figure 2.35. In this equation, the
+total activity I again de!ned a Weber law effect. Instead of
+a single ratio &i on the right hand side of this equation, as
+in Figure 2.23, all the ratios &k of all the cells Vk, ranging
+from 1 through n, appear in the numerator of this equation. The ratios &k in the numerator are multiplied by kernels Fki that are de!ned by a weighted difference of the oncenter and off-surround kernels, which is why it is called a
+weighted Difference Of Gaussians, or DOG (Figure 2.35).
+The ratios &k in the denominator are multiplied by kernels
+Gki that are de!ned by a weighted sum of the on-center
+and off-surround kernels, which is why it is called a Sum
+Of Gaussians, or SOG. The SOG normalizes the effect of
+the DOG. This equation hereby shows how both ratio processing and total activity normalization are realized in a
+multiple scale network.
+
+How a Brain Makes a Mind
+
+FIGURE 2.35. The equilibrium activities of a shunting network
+
+with Gaussian on- center o!-surround kernels are sensitive to the
+ratio- contrasts of the input patterns that they process. The terms
+in the denominator of the equilibrium activities accomplish this
+using the shunting on- center and o!-surround terms.
+
+Informational noise suppression implies contour detection in a multiple scale network. Dividing a DOG by a
+SOG computes the contrast of the inputs to each position.
+In particular, when the network is calibrated to also suppress informational noise, cells selectively respond at positions in the network where input contrasts change sufficiently rapidly across the network. In response to a visual
+image, for example, such a network responds selectively to
+positions where there are sufficiently intense luminance
+edges, textures, or shading. This property will be essential for understanding all of my explanations of how vision
+works in Chapter 3 and beyond.
+Informational noise suppression can easily be realized
+in a multiple scale network. Simply choose all ratios &k to
+equal 1/n and require that all the resulting equilibrium activities xi be less than or equal to zero. When this is done,
+the sums can be carried out separately for the on-center
+and off-surround kernels in the numerator of the equation for equilibrium activity in Figure 2.35, leading to the
+n
+n
+inequality B ∑ k =1C ki ≤ D ∑ k =1 E ki at the top left of Figure
+2.36. This inequality again shows how intracellular saturation voltages and intercellular connections work together
+to accomplish informational noise suppression.
+When this is done, it is easy to see how this network
+responds selectively at positions where the input size
+changes sufficiently rapidly across space, whether due to
+an edge, texture, or shading gradient. The rectangular
+input Ii in Figure 2.36 illustrates why this is true. Due to
+informational noise suppression, cells are not activated at
+positions either where the input equals zero or where the
+input is large but constant across space. Cells are only activated where the input changes rapidly, as illustrated by
+the response pro!le for xi across position in Figure 2.36.
+
+|
+
+81
+
+FIGURE 2.36. Informational noise suppression in network with
+Gaussian on- center and o!-surround function as contour detectors that are sensitive to ratio- contrast.
+
+By including multiple scales, informational noise suppression thus provides us with a contour detector that is
+sensitive to the relative size of input changes across space.
+In applications to vision, such a ratio contrast detector is
+sensitive to the reflectances of objects that reflect light to
+the eyes. This property helps to explain how our brains
+compensate for variable illumination levels, or “discount
+the illuminant”. I will explain more completely how our
+brains accomplish this feat in Chapter 4, where I will
+also show you computer simulations of this and other
+visual properties that we use every day to accomplish
+multiple tasks.
+
+How does one evolve a
+computational brain
+y
+theoretical method
+The above discussion illustrates that no single step of theoretical derivation can derive a whole brain. One needs a
+method for deriving a brain in stages, or cycles, much as
+evolution has incrementally discovered ever more complex
+brains over many thousands of years. The following theoretical method has been successfully applied many times
+since I !rst used it in 1957. It embodies a kind of conceptual evolutionary process for deriving a brain.
+Because “brain evolution needs to achieve behavioral success”, we need to start with data that embody indices of behavioral success. That is why, as, as illustrated
+in Figure 2.37, one starts with Behavioral Data from
+scores or hundreds of psychological experiments. These
+data are analyzed as the result of an individual adapting
+
+82
+
+| Conscious MIND Resonant BRAIN
+
+FIGURE 2.37. My models begin with behavioral data, since
+brains are designed to achieve behavioral success. The text explains how the models evolve in stages, through a process of successive refinements, or unlumpings. These unlumpings together
+carry out a kind of conceptual evolution, leading to models that
+can explain and predict ever larger psychological and neurobiological databases.
+
+autonomously in real time to a changing world. This is the
+Art of Modeling. It requires that one be able to infer from
+static data curves the dynamical processes that control individual behaviors occurring in real time. One of the hardest things that I teach to my students to do is “how to think
+in real time” to be able to carry out this speculative leap.
+Properly carried out, this analysis leads to the discovery of new Design Principles that are embodied by these
+behavioral processes. These Design Principles highlight
+the functional meaning of the data, and clarify how individual behaviors occurring in real time give rise to these
+static data curves.
+These principles are then converted into the simplest
+Mathematical Model using a method of minimal anatomies, which is a form of Occam’s Razor, or principle of
+parsimony. Such a mathematical model embodies the psychological principles using the simplest possible differential equations. By “simplest” I mean that, if any part of the
+derived model is removed, then a signi!cant fraction of
+the targeted data could no longer be explained. One then
+analyzes the model mathematically and simulates it on the
+computer, showing along the way how variations on the
+minimal anatomy can realize the design principles in different individuals or species.
+This analysis has always provided functional explanations and Behavioral Predictions for much larger behavioral data bases than those used to discover the Design
+Principles. The most remarkable fact is, however, that
+the behaviorally derived model always looks like part of
+a brain, thereby explaining a body of challenging Neural
+Data and making novel Brain Predictions.
+
+The derivation hereby links mind to brain via psychological organizational principles and their mechanistic
+realization as a mathematically de!ned neural network.
+This startling fact is what I !rst experienced as a college
+Freshman taking Introductory Psychology, and it changed
+my life forever.
+I conclude from having had this experience scores of
+times since 1957 that brains look the way that they do because they embody a natural computational realization
+for controlling autonomous adaptation in real-time to
+a changing world. Moreover, the Behavior(Principles(
+Model(Neural derivation predicts new functional roles for
+both known and unknown brain mechanisms by linking
+the brain data to how it helps to ensure behavioral success.
+As I noted above, the power of this method is illustrated
+by the fact that scores of these predictions about brain and
+behavior have been supported by experimental data 5-30
+years after they were !rst published.
+Having made the link from behavior to brain, one can
+then “burn the candle from both ends” by pressing both
+top-down from Behavioral Data and bottom-up from
+Brain Data to clarify what the model can and cannot explain at its current stage of derivation. No model can explain everything. At each stage of development, the model
+can cope with certain environmental challenges but not
+others. An important part of the mathematical and computational analyses is to characterize the boundary between
+the known and the unknown; that is, which challenges the
+model can cope with and which it cannot. The shape of this
+boundary between the known and the unknown helps to
+direct the theorist’s attention to new design principles that
+have been omitted from the previous analyses.
+The next step is to show how these new design principles can be incorporated into the evolving model in a
+self-consistent way, without undermining its previous
+mechanisms, thereby leading to a progressively more realistic model, one that can explain and predict ever more
+behavioral and neural data. In this way, the model undergoes a type of evolutionary development, as it becomes
+able to cope behaviorally with environmental constraints
+of ever increasing subtlety and complexity. The Method of
+Minimal Anatomies may hereby be viewed as way to functionally understand how increasingly demanding combinations of environmental pressures were incorporated
+into brains during the evolutionary process.
+If such an Embedding Principle cannot be carried
+out—that is, if the model cannot be unlumped or re!ned
+in a self-consistent way—then the previous model was, put
+simply, wrong, and one needs to !gure out which parts
+must be discarded. Such a model is, as it were, an evolutionary dead end. Fortunately, this has not happened to
+me since I began my work in 1957 because the theoretical method is so conservative. No theoretical addition
+is made unless it is supported by multiple experiments
+that cannot be explained in its absence. Where multiple
+
+How a Brain Makes a Mind
+
+mechanistic instantiations of some Design Principles were
+possible, they were all developed in models to better understand their explanatory implications. Not all of these
+instantiations could survive the pressure of the evolutionary method, but some always could. As a happy result, all
+earlier models have been capable of incremental re!nement and expansion.
+The cycle of model evolution has been carried out many
+times since 1957, leading today to increasing numbers of
+models that individually can explain and predict psychological, neurophysiological, anatomical, biophysical, and
+even biochemical data. In this speci!c sense, the classical
+mind-body problem is now being incrementally solved.
+
+Embedding, unlumping, and
+correspondence principles
+There are several equivalent ways to describe such a re!nement procedure: It embodies an embedding, unlumping, or
+correspondence principle constraint: One needs to be able
+to consistently embed the previous model into the new expanded model; the previous model needs to be unlumpable into an increasingly complex model; a correspondence
+principle characterizes how the variables of a lumped version of the model can be unlumped into the !ner variables
+of a more realistic model.
+Correspondence principles are also well known in
+physics: https://en.wikipedia.org/wiki/Correspondence_
+principle. One famous one is the correspondence principle
+that the great Danish physicist, Niels Bohr, used in the early
+1900s to link principles of classical mechanics to principles
+of quantum theory, and then subsequently to quantum
+mechanics. Another is how Albert Einstein linked principles of classical mechanics to Special Relativity Theory.
+When a correspondence principle is applied to mind and
+brain, it places a surprisingly severe test on the adequacy
+of previously discovered theoretical hypotheses. Many
+concepts and mechanisms that have been proposed by
+scientists over the years fail to satisfy the embedding constraint. They seem plausible within a restricted explanatory context, but fall to pieces when they are confronted
+with more severe environmental challenges. That is why
+many models come and go with surprising rapidity, and
+do not get integrated into principled theories of ever
+greater predictive power. In the past, the main organizational principles I have discovered have survived multiple
+model unlumping cycles, even while their mathematical
+realizations in neural circuits may have become increasingly sophisticated and subtle.
+I realized when I began my scienti!c work in
+1957 that one would have to derive mind and brain
+models in successive approximations by using such an
+
+|
+
+83
+
+embedding constraint. That is why I called my earliest
+models Embedding Fields. The word “embedding” summarized the unlumping constraint. The word “!elds” was
+a short-hand for the fact that interactions within a neural
+network generate the emergent properties that map onto
+behavior. These ideas were considered radical in those days,
+and they took twenty-!ve years to start to become popular.
+I wrote a monograph about Embedding Fields during my
+!rst year as a graduate student at the Rockefeller Institute
+in 1964, to which I transferred after studying a lot of graduate mathematics and other scienti!c topics at Stanford
+University from 1961-1964 (Grossberg, 1964). This monograph summarized the research that I had done since I
+was a college Freshman in 1957. It was mailed to 125 of the
+world’s top psychologists and neuroscientists. At that time,
+the scienti!c community, by and large, had no idea what to
+do with it. It can be found at the website http://sites.bu.edu/
+steveg/!les/2016/06/Gro1964EmbeddingFields.pdf.
+Many cycles of model evolution have occurred since
+1957, with many more colleagues joining this activity
+starting in the 1980s. All of these evolutionary stages have
+successfully built a foundation for their progeny. I did not
+dream when this work began that, in my own lifetime, we
+could achieve the kind of quantitative understanding of
+both psychological and neurobiological data that we are
+experiencing today, including as one example explanatory
+linkages between !ne details of the anatomy and neurophysiology of identi!ed neurons and brain circuits in the
+cerebral cortex with the psychological functions that they
+control. Nor did I dream—although I dearly hoped—that
+this type of work would become so mainstream in the scienti!c community. The present book will necessarily omit
+many of these modeling cycles and sociological transformations. I would like you to realize, however, that this
+process of successive approximations is an essential tool
+for linking mind to brain, and it still continues today. The
+remainder of the book will survey some of the results that
+have been derived with this method, starting with visual
+perception, since so much of our brain is specialized for
+seeing. A reader who wants to get a larger sample of the
+archival technical research articles on which this book is
+based can scan or download them from my personal web
+page, sites.bu.edu/steveg.
+
+A never-ending controversy
+I have spent so much time discussing a particular approach
+to understanding how brains give rise to minds for several
+reasons. The most direct reason is for the reader to realize
+that there exists a systematic method for linking brains to
+minds that has been incrementally developing ever more
+powerful explanatory and predictive theories of different
+aspects of biological intelligence for over a half century. I
+
+84
+
+| Conscious MIND Resonant BRAIN
+
+hope readers of this book will therefore become skeptical
+about, and challenge, claims that “we know nothing about
+how the brain works”. A no less important reason for discussing this approach is that the question of how to understand mind and brain is still controversial. Productive
+psychologists and neuroscientists may hold very different
+opinions about the state of the art and how to advance it.
+I believe that there are at least two related reasons for this
+enduring controversy:
+First, linking brain to mind is one of the most intellectually challenging endeavors in the history of science. It
+will take a long time before even simple, and redundantly
+supported, theoretical explanations of subtle data will be
+universally appreciated, if only because they are based
+upon new ways of thinking and neural networks that
+typically exhibit nonlinear, nonlocal, and nonstationary
+properties.
+Second, despite enormous progress during the last
+thirty years in building scienti!c infrastructure to transmit
+knowledge about our !eld, including the creation of interdisciplinary educational departments and programs, scienti!c societies, conferences, and journals, our !eld still
+faces a major literacy problem. Part of the reason for this
+is that theoretical progress has been so fast that it has been
+difficult to incorporate it into these institutions. A more
+serious problem is that the deepest theoretical discoveries have been highly interdisciplinary and have uni!ed
+knowledge about multiple levels of biological intelligence
+using model neural architectures and their emergent psychological properties. The emergent properties of these
+modal architectures follow from the dynamics of carefully chosen nonlinear systems of differential equations.
+Unfortunately, most universities and scienti!c conferences
+still do not, by and large, teach the range of interdisciplinary knowledge that is needed to link brain to mind on an
+advanced level. Even today, although much less than in
+the past, great experimental neuroscientists may be naïve
+or dismissive about psychology, and conversely, since that
+was not part of their own training. And most psychological and neurobiological experimentalists have little or no
+training in mathematics or how to model. They are simply
+unquali!ed to understand, or even to hold an informed
+opinion about, the state of the art in mind-brain theory.
+Since a lot of political power in psychology and neuroscience is held by experimentalists, this tends to warp how
+the !eld evolves in a way that does not adequately exploit
+important theoretical discoveries.
+These limitations have led people who believe in Big
+Data to suggest that nothing can be understood theoretically unless we !rst collect huge amounts of data about
+every aspect of brain organization. Some neuroscientists
+also believe that a model is not “realistic” unless it includes every fact from their own laboratories, irrespective
+of whether these facts are rate-limiting in the explanation
+and quantitative simulation of important databases about
+
+mental functions. These beliefs are contradicted by the
+cyclic and incremental nature of the modeling Method of
+Minimal Anatomies depicted in Figure 2.37, and by the
+huge amount of explanatory and predictive theoretical
+success of the ensuing models over the past half century.
+To overcome these unfounded beliefs, sustained tutorials about theoretical breakthroughs, as is often practiced
+in theoretical physics, need to be scheduled into major
+experimental conferences, workshops, and educational
+programs, and adequately funded to enable theorists, experimentalists, and students of all persuasions to get an
+opportunity to keep abreast of theoretical advances in our
+most exciting !eld as its progress accelerates even more in
+the years ahead.
+
+From brain theories to
+technological applications
+There is one additional, and very important, feature of the
+modeling cycle that needs to be described; namely, at every
+stage of the modeling cycle, applications are spun off to
+be used by engineers and technologists who are interested
+in developing systems that are capable of increasingly autonomous intelligence and control (Figure 2.38). Why are
+these mind-brain theories useful to technologists? Every
+technological application needs both to identify a function
+in the real world that an new application should handle, as
+well as a mechanism with which to realize it. Neural networks that link brain to mind provide both mechanism
+and function, respectively. Function is derived from the
+psychological analyses that lead to the discovery of new
+design principles, whereas mechanism is speci!ed within
+the neural networks that are derived from these design
+principles. Moreover, these neural networks are designed
+to achieve autonomous adaptation in a changing world,
+and increasing numbers of technological applications require such a competence.
+I would argue, moreover, that the development of increasingly autonomous adaptive intelligent agents will
+become the most important technological revolution of
+our age, and that insights from biological intelligence will
+play an increasingly vital role in these developments during
+the next generation. Finally, unlike many psychological
+and neurobiological experimentalists, engineers and technologists often have the mathematical and computational
+training needed to be able to fluently read and understand
+the mathematical equations that de!ne these neural networks, even if they may not know much about the psychological and neurobiological data that they explain.
+Even in technology, however, there are conservative
+tendencies, as indeed there should be. Engineers usually
+want to use tried and true methods to solve their problems,
+
+How a Brain Makes a Mind
+
+FIGURE 2.38. Our models have been used in many large-scale
+applications to engineering and technology. Linking brain to
+behavior explains how brain mechanisms give rise to psychological functions, and do so autonomously. The combination of
+mechanism, function, and autonomy helps to explain their value
+in helping to solve outstanding problems in technology.
+
+if only to ensure the reliability of their solutions. They do
+not want their bridges or airplanes to fall down! However,
+as increasing numbers of problems arise that are best
+solved using autonomously intelligent systems that can
+learn on the fly from huge databases that exhibit rapidly
+changing statistics and unexpected events, the number of
+tried and true methods to solve these problems becomes
+vanishingly small. So new approaches need to be tried and
+developed. Models that embody the brain’s superb autonomously intelligent capabilities are consequently becoming
+increasingly used. Indeed, most of the government grants
+that supported my research for over thirty years were
+
+|
+
+85
+
+interested in discovering new brain designs for autonomous intelligence that could be applied to outstanding
+technological problems. A lot of scientists, engineers, and
+companies have used models that Gail Carpenter and I,
+separately and together, developed with other colleagues
+with this grant support for both scienti!c and large-scale
+applications in technology. A partial list of applications
+can be found on the CNS Technology website: http://
+techlab.bu.edu/resources/articles/C5.
+It is particularly exciting that some of the biggest
+technology companies in the world, including Apple
+and Google, are currently investing heavily in neural
+networks. Much of that investment is going into trying
+to solve various Big Data problems by applying Deep
+Learning. As I noted above, Deep Learning uses the
+learning algorithm of the earlier back propagation model,
+which in turn uses a variant of the methods of steepest
+descent that have been developed by mathematicians
+since at least the time of Gauss. Thus, the mechanisms
+that are used in back propagation and Deep Learning are
+based on classical mathematical ideas. I therefore often
+call them “neo-classical” models. It should therefore not
+be a surprise that these models are not consistent with
+mechanisms that are found in the brain, and that they
+can experience catastrophic forgetting if they try to learn
+too quickly, or in a too dense environment, or an environment whose statistics change rapidly and unpredictably.
+Unfortunately, these properties are often found in realworld Big Data databases. When technology companies
+fully face the challenges of realizing adaptive autonomous
+intelligence in rapidly changing environments, my belief
+is that they will then increasingly turn away from Deep
+Learning to models like Adaptive Resonance Theory to
+try to solve their Big Data problems.
+
+

@@ -1,0 +1,154 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1773057773579,
+  "projectRoot": "/Users/jaesolshin/Documents/GitHub/0309-icarus",
+  "techStack": {
+    "languages": [
+      {
+        "name": "Python",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "pyproject.toml"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": "pytest",
+    "lintCommand": "ruff check",
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "images": {
+      "path": "images",
+      "purpose": null,
+      "fileCount": 15,
+      "lastAccessed": 1773057773572,
+      "keyFiles": [
+        "fig2_24.jpeg",
+        "fig2_25.png",
+        "fig2_26.jpeg",
+        "fig2_27.jpeg",
+        "fig2_28.jpeg"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "grossberg_ch2_sim.html",
+      "accessCount": 130,
+      "lastAccessed": 1773074858294,
+      "type": "file"
+    },
+    {
+      "path": "grossberg_ch2_excerpt_explained.md",
+      "accessCount": 44,
+      "lastAccessed": 1773074854337,
+      "type": "file"
+    },
+    {
+      "path": "grossberg_ch2.txt",
+      "accessCount": 10,
+      "lastAccessed": 1773074679840,
+      "type": "file"
+    },
+    {
+      "path": "simulation_demo_manim.py",
+      "accessCount": 9,
+      "lastAccessed": 1773063895288,
+      "type": "file"
+    },
+    {
+      "path": "grossberg_ch2.pdf",
+      "accessCount": 7,
+      "lastAccessed": 1773074662499,
+      "type": "file"
+    },
+    {
+      "path": "extract_pdf.py",
+      "accessCount": 6,
+      "lastAccessed": 1773074865167,
+      "type": "file"
+    },
+    {
+      "path": "section_4_draft.md",
+      "accessCount": 6,
+      "lastAccessed": 1773074903879,
+      "type": "file"
+    },
+    {
+      "path": "section_5_draft.md",
+      "accessCount": 6,
+      "lastAccessed": 1773075026086,
+      "type": "file"
+    },
+    {
+      "path": "section_0_draft.md",
+      "accessCount": 3,
+      "lastAccessed": 1773074863084,
+      "type": "file"
+    },
+    {
+      "path": "section_3_draft.md",
+      "accessCount": 3,
+      "lastAccessed": 1773074863111,
+      "type": "file"
+    },
+    {
+      "path": "section_6_draft.md",
+      "accessCount": 3,
+      "lastAccessed": 1773074863125,
+      "type": "file"
+    },
+    {
+      "path": "section_1_draft.md",
+      "accessCount": 3,
+      "lastAccessed": 1773074863146,
+      "type": "file"
+    },
+    {
+      "path": "section_2_draft.md",
+      "accessCount": 3,
+      "lastAccessed": 1773074863171,
+      "type": "file"
+    },
+    {
+      "path": "extract_section_5.py",
+      "accessCount": 2,
+      "lastAccessed": 1773074893688,
+      "type": "file"
+    },
+    {
+      "path": "simulation_demo.html",
+      "accessCount": 1,
+      "lastAccessed": 1773062480595,
+      "type": "file"
+    },
+    {
+      "path": "search_pdf.py",
+      "accessCount": 1,
+      "lastAccessed": 1773074873052,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

@@ -1,0 +1,10 @@
+[project]
+name = "0309-icarus"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "manim>=0.20.1",
+    "pymupdf>=1.27.1",
+]
