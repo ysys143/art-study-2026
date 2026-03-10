@@ -1298,6 +1298,9 @@
             <marker id="net-arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 Z" fill="#c06058"/>
             </marker>
+            <marker id="net-flat-red" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+              <line x1="0" y1="1" x2="0" y2="9" stroke="#c06058" stroke-width="2.5"/>
+            </marker>
             <marker id="net-arr-gray" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
               <path d="M0,0 L0,6 L7,3 Z" fill="#9b9590"/>
             </marker>
@@ -1330,23 +1333,22 @@
           <circle cx="380" cy="116" r="32" fill="rgba(74,127,181,.10)" stroke="#4a7fb5" stroke-width="2.5"/>
           <text x="380" y="121" text-anchor="middle" font-size="17" font-weight="700" fill="#4a7fb5" font-family="system-ui">x₃</text>
 
-          <!-- ── Lateral inhibition (off-surround): arcs with red arrowheads ── -->
-          <!-- x₁ → x₂ (top arc) -->
-          <path d="M134,102 Q170,60 206,102" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
-          <!-- x₂ → x₁ (bottom arc) -->
-          <path d="M206,130 Q170,172 134,130" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
-          <text x="170" y="55" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₁·x₂</text>
+          <!-- ── Lateral inhibition (off-surround): curved arrows between neurons ── -->
+          <!-- x₁ ↔ x₂ -->
+          <path d="M132,100 C165,68 205,68 208,100" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-flat-red)"/>
+          <path d="M208,100 C205,68 165,68 132,100" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-flat-red)" stroke-dasharray="0" opacity="0"/>
+          <path d="M132,132 C165,164 205,164 208,132" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-flat-red)"/>
+          <text x="170" y="62" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₁·x₂</text>
 
-          <!-- x₂ → x₃ (top arc) -->
-          <path d="M274,102 Q310,60 346,102" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
-          <!-- x₃ → x₂ (bottom arc) -->
-          <path d="M346,130 Q310,172 274,130" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
-          <text x="310" y="55" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₂·x₃</text>
+          <!-- x₂ ↔ x₃ -->
+          <path d="M272,100 C305,68 345,68 348,100" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-flat-red)"/>
+          <path d="M272,132 C305,164 345,164 348,132" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-flat-red)"/>
+          <text x="310" y="62" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₂·x₃</text>
 
-          <!-- x₁ → x₃ (long top arc) -->
-          <path d="M120,94 Q240,10 360,94" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
-          <!-- x₃ → x₁ (long bottom arc) -->
-          <path d="M360,138 Q240,222 120,138" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <!-- x₁ ↔ x₃ (long arc over top) -->
+          <path d="M124,90 C170,24 310,24 356,90" fill="none" stroke="#c06058" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#net-flat-red)"/>
+          <path d="M356,90 C310,24 170,24 124,90" fill="none" stroke="#c06058" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#net-flat-red)" opacity="0"/>
+          <path d="M124,142 C170,210 310,210 356,142" fill="none" stroke="#c06058" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#net-flat-red)"/>
           <text x="240" y="218" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₁·x₃</text>
 
           <!-- "off-surround" label -->
@@ -1368,7 +1370,7 @@
           <line x1="96" y1="254" x2="120" y2="254" stroke="#5a9a72" stroke-width="2.5" marker-end="url(#net-arr-green)"/>
           <text x="128" y="258" font-size="10" fill="#5a9a72" font-family="system-ui" font-weight="600">흥분 (on-center)</text>
 
-          <line x1="236" y1="254" x2="260" y2="254" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <line x1="236" y1="254" x2="260" y2="254" stroke="#c06058" stroke-width="2" marker-end="url(#net-flat-red)"/>
           <text x="268" y="258" font-size="10" fill="#c06058" font-family="system-ui" font-weight="600">억제 (off-surround)</text>
 
           <!-- ── Annotation: key insight ── -->

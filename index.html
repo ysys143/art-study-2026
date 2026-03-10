@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grossberg Ch.2 -- Interactive Simulations</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="css/common.css">
+<style>
+.landing-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+.landing-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.landing-subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.sim-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  display: block;
+}
+.sim-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.sim-card.disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.sim-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.sim-card-fig {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-mid);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.sim-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.sim-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.about-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+}
+.about-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.about-section p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1>Grossberg Ch.2</h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+    <div class="nav-section">Simulations</div>
+    <a href="pages/fig2_09.html" class="nav-item">
+      <span class="nav-fig">2.9</span>
+      <span class="nav-label">Additive vs Shunting</span>
+    </a>
+    <a href="pages/fig2_11.html" class="nav-item">
+      <span class="nav-fig">2.11</span>
+      <span class="nav-label">MTM & LTM Dynamics</span>
+    </a>
+    <a href="pages/fig2_19.html" class="nav-item">
+      <span class="nav-fig">2.19</span>
+      <span class="nav-label">Noise-Saturation Dilemma</span>
+    </a>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.24</span>
+      <span class="nav-label">Membrane Equation</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.25</span>
+      <span class="nav-label">Weber Law & Shift</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.27</span>
+      <span class="nav-label">Mudpuppy Retina</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.28</span>
+      <span class="nav-label">Adaptation Level</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.30</span>
+      <span class="nav-label">Noise Suppression</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.31</span>
+      <span class="nav-label">Pattern Matching</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.33</span>
+      <span class="nav-label">Opposites Attract</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.34</span>
+      <span class="nav-label">DOG/SOG Contours</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.37</span>
+      <span class="nav-label">Modeling Methodology</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Interactive Simulations</h2>
+    <span class="tag">Grossberg Ch.2</span>
+  </div>
+  <div id="content">
+
+    <div class="landing-content">
+      <h1 class="landing-title">Conscious MIND Resonant BRAIN</h1>
+      <p class="landing-subtitle">Chapter 2: Neural Networks and Natural Intelligence - Interactive Simulations</p>
+
+      <div class="section-title">Available Simulations</div>
+      <div class="sim-grid">
+        <a href="pages/fig2_09.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.9</span>
+            <span class="sim-card-title">Additive vs Shunting</span>
+          </div>
+          <div class="sim-card-desc">
+            Additive 모델과 Shunting 모델의 비교. 입력이 활동에 더해지는 방식 vs (B-x)로 곱해지는 방식의 차이를 보여줍니다.
+          </div>
+        </a>
+
+        <a href="pages/fig2_11.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.11</span>
+            <span class="sim-card-title">MTM & LTM Dynamics</span>
+          </div>
+          <div class="sim-card-desc">
+            중기 기억(MTM)과 장기 기억(LTM)의 동역학. 신경전달물질 게이트와 학습 규칙의 상호작용을 시뮬레이션합니다.
+          </div>
+        </a>
+
+        <a href="pages/fig2_19.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.19</span>
+            <span class="sim-card-title">Noise-Saturation Dilemma</span>
+          </div>
+          <div class="sim-card-desc">
+            노이즈-포화 딜레마와 On-center off-surround 네트워크. 입력 범위가 커져도 비율을 보존하는 메커니즘을 보여줍니다.
+          </div>
+        </a>
+
+        <div class="sim-card disabled">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.24</span>
+            <span class="sim-card-title">Membrane Equation</span>
+          </div>
+          <div class="sim-card-desc">
+            막 방정식 시뮬레이션 (준비 중)
+          </div>
+        </div>
+
+        <div class="sim-card disabled">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.25</span>
+            <span class="sim-card-title">Weber Law & Shift</span>
+          </div>
+          <div class="sim-card-desc">
+            베버의 법칙과 적응 레벨 변화 (준비 중)
+          </div>
+        </div>
+
+        <div class="sim-card disabled">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.27</span>
+            <span class="sim-card-title">Mudpuppy Retina</span>
+          </div>
+          <div class="sim-card-desc">
+            도루뱀눈 망막 모델링 (준비 중)
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <h3>About</h3>
+        <p>이 프로젝트는 Stephen Grossberg의 "Conscious MIND Resonant BRAIN" 제2장의 신경망 모델을 인터랙티브하게 시뮬레이션합니다.</p>
+        <p>각 시뮬레이션은 해당 그림(Figure)의 수학적 모델을 실시간으로 조작하고 결과를 시각화할 수 있게 합니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

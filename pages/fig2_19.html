@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.19 - Noise-Saturation Dilemma | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+    <div class="nav-section">Simulations</div>
+    <a href="fig2_09.html" class="nav-item">
+      <span class="nav-fig">2.9</span>
+      <span class="nav-label">Additive vs Shunting</span>
+    </a>
+    <a href="fig2_11.html" class="nav-item">
+      <span class="nav-fig">2.11</span>
+      <span class="nav-label">MTM & LTM Dynamics</span>
+    </a>
+    <a href="fig2_19.html" class="nav-item active">
+      <span class="nav-fig">2.19</span>
+      <span class="nav-label">Noise-Saturation Dilemma</span>
+    </a>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.24</span>
+      <span class="nav-label">Membrane Equation</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.25</span>
+      <span class="nav-label">Weber Law & Shift</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.27</span>
+      <span class="nav-label">Mudpuppy Retina</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.28</span>
+      <span class="nav-label">Adaptation Level</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.30</span>
+      <span class="nav-label">Noise Suppression</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.31</span>
+      <span class="nav-label">Pattern Matching</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.33</span>
+      <span class="nav-label">Opposites Attract</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.34</span>
+      <span class="nav-label">DOG/SOG Contours</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.37</span>
+      <span class="nav-label">Modeling Methodology</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.19-2.23: Noise-Saturation Dilemma</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION -->
+<div class="card">
+  <div class="card-title">Problem</div>
+  <div class="card-desc">
+    <strong>유한한 뉴런</strong>(활동 상한 B)으로 <strong>무한한 입력 범위</strong>를 어떻게 처리하는가?
+    셀 간 상호작용이 없으면 입력이 커질수록 모든 셀이 B로 포화되어 패턴(비율) 정보가 사라진다.
+    On-center off-surround 네트워크는 입력이 아무리 커져도 비율을 보존한다.
+  </div>
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label"><span class="bad">No Interaction</span></div>
+      <div id="eq-no-int"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label"><span class="good">On-center Off-surround</span></div>
+      <div id="eq-on-center"></div>
+    </div>
+  </div>
+  <div class="insight">
+    <strong>핵심:</strong> 상호작용 없는 모델은 I가 커지면 모든 x_i가 B로 수렴한다.
+    On-center off-surround 모델은 I가 커져도 x_i가 B * theta_i로 수렴하여 <strong>비율이 보존</strong>된다.
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="card">
+  <div class="card-title">Parameters</div>
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Total input <em>I</em></label>
+      <input type="range" id="slider-I" min="0" max="1000" step="1" value="300">
+      <span class="val" id="val-I">0.10</span>
+    </div>
+    <div class="control-group">
+      <label>Upper bound <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="20" step="0.5" value="10">
+      <span class="val" id="val-B">10</span>
+    </div>
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="10" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE -->
+<div class="phase-indicator" id="phase-label">
+  <span class="phase-val">I = 1.0</span> &mdash; Low input: both models similar
+</div>
+
+<!-- RATIO COMPARISON — the key insight -->
+<div class="card">
+  <div class="card-title">Pattern Ratio Comparison</div>
+  <div class="card-desc" style="margin-bottom:12px">
+    아래 바는 각 그룹 내에서 <strong>최대값 = 100%</strong>로 정규화한 것입니다.
+    입력 패턴의 비율이 출력에서도 유지되는지를 봅니다.
+  </div>
+  <div class="ratio-grid">
+    <div class="ratio-section">
+      <div class="ratio-title">Input Pattern</div>
+      <div class="ratio-detail">&theta; = [.40, .30, .20, .10]</div>
+      <div class="ratio-subtitle">4 : 3 : 2 : 1</div>
+      <div class="ratio-bars" id="ratio-input"></div>
+    </div>
+    <div class="ratio-section">
+      <div class="ratio-title" style="color:var(--red)">No Interaction</div>
+      <div class="ratio-detail">x = B&theta;I / (A + &theta;I)</div>
+      <div class="ratio-subtitle" id="ratio-no-text">?</div>
+      <div class="ratio-bars" id="ratio-no-int"></div>
+    </div>
+    <div class="ratio-section">
+      <div class="ratio-title" style="color:var(--green)">On-center Off-surround</div>
+      <div class="ratio-detail">x = B&theta;I / (A + I)</div>
+      <div class="ratio-subtitle" id="ratio-oc-text">?</div>
+      <div class="ratio-bars" id="ratio-on-center"></div>
+    </div>
+  </div>
+  <div id="ratio-verdict" class="ratio-verdict"></div>
+</div>
+
+<!-- ABSOLUTE ACTIVITY -->
+<div class="card">
+  <div class="card-title">Absolute Activity (raw values)</div>
+  <div class="bar-grid">
+    <div class="bar-section">
+      <div class="bar-title">Input Pattern (theta)</div>
+      <div class="bar-group" id="bars-input"></div>
+    </div>
+    <div class="bar-section">
+      <div class="bar-title" style="color:var(--red)">No Interaction</div>
+      <div class="bar-group" id="bars-no-int">
+        <div class="bar-limit" id="limit-no" style="border-color:var(--red)">
+          <span class="bar-limit-label" style="color:var(--red)">B</span>
+        </div>
+      </div>
+    </div>
+    <div class="bar-section">
+      <div class="bar-title" style="color:var(--green)">On-center Off-surround</div>
+      <div class="bar-group" id="bars-on-center">
+        <div class="bar-limit" id="limit-oc" style="border-color:var(--green)">
+          <span class="bar-limit-label" style="color:var(--green)">B</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legend" style="margin-top:16px">
+    <div class="legend-item"><span class="dot" style="background:#c06058"></span>Cell 1 (theta=0.40)</div>
+    <div class="legend-item"><span class="dot" style="background:#c49a3c"></span>Cell 2 (theta=0.30)</div>
+    <div class="legend-item"><span class="dot" style="background:#5a9a72"></span>Cell 3 (theta=0.20)</div>
+    <div class="legend-item"><span class="dot" style="background:#4a7fb5"></span>Cell 4 (theta=0.10)</div>
+  </div>
+</div>
+
+<!-- PLOTLY CHARTS -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:var(--red)"></span>
+      No Interaction: x = B*theta*I / (A + theta*I)
+    </div>
+    <div id="plotly-left" style="width:100%;height:320px"></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:var(--green)"></span>
+      On-center Off-surround: x = B*theta*I / (A + I)
+    </div>
+    <div id="plotly-right" style="width:100%;height:320px"></div>
+  </div>
+</div>
+
+<!-- Cross Pattern: Additive vs Shunting -->
+<div class="card" style="margin-top:16px" id="p19-cross-demo">
+  <div class="card-title">Cross Pattern Demo — 가산 모형 vs 션팅 모형</div>
+  <div style="font-size:13px;color:#6b6560;margin-bottom:12px">
+    2.11에서 학습된 십자가 가중치를 입력 패턴으로 사용한다.
+    입력 크기(magnitude)를 키우면 가산 모형은 패턴을 잃고, 션팅 모형은 보존한다.
+  </div>
+
+  <!-- Magnitude slider -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:10px 14px;background:#f8f5f0;border-radius:8px">
+    <label style="font-size:12px;font-weight:600;color:#6b6560;white-space:nowrap">입력 크기 (magnitude)</label>
+    <input type="range" id="p19-cross-mag" min="0.1" max="500" step="0.1" value="1" style="flex:1">
+    <span class="val" id="p19-cross-mag-val">1.0</span>
+  </div>
+
+  <!-- Grid comparison -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center">
+    <!-- Input pattern -->
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#4a7fb5;margin-bottom:4px">입력 패턴 (I = mag x z)</div>
+      <div id="p19-grid-input" class="p11-grid" style="margin:0 auto"></div>
+      <div style="font-size:10px;color:#9b9590;margin-top:4px" id="p19-input-range">range: 0 ~ 1.0</div>
+    </div>
+
+    <!-- Additive output -->
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:4px">가산 모형 (No Interaction)</div>
+      <div id="p19-grid-additive" class="p11-grid" style="margin:0 auto"></div>
+      <div style="font-size:10px;color:#9b9590;margin-top:4px" id="p19-add-range">x range: 0 ~ 0</div>
+      <div style="font-size:10px;margin-top:2px" id="p19-add-ratio">ratio: ?</div>
+    </div>
+
+    <!-- Shunting output -->
+    <div>
+      <div style="font-size:12px;font-weight:600;color:var(--green);margin-bottom:4px">션팅 모형 (On-center Off-surround)</div>
+      <div id="p19-grid-shunting" class="p11-grid" style="margin:0 auto"></div>
+      <div style="font-size:10px;color:#9b9590;margin-top:4px" id="p19-shunt-range">x range: 0 ~ 0</div>
+      <div style="font-size:10px;margin-top:2px" id="p19-shunt-ratio">ratio: ?</div>
+    </div>
+  </div>
+
+  <!-- Ratio preservation meter -->
+  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px">
+      <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:4px">가산 모형 — 비율 보존도</div>
+      <div style="height:16px;background:#f0ece8;border-radius:4px;overflow:hidden">
+        <div id="p19-add-preserve-bar" style="height:100%;background:#c06058;border-radius:4px;transition:width 0.2s"></div>
+      </div>
+      <div style="font-size:10px;color:#9b9590;margin-top:2px" id="p19-add-preserve-text">?</div>
+    </div>
+    <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px">
+      <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:4px">션팅 모형 — 비율 보존도</div>
+      <div style="height:16px;background:#f0ece8;border-radius:4px;overflow:hidden">
+        <div id="p19-shunt-preserve-bar" style="height:100%;background:#5a9a72;border-radius:4px;transition:width 0.2s"></div>
+      </div>
+      <div style="font-size:10px;color:#9b9590;margin-top:2px" id="p19-shunt-preserve-text">?</div>
+    </div>
+  </div>
+
+  <div class="insight" id="p19-cross-insight" style="margin-top:12px">
+    magnitude 슬라이더를 움직여 입력 크기에 따른 패턴 보존 차이를 관찰하세요.
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+<script src="../js/fig2_19.js"></script>
+</body>
+</html>

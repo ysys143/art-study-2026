@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.9 - Additive vs Shunting | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+    <div class="nav-section">Simulations</div>
+    <a href="fig2_09.html" class="nav-item active">
+      <span class="nav-fig">2.9</span>
+      <span class="nav-label">Additive vs Shunting</span>
+    </a>
+    <a href="fig2_11.html" class="nav-item">
+      <span class="nav-fig">2.11</span>
+      <span class="nav-label">MTM &amp; LTM Dynamics</span>
+    </a>
+    <a href="fig2_19.html" class="nav-item">
+      <span class="nav-fig">2.19</span>
+      <span class="nav-label">Noise-Saturation Dilemma</span>
+    </a>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.24</span>
+      <span class="nav-label">Membrane Equation</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.25</span>
+      <span class="nav-label">Weber Law &amp; Shift</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.27</span>
+      <span class="nav-label">Mudpuppy Retina</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.28</span>
+      <span class="nav-label">Adaptation Level</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.30</span>
+      <span class="nav-label">Noise Suppression</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.31</span>
+      <span class="nav-label">Pattern Matching</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.33</span>
+      <span class="nav-label">Opposites Attract</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.34</span>
+      <span class="nav-label">DOG/SOG Contours</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.37</span>
+      <span class="nav-label">Modeling Methodology</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.9-2.10: Additive vs Shunting Model</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+      <div class="card">
+        <div class="card-title">Additive vs Shunting Model</div>
+        <div class="card-desc">
+          <strong>Additive Model</strong>(Fig 2.9)은 입력이 활동에 그냥 더해지므로, 활동에 상한/하한이 없다.
+          <strong>Shunting Model</strong>(Fig 2.10)은 입력이 (B - x)와 곱해지므로, 활동이 자동으로 [0, B] 범위에 묶인다.
+          같은 입력을 넣었을 때 두 모델의 반응이 어떻게 다른지 비교한다.
+        </div>
+        <div class="eq-row">
+          <div class="eq-box">
+            <div class="eq-label"><span class="bad">Additive</span></div>
+            <div id="eq-additive"></div>
+          </div>
+          <div class="eq-box">
+            <div class="eq-label"><span class="good">Shunting</span></div>
+            <div id="eq-shunting"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-xi" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6">뉴런 i의 <strong>막 활동(membrane activity)</strong>. 막 전압 V를 [0, B] 범위로 정규화한 상태 변수. 피질 세포의 발화율(firing rate)에 대응.</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-Ii" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6">뉴런 i로 들어오는 <strong>흥분성 시냅스 전류</strong>. 광수용체·시냅스 전도도 등 외부 자극을 대표. Shunting에서 (B−x)와 곱해져 자동 이득 제어(AGC)를 수행.</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-A" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>수동 막 전도도</strong>에 비례하는 감쇠율. 자극이 없을 때 세포를 정지 전위(resting potential)로 복귀시키는 생리적 누설 전류(leak current)를 모델링.</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+            <div id="var-B" style="margin-bottom:6px;text-align:center"></div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>흥분성 포화전압(reversal potential)</strong>. 세포 내부보다 높은 Na⁺/Ca²⁺ 평형전위에 해당. x→B일수록 (B−x)→0, 즉 입력이 더 들어와도 활동이 포화되지 않고 비율을 유지.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Parameters</div>
+        <div class="controls-row">
+          <div class="control-group">
+            <label>Input <em>I</em></label>
+            <input type="range" id="p09-slider-I" min="0" max="1000" step="1" value="720">
+            <span class="val" id="p09-val-I">1.00</span>
+          </div>
+          <div class="control-group">
+            <label>Decay <em>A</em></label>
+            <input type="range" id="p09-slider-A" min="0.1" max="10" step="0.1" value="1">
+            <span class="val" id="p09-val-A">1.0</span>
+          </div>
+          <div class="control-group">
+            <label>Upper bound <em>B</em></label>
+            <input type="range" id="p09-slider-B" min="1" max="20" step="0.5" value="10">
+            <span class="val" id="p09-val-B">10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model toggles -->
+      <div class="model-toggles">
+        <button class="model-toggle active" id="p09-toggle-add" style="color:var(--red)" onclick="toggleModel09('add')">
+          <span class="dot" style="background:var(--red)"></span>Additive
+        </button>
+        <button class="model-toggle active" id="p09-toggle-shunt" style="color:var(--green)" onclick="toggleModel09('shunt')">
+          <span class="dot" style="background:var(--green)"></span>Shunting
+        </button>
+      </div>
+
+      <!-- Charts: 3 columns -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+        <div class="chart-card">
+          <div class="chart-label">dx/dt &amp; components</div>
+          <div id="p09-plot-dxdt" style="width:100%;height:280px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">x(t) Activity</div>
+          <div id="p09-plot-time" style="width:100%;height:280px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">Equilibrium x* vs I</div>
+          <div id="p09-plot-eq" style="width:100%;height:280px"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="card-title">Equilibrium Comparison</div>
+        <div class="eq-row">
+          <div class="eq-box">
+            <div class="eq-label"><span class="bad">Additive equilibrium</span></div>
+            <div id="eq-add-eq"></div>
+          </div>
+          <div class="eq-box">
+            <div class="eq-label"><span class="good">Shunting equilibrium</span></div>
+            <div id="eq-shunt-eq"></div>
+          </div>
+        </div>
+        <div class="insight" id="p09-insight">
+          I를 높여보세요. Additive는 I/A로 무한히 커지고, Shunting은 B를 넘지 못합니다.
+        </div>
+      </div>
+
+      <!-- Real-time dynamics -->
+      <div class="card">
+        <div class="card-title">Real-time Dynamics -- x(0) = 0에서 시작</div>
+        <div class="card-desc" style="margin-bottom:10px">
+          슬라이더로 I를 조절하면 시뮬레이션이 리셋되고, x(t)가 0에서 실시간으로 쌓입니다.
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap">
+          <div class="control-group">
+            <label>Input <em>I</em></label>
+            <input type="range" id="p09rt-slider-I" min="0" max="1000" step="1" value="720">
+            <span class="val" id="p09rt-val-I">20.9</span>
+          </div>
+          <div class="control-group">
+            <label>Speed</label>
+            <input type="range" id="p09rt-slider-speed" min="1" max="100" step="1" value="50" style="width:120px">
+            <span class="val" id="p09rt-val-speed">1.0x</span>
+          </div>
+          <button id="p09rt-btn-pulse" style="padding:5px 16px;border-radius:8px;border:1.5px solid var(--accent);background:var(--accent-light);color:var(--accent);cursor:pointer;font-size:12px;font-weight:700">[~] Pulse</button>
+          <button id="p09rt-btn-reset" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[R] Reset</button>
+          <button id="p09rt-btn-pause" class="p09rt-start-blink" style="padding:5px 16px;border-radius:8px;border:1.5px solid #4caf50;background:var(--surface2);color:#4caf50;cursor:pointer;font-size:12px;font-weight:700">[>] Start</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start">
+          <div class="chart-card">
+            <div class="chart-label">x(t) -- real-time</div>
+            <div id="p09rt-plot" style="width:100%;height:260px"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <!-- Additive readout -->
+            <div style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.2);border-radius:10px;padding:14px">
+              <div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Additive</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">x(t)</div>
+                  <div id="p09rt-xa" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--red)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">dx/dt</div>
+                  <div id="p09rt-dxa" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--red)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">-Ax</div>
+                  <div id="p09rt-decay-a" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">+I</div>
+                  <div id="p09rt-input-a" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+              </div>
+            </div>
+            <!-- Shunting readout -->
+            <div style="background:rgba(90,154,114,.06);border:1px solid rgba(90,154,114,.2);border-radius:10px;padding:14px">
+              <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Shunting</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">x(t)</div>
+                  <div id="p09rt-xs" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--green)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">dx/dt</div>
+                  <div id="p09rt-dxs" style="font-size:22px;font-weight:700;font-family:monospace;color:var(--green)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">-Ax</div>
+                  <div id="p09rt-decay-s" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">(B-x)I</div>
+                  <div id="p09rt-bxi" style="font-size:16px;font-weight:600;font-family:monospace;color:var(--text-muted)">0.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- General form equations -->
+    <div class="card" style="margin-top:0" id="p09-general-card">
+      <div class="card-title" style="font-size:1em;margin-bottom:14px">General Model Forms <span style="font-size:0.75em;color:var(--text-muted);font-weight:400">(Grossberg, PNAS 1967–68)</span></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- Additive general -->
+        <div style="background:rgba(120,120,120,.04);border:1px solid rgba(150,150,150,.2);border-radius:10px;padding:16px">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">STM: Additive Model</div>
+          <div style="overflow-x:auto;padding:4px 0;text-align:center;line-height:2.4">
+            <span id="eq-ad-lhs"></span><span id="eq-ad-exc-sum" class="eq-seg"></span><span id="eq-ad-sep"></span><span id="eq-ad-inh-sum" class="eq-seg"></span><span id="eq-ad-rhs"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px">
+            <!-- Left: variable table -->
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:11px;color:var(--text-muted)">
+                <thead>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.25)">
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--red);width:52px">변수</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--red)">의미</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--red);width:100px">생물학적 대응</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-A"></span></td><td style="padding:4px 8px">수동 감쇠율</td><td style="padding:4px 8px;color:#888">membrane leak</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-B"></span></td><td style="padding:4px 8px">흥분성 구조 가중치</td><td style="padding:4px 8px;color:#888">excitatory synapse</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-C"></span></td><td style="padding:4px 8px">억제성 구조 가중치</td><td style="padding:4px 8px;color:#888">inhibitory synapse</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-z"></span></td><td style="padding:4px 8px">흥분성 LTM 가중치</td><td style="padding:4px 8px;color:#888">excitatory LTM trace</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-Z"></span></td><td style="padding:4px 8px">억제성 LTM 가중치</td><td style="padding:4px 8px;color:#888">inhibitory LTM trace</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-f"></span></td><td style="padding:4px 8px">흥분성 신호 함수 (sigmoid)</td><td style="padding:4px 8px;color:#888">excitatory firing rate</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-g"></span></td><td style="padding:4px 8px">억제성 신호 함수</td><td style="padding:4px 8px;color:#888">inhibitory firing rate</td></tr>
+                  <tr><td style="padding:4px 8px"><span id="tv-add-I"></span></td><td style="padding:4px 8px">외부 흥분성 입력</td><td style="padding:4px 8px;color:#888">external sensory input</td></tr>
+                </tbody>
+              </table>
+              <div style="margin-top:12px">
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600">시뮬레이션 특수형</div>
+                <div id="eq-add-special" style="overflow-x:auto;padding:2px 0"></div>
+              </div>
+            </div>
+            <!-- Right: term chunk breakdown -->
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">곱셈 항 분해</div>
+
+              <!-- Excitatory chunk -->
+              <div data-hl="eq-ad-exc-sum" data-hl-class="eq-seg-hl-green" style="background:rgba(90,154,114,.07);border:1px solid rgba(90,154,114,.25);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#5a9a72;margin-bottom:8px">흥분성 피드백 (positive feedback)</div>
+                <div id="eq-add-chunk-exc" style="overflow-x:auto;margin-bottom:10px"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+                  <div style="text-align:center;padding:6px 4px;background:rgba(90,154,114,.1);border-radius:5px">
+                    <div id="chip-ae-f" style="color:#5a9a72;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">신호 함수<br>발화율</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(90,154,114,.1);border-radius:5px">
+                    <div id="chip-ae-B" style="color:#5a9a72;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">고정 구조<br>가중치</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(90,154,114,.1);border-radius:5px">
+                    <div id="chip-ae-z" style="color:#5a9a72;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">LTM 학습<br>가중치</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inhibitory chunk -->
+              <div data-hl="eq-ad-inh-sum" data-hl-class="eq-seg-hl-red" style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.18);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#c06058;margin-bottom:8px">억제성 피드백 (negative feedback)</div>
+                <div id="eq-add-chunk-inh" style="overflow-x:auto;margin-bottom:10px"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+                  <div style="text-align:center;padding:6px 4px;background:rgba(192,96,88,.08);border-radius:5px">
+                    <div id="chip-ai-g" style="color:#c06058;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">억제성<br>발화율</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(192,96,88,.08);border-radius:5px">
+                    <div id="chip-ai-C" style="color:#c06058;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">억제성<br>구조 가중치</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(192,96,88,.08);border-radius:5px">
+                    <div id="chip-ai-Z" style="color:#c06058;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">억제성<br>LTM 가중치</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <!-- Network visualization -->
+    <div class="card">
+      <div class="card-title" style="font-size:1em;margin-bottom:4px">뉴런 네트워크 구조: <em>j → i</em> 연결 <span style="font-size:0.75em;font-weight:600;color:var(--green);letter-spacing:.5px">(ADDITIVE MODEL)</span></div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">Additive model에서는 흥분성·억제성 입력이 직접 더해지고 빼집니다. 곱셈적 이득 제어 없이 선형적으로 합산됩니다.</div>
+
+      <!-- SVG diagram — static, shows both pathways simultaneously -->
+      <div style="display:flex;justify-content:center;margin-bottom:24px">
+        <svg viewBox="0 0 700 350" style="width:100%;max-width:760px;height:auto" overflow="visible">
+          <defs>
+            <marker id="ad-arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#5a9a72"/>
+            </marker>
+            <marker id="ad-arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#c06058"/>
+            </marker>
+            <marker id="ad-arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#888"/>
+            </marker>
+          </defs>
+
+          <!-- Section labels -->
+          <text x="32" y="16" font-size="10" fill="#aaa" font-weight="600" font-family="system-ui,sans-serif">입력 뉴런들</text>
+          <text x="608" y="16" font-size="10" fill="#888" font-weight="600" font-family="system-ui,sans-serif">뉴런 i</text>
+
+          <!-- ── Source neurons (left column, shared) ── -->
+          <circle cx="72" cy="90"  r="22" fill="rgba(155,149,144,.07)" stroke="#9b9590" stroke-width="1.5"/>
+          <circle cx="72" cy="150" r="22" fill="rgba(155,149,144,.07)" stroke="#9b9590" stroke-width="1.5"/>
+          <circle cx="72" cy="210" r="22" fill="rgba(155,149,144,.07)" stroke="#9b9590" stroke-width="1.5"/>
+          <text x="72" y="244" text-anchor="middle" font-size="13" fill="#bbb" font-family="system-ui,sans-serif">⋮</text>
+          <circle cx="72" cy="280" r="22" fill="none" stroke="#9b9590" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+          <!-- source neuron labels -->
+          <foreignObject x="48" y="74"  width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-n1" style="text-align:center;color:#9b9590"></div></foreignObject>
+          <foreignObject x="48" y="134" width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-n2" style="text-align:center;color:#9b9590"></div></foreignObject>
+          <foreignObject x="48" y="194" width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-n3" style="text-align:center;color:#9b9590"></div></foreignObject>
+          <foreignObject x="48" y="264" width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-nn" style="text-align:center;color:#bbb;opacity:.7"></div></foreignObject>
+
+          <!-- ── Excitatory pathway (upper, green) ── -->
+          <!-- source → Σ_exc arrows -->
+          <line x1="94"  y1="83"  x2="290" y2="128" stroke="#5a9a72" stroke-width="2.0" stroke-opacity=".8"  marker-end="url(#ad-arr-green)"/>
+          <line x1="94"  y1="150" x2="290" y2="145" stroke="#5a9a72" stroke-width="1.4" stroke-opacity=".55" marker-end="url(#ad-arr-green)"/>
+          <line x1="94"  y1="217" x2="290" y2="155" stroke="#5a9a72" stroke-width="0.8" stroke-opacity=".28" marker-end="url(#ad-arr-green)"/>
+
+          <!-- f_j labels (excitatory) -->
+          <foreignObject x="96"  y="62"  width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-f1" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+          <foreignObject x="96"  y="128" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-f2" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+          <foreignObject x="96"  y="190" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-f3" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+
+          <!-- z_ji labels (near Σ_exc) -->
+          <foreignObject x="200" y="100" width="110" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-z1" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+          <foreignObject x="200" y="124" width="110" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-z2" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+          <foreignObject x="200" y="144" width="110" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-z3" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+
+          <!-- Σ_exc node -->
+          <circle cx="312" cy="144" r="18" fill="none" stroke="#5a9a72" stroke-width="1.8" stroke-dasharray="4,2"/>
+          <text x="312" y="149" text-anchor="middle" font-size="15" fill="#5a9a72" font-family="system-ui,sans-serif">Σ</text>
+          <text x="312" y="168" text-anchor="middle" font-size="9" fill="#5a9a72" font-family="system-ui,sans-serif" font-style="italic">exc</text>
+
+          <!-- I_i external input directly into x_i (green dashed) -->
+          <line x1="576" y1="52" x2="576" y2="150" stroke="#5a9a72" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#ad-arr-green)"/>
+          <foreignObject x="590" y="56" width="40" height="30"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-Ii" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+
+          <!-- Σ_exc → x_i (green, with + label) -->
+          <line x1="330" y1="137" x2="548" y2="168" stroke="#5a9a72" stroke-width="1.8" marker-end="url(#ad-arr-green)"/>
+          <text x="436" y="144" text-anchor="middle" font-size="13" fill="#5a9a72" font-weight="700" font-family="system-ui,sans-serif">+</text>
+
+          <!-- ── Inhibitory pathway (lower, red) ── -->
+          <!-- source → Σ_inh arrows -->
+          <line x1="94"  y1="97"  x2="290" y2="212" stroke="#c06058" stroke-width="0.8" stroke-opacity=".55"  marker-end="url(#ad-arr-red)"/>
+          <line x1="94"  y1="157" x2="290" y2="220" stroke="#c06058" stroke-width="1.4" stroke-opacity=".7" marker-end="url(#ad-arr-red)"/>
+          <line x1="94"  y1="214" x2="290" y2="226" stroke="#c06058" stroke-width="2.0" stroke-opacity=".8" marker-end="url(#ad-arr-red)"/>
+
+          <!-- g_j labels (inhibitory) -->
+          <foreignObject x="96"  y="104" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-g1" style="color:#c06058;font-size:11px"></div></foreignObject>
+          <foreignObject x="96"  y="162" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-g2" style="color:#c06058;font-size:11px"></div></foreignObject>
+          <foreignObject x="96"  y="218" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-g3" style="color:#c06058;font-size:11px"></div></foreignObject>
+
+          <!-- Z_ji labels (near Σ_inh) -->
+          <foreignObject x="200" y="196" width="110" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-Z1" style="color:#c06058;font-size:11px"></div></foreignObject>
+          <foreignObject x="200" y="212" width="110" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-Z2" style="color:#c06058;font-size:11px"></div></foreignObject>
+          <foreignObject x="200" y="228" width="110" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-Z3" style="color:#c06058;font-size:11px"></div></foreignObject>
+
+          <!-- Σ_inh node -->
+          <circle cx="312" cy="228" r="18" fill="none" stroke="#c06058" stroke-width="1.8" stroke-dasharray="4,2"/>
+          <text x="312" y="233" text-anchor="middle" font-size="15" fill="#c06058" font-family="system-ui,sans-serif">Σ</text>
+          <text x="312" y="252" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui,sans-serif" font-style="italic">inh</text>
+
+          <!-- Σ_inh → x_i (red, with − label) -->
+          <line x1="330" y1="221" x2="548" y2="202" stroke="#c06058" stroke-width="1.8" marker-end="url(#ad-arr-red)"/>
+          <text x="436" y="224" text-anchor="middle" font-size="15" fill="#c06058" font-weight="700" font-family="system-ui,sans-serif">−</text>
+
+          <!-- ── Target neuron x_i ── -->
+          <circle cx="576" cy="186" r="30" fill="rgba(140,140,140,.07)" stroke="#888" stroke-width="2"/>
+          <foreignObject x="548" y="168" width="56" height="36"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-ni" style="text-align:center;color:#888;font-weight:bold"></div></foreignObject>
+
+          <!-- decay -Ax_i arrow (downward) -->
+          <line x1="576" y1="216" x2="576" y2="310" stroke="#c06058" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#ad-arr-red)"/>
+          <foreignObject x="582" y="254" width="80" height="36"><div xmlns="http://www.w3.org/1999/xhtml" id="ad-svglbl-decay" style="color:#c06058;font-size:11px"></div></foreignObject>
+        </svg>
+      </div>
+
+      <!-- Term breakdown cards — static 3×2 grid -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px">
+
+        <div style="padding:12px 14px;background:rgba(90,154,114,.07);border-left:3px solid #5a9a72;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#5a9a72;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">시냅스 가중치 z<sub>ji</sub></div>
+          <div style="color:var(--text-muted);line-height:1.6">뉴런 <em>j</em>→<em>i</em> <strong>흥분성</strong> 연결 강도.<br>LTM으로 학습에 의해 변화. 클수록 흥분성 영향이 강함.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(192,96,88,.07);border-left:3px solid #c06058;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#c06058;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">시냅스 가중치 Z<sub>ji</sub></div>
+          <div style="color:var(--text-muted);line-height:1.6">뉴런 <em>j</em>→<em>i</em> <strong>억제성</strong> 연결 강도.<br>LTM으로 학습에 의해 변화. 클수록 억제 효과가 강함.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(120,120,120,.05);border-left:3px solid #999;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">신호함수 f<sub>j</sub> / g<sub>j</sub></div>
+          <div style="color:var(--text-muted);line-height:1.6">f<sub>j</sub>: 흥분성 발화율 변환 (sigmoid).<br>g<sub>j</sub>: 억제성 발화율 변환 (동일 형태).</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(192,96,88,.07);border-left:3px solid #c06058;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#c06058;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">감쇠항 −Ax<sub>i</sub></div>
+          <div style="color:var(--text-muted);line-height:1.6">입력이 없으면 x<sub>i</sub>가 자연스럽게 0으로 돌아옴.<br>STM이 영구 유지되지 않는 이유.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(90,154,114,.07);border-left:3px solid #5a9a72;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#5a9a72;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">외부입력 I<sub>i</sub></div>
+          <div style="color:var(--text-muted);line-height:1.6">뉴런 i에 직접 들어오는 <strong>흥분성</strong> 외부 신호.<br>슬라이더로 조절. Additive model엔 억제성 외부입력 없음.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(120,120,120,.05);border-left:3px solid #999;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Σ 합산 (선형)</div>
+          <div style="color:var(--text-muted);line-height:1.6">흥분성 Σ z<sub>ji</sub>f<sub>j</sub> <strong style="color:#5a9a72">+</strong> I<sub>i</sub> 에서<br>억제성 Σ Z<sub>ji</sub>g<sub>j</sub>를 직접 <strong style="color:#c06058">−</strong> 뺌.</div>
+        </div>
+
+      </div>
+    </div>
+
+
+        <!-- Shunting general -->
+        <div style="background:rgba(120,120,120,.04);border:1px solid rgba(150,150,150,.2);border-radius:10px;padding:16px">
+          <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">STM: Shunting Model <span style="font-size:9px;font-weight:400">(Membrane Eq.)</span></div>
+          <div style="overflow-x:auto;padding:4px 0;text-align:center;line-height:2.4">
+            <span id="eq-sh-lhs"></span><span id="eq-sh-exc-gain" class="eq-seg"></span><span id="eq-sh-lbr1"></span><span id="eq-sh-exc-sum" class="eq-seg"></span><span id="eq-sh-ext-i"></span><span id="eq-sh-sep"></span><span id="eq-sh-inh-gain" class="eq-seg"></span><span id="eq-sh-lbr2"></span><span id="eq-sh-inh-sum" class="eq-seg"></span><span id="eq-sh-ext-j"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;align-items:start">
+            <!-- Left: variable table -->
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:11px;color:var(--text-muted)">
+                <thead>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.25)">
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--green);width:52px">변수</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--green)">의미</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--green);width:100px">생물학적 대응</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-B"></span></td><td style="padding:4px 8px">흥분성 포화전압 (상한)</td><td style="padding:4px 8px;color:#888">Na⁺ reversal potential</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-C"></span></td><td style="padding:4px 8px">흥분성 이득 스케일</td><td style="padding:4px 8px;color:#888">membrane conductance</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-D"></span></td><td style="padding:4px 8px">흥분성 구조 가중치</td><td style="padding:4px 8px;color:#888">excitatory synapse weight</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-E"></span></td><td style="padding:4px 8px">억제성 활동 스케일</td><td style="padding:4px 8px;color:#888">inhibitory gain factor</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-F"></span></td><td style="padding:4px 8px">기저 억제 입력</td><td style="padding:4px 8px;color:#888">resting inhibitory current</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-G"></span></td><td style="padding:4px 8px">억제성 구조 가중치</td><td style="padding:4px 8px;color:#888">inhibitory synapse weight</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-yY"></span></td><td style="padding:4px 8px">흥/억 MTM 게이트</td><td style="padding:4px 8px;color:#888">neurotransmitter gate</td></tr>
+                  <tr><td style="padding:4px 8px"><span id="tv-sh-J"></span></td><td style="padding:4px 8px">외부 억제성 입력</td><td style="padding:4px 8px;color:#888">external inhibitory input</td></tr>
+                </tbody>
+              </table>
+              <div style="margin-top:12px">
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600">시뮬레이션 특수형</div>
+                <div id="eq-shunt-special2" style="overflow-x:auto;padding:2px 0"></div>
+              </div>
+              <div style="margin-top:14px;font-size:11px;color:var(--text-muted);line-height:1.9;padding:10px 12px;background:rgba(120,120,120,.05);border-radius:6px;border:1px solid rgba(150,150,150,.2)">
+                <div style="font-size:10px;font-weight:700;color:#888;margin-bottom:6px">균형점 (equilibrium)</div>
+                <div id="eq-shunt-equil" style="font-size:1.05em;margin-bottom:8px"></div>
+                <span style="color:#888">&#10003;</span> 입력 <em>I</em> 이 커져도 <strong>x* &le; B</strong> 보장<br>
+                <span style="color:#888">&#10003;</span> 비율 <em>θᵢ = Iᵢ / I</em> 가 보존됨
+              </div>
+            </div>
+            <!-- Right: chunk breakdown -->
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">곱셈 항 분해</div>
+
+              <!-- Excitatory gain -->
+              <div data-hl="eq-sh-exc-gain" data-hl-class="eq-seg-hl-green" style="background:rgba(90,154,114,.08);border:1px solid rgba(90,154,114,.25);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#5a9a72;margin-bottom:6px">흥분성 이득 제어 인자</div>
+                <div id="eq-shunt-gain-exc" style="overflow-x:auto;margin-bottom:6px;text-align:left;font-size:1.15em"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.8">
+                  <span id="chip-sg-xi1" style="color:#5a9a72"></span>→0 이면 이득=<span id="chip-sg-Bi1" style="color:#5a9a72"></span> (최대)<br>
+                  <span id="chip-sg-xi2" style="color:#5a9a72"></span>→<span id="chip-sg-Bi2" style="color:#5a9a72"></span> 이면 이득→0 (포화 방지)<br>
+                  → <strong style="color:#5a9a72">자동 이득 제어(AGC)</strong>
+                </div>
+              </div>
+
+              <!-- Excitatory Σ chunk -->
+              <div data-hl="eq-sh-exc-sum" data-hl-class="eq-seg-hl-green" style="background:rgba(90,154,114,.07);border:1px solid rgba(90,154,114,.25);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#5a9a72;margin-bottom:8px">흥분성 합산 항 (4중 곱)</div>
+                <div id="eq-shunt-chunk-exc" style="overflow-x:auto;margin-bottom:8px"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+                  가산형의 고정 가중치 <span id="chip-se-z" style="color:#5a9a72"></span>가<br>
+                  구조적 연결 <span id="chip-se-D" style="color:#5a9a72"></span> × MTM 게이트 <span id="chip-se-y" style="color:#5a9a72"></span>로 분해됨.<br>
+                  발화율 <span id="chip-se-f" style="color:#5a9a72"></span>까지 포함해 4중 곱.
+                </div>
+              </div>
+
+              <!-- Inhibitory driving factor -->
+              <div data-hl="eq-sh-inh-gain" data-hl-class="eq-seg-hl-red" style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.18);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#c06058;margin-bottom:6px">억제성 구동 인자</div>
+                <div id="eq-shunt-gain-inh" style="overflow-x:auto;margin-bottom:8px;text-align:left;font-size:1.15em"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+                  <span id="chip-si-EF" style="color:#c06058"></span> — 현재 활동 기반 억제성 구동력.<br>
+                  흥분성 이득 <span id="chip-sg-Bi3" style="color:#5a9a72"></span>와 대칭 구조,<br>
+                  활동이 클수록 억제가 강해짐.
+                </div>
+              </div>
+
+              <!-- Inhibitory chunk -->
+              <div data-hl="eq-sh-inh-sum" data-hl-class="eq-seg-hl-red" style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.18);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#c06058;margin-bottom:8px">억제성 합산 항 (4중 곱)</div>
+                <div id="eq-shunt-chunk-inh" style="overflow-x:auto;margin-bottom:8px"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+                  흥분성과 동일하게 고정 가중치 <span id="chip-si-Z" style="color:#c06058"></span>가<br>
+                  구조적 연결 <span id="chip-si-G" style="color:#c06058"></span> × MTM 게이트 <span id="chip-si-Y" style="color:#c06058"></span>로 분해됨.<br>
+                  발화율 <span id="chip-si-g" style="color:#c06058"></span>까지 포함해 4중 곱.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Shunting Network visualization -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title" style="font-size:1em;margin-bottom:4px">
+          뉴런 네트워크 구조: <em>j → i</em> 연결
+          <span style="font-size:0.75em;font-weight:600;color:#888;letter-spacing:.5px">(SHUNTING MODEL)</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">
+          Shunting model에서는 입력이 <strong>곱셈적(multiplicative)</strong>으로 막 활동에 작용합니다.
+          (B−C<sub>i</sub>x<sub>i</sub>)와 (E<sub>i</sub>x<sub>i</sub>+F<sub>i</sub>)가 각각 흥분성·억제성 이득을 자동 조절합니다.
+        </div>
+
+        <div style="display:flex;justify-content:center;margin-bottom:24px">
+          <svg viewBox="0 0 760 380" style="width:100%;max-width:820px;height:auto" overflow="visible">
+            <defs>
+              <marker id="sh-arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 Z" fill="#5a9a72"/>
+              </marker>
+              <marker id="sh-arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 Z" fill="#c06058"/>
+              </marker>
+              <marker id="sh-arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 Z" fill="#888"/>
+              </marker>
+            </defs>
+
+            <!-- ── Source neurons (left column) ── -->
+            <circle cx="72" cy="90"  r="22" fill="rgba(90,154,114,.07)"  stroke="#5a9a72" stroke-width="1.5"/>
+            <circle cx="72" cy="150" r="22" fill="rgba(90,154,114,.07)"  stroke="#5a9a72" stroke-width="1.5"/>
+            <circle cx="72" cy="210" r="22" fill="rgba(90,154,114,.07)"  stroke="#5a9a72" stroke-width="1.5"/>
+            <text x="72" y="244" text-anchor="middle" font-size="13" fill="#5a9a72" font-family="system-ui,sans-serif">⋮</text>
+            <circle cx="72" cy="280" r="22" fill="none" stroke="#5a9a72" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+            <!-- source neuron labels -->
+            <foreignObject x="48" y="74"  width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-n1" style="text-align:center;color:#5a9a72"></div></foreignObject>
+            <foreignObject x="48" y="134" width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-n2" style="text-align:center;color:#5a9a72"></div></foreignObject>
+            <foreignObject x="48" y="194" width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-n3" style="text-align:center;color:#5a9a72"></div></foreignObject>
+            <foreignObject x="48" y="264" width="48" height="32"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-nn" style="text-align:center;color:#5a9a72;opacity:.6"></div></foreignObject>
+
+            <!-- ── Excitatory pathway (upper, green) ── -->
+            <!-- source → Σ_exc arrows -->
+            <line x1="94"  y1="83"  x2="290" y2="128" stroke="#5a9a72" stroke-width="2.0" stroke-opacity=".8"  marker-end="url(#sh-arr-green)"/>
+            <line x1="94"  y1="150" x2="290" y2="145" stroke="#5a9a72" stroke-width="1.4" stroke-opacity=".55" marker-end="url(#sh-arr-green)"/>
+            <line x1="94"  y1="217" x2="290" y2="155" stroke="#5a9a72" stroke-width="0.8" stroke-opacity=".28" marker-end="url(#sh-arr-green)"/>
+
+            <!-- f_j labels (excitatory) -->
+            <foreignObject x="96"  y="62"  width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-f1" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+            <foreignObject x="96"  y="128" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-f2" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+            <foreignObject x="96"  y="190" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-f3" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+
+            <!-- z_ji labels (excitatory, near Σ_exc) -->
+            <foreignObject x="196" y="100" width="114" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-z1" style="color:#7a6fa0;font-size:11px"></div></foreignObject>
+            <foreignObject x="196" y="124" width="114" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-z2" style="color:#7a6fa0;font-size:11px"></div></foreignObject>
+            <foreignObject x="196" y="144" width="114" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-z3" style="color:#7a6fa0;font-size:11px"></div></foreignObject>
+
+            <!-- MTM gate annotation (activity-dependent regulation) -->
+            <defs>
+              <marker id="sh-arr-purple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L6,3 Z" fill="#7a6fa0"/>
+              </marker>
+            </defs>
+            <rect x="486" y="46" width="130" height="54" rx="7" fill="rgba(122,111,160,.06)" stroke="#7a6fa0" stroke-width="1.2" stroke-dasharray="3,2"/>
+            <foreignObject x="488" y="46" width="126" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;font-size:8px;font-weight:700;color:#7a6fa0;letter-spacing:.3px">MTM GATE (활동 의존적)</div></foreignObject>
+            <foreignObject x="488" y="60" width="126" height="24"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-mtm-eq" style="text-align:center;color:#7a6fa0;font-size:10px"></div></foreignObject>
+            <foreignObject x="488" y="80" width="126" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;font-size:8px;color:#7a6fa0;opacity:.7">회복 ↑α(1−y)  소진 ↓βfy</div></foreignObject>
+            <!-- arrow: MTM box → weight labels (y regulates signal) -->
+            <path d="M486,80 C440,90 340,95 260,108" fill="none" stroke="#7a6fa0" stroke-width="0.9" stroke-dasharray="3,2" marker-end="url(#sh-arr-purple)"/>
+            <!-- arrow: f(x) activity → MTM box (activity depletes y) -->
+            <path d="M168,72 C260,40 400,38 486,58" fill="none" stroke="#7a6fa0" stroke-width="0.9" stroke-dasharray="3,2" marker-end="url(#sh-arr-purple)"/>
+            <text x="320" y="36" text-anchor="middle" font-size="8" fill="#7a6fa0" font-family="system-ui,sans-serif" font-style="italic">f(x)가 y를 소진</text>
+
+            <!-- Σ_exc node -->
+            <circle cx="312" cy="144" r="18" fill="none" stroke="#5a9a72" stroke-width="1.8" stroke-dasharray="4,2"/>
+            <text x="312" y="149" text-anchor="middle" font-size="15" fill="#5a9a72" font-family="system-ui,sans-serif">Σ</text>
+
+            <!-- I_i external input into Σ_exc -->
+            <line x1="312" y1="58" x2="312" y2="120" stroke="#5a9a72" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#sh-arr-green)"/>
+            <foreignObject x="318" y="62" width="40" height="30"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-Ii" style="color:#5a9a72;font-size:11px"></div></foreignObject>
+
+            <!-- Σ_exc → excitatory gate box -->
+            <line x1="330" y1="144" x2="376" y2="144" stroke="#5a9a72" stroke-width="1.5" marker-end="url(#sh-arr-green)"/>
+
+            <!-- Excitatory multiplicative gate (B - C·x_i) -->
+            <rect x="376" y="124" width="88" height="38" rx="8" fill="rgba(90,154,114,.10)" stroke="#5a9a72" stroke-width="1.8"/>
+            <foreignObject x="376" y="126" width="88" height="34"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-exc-gate" style="text-align:center;color:#5a9a72;font-size:11px;line-height:34px"></div></foreignObject>
+
+            <!-- excitatory gate → x_i -->
+            <line x1="464" y1="143" x2="548" y2="175" stroke="#5a9a72" stroke-width="1.8" marker-end="url(#sh-arr-green)"/>
+
+            <!-- ── Inhibitory pathway (lower, red) ── -->
+            <!-- source → Σ_inh arrows -->
+            <line x1="94"  y1="97"  x2="290" y2="212" stroke="#c06058" stroke-width="2.0" stroke-opacity=".7"  marker-end="url(#sh-arr-red)"/>
+            <line x1="94"  y1="157" x2="290" y2="220" stroke="#c06058" stroke-width="1.4" stroke-opacity=".45" marker-end="url(#sh-arr-red)"/>
+            <line x1="94"  y1="214" x2="290" y2="226" stroke="#c06058" stroke-width="0.8" stroke-opacity=".25" marker-end="url(#sh-arr-red)"/>
+
+            <!-- g_j labels (inhibitory) -->
+            <foreignObject x="96"  y="104" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-g1" style="color:#c06058;font-size:11px"></div></foreignObject>
+            <foreignObject x="96"  y="158" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-g2" style="color:#c06058;font-size:11px"></div></foreignObject>
+            <foreignObject x="96"  y="216" width="72" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-g3" style="color:#c06058;font-size:11px"></div></foreignObject>
+
+            <!-- Z_ji labels (inhibitory, near Σ_inh) -->
+            <foreignObject x="196" y="196" width="114" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-Z1" style="color:#a06070;font-size:11px"></div></foreignObject>
+            <foreignObject x="196" y="210" width="114" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-Z2" style="color:#a06070;font-size:11px"></div></foreignObject>
+            <foreignObject x="196" y="224" width="114" height="20"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-Z3" style="color:#a06070;font-size:11px"></div></foreignObject>
+
+            <!-- Σ_inh node -->
+            <circle cx="312" cy="228" r="18" fill="none" stroke="#c06058" stroke-width="1.8" stroke-dasharray="4,2"/>
+            <text x="312" y="233" text-anchor="middle" font-size="15" fill="#c06058" font-family="system-ui,sans-serif">Σ</text>
+
+            <!-- J_i external input into Σ_inh -->
+            <line x1="312" y1="312" x2="312" y2="252" stroke="#c06058" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#sh-arr-red)"/>
+            <foreignObject x="318" y="290" width="40" height="30"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-Ji" style="color:#c06058;font-size:11px"></div></foreignObject>
+
+            <!-- Σ_inh → inhibitory gate box -->
+            <line x1="330" y1="228" x2="376" y2="228" stroke="#c06058" stroke-width="1.5" marker-end="url(#sh-arr-red)"/>
+
+            <!-- Inhibitory multiplicative gate (E·x_i + F) -->
+            <rect x="376" y="210" width="88" height="38" rx="8" fill="rgba(192,96,88,.09)" stroke="#c06058" stroke-width="1.8"/>
+            <foreignObject x="376" y="212" width="88" height="34"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-inh-gate" style="text-align:center;color:#c06058;font-size:11px;line-height:34px"></div></foreignObject>
+
+            <!-- inhibitory gate → x_i -->
+            <line x1="464" y1="229" x2="548" y2="205" stroke="#c06058" stroke-width="1.8" marker-end="url(#sh-arr-red)"/>
+
+            <!-- ── Target neuron x_i ── -->
+            <circle cx="576" cy="190" r="30" fill="rgba(140,140,140,.07)" stroke="#888" stroke-width="2"/>
+            <foreignObject x="548" y="172" width="56" height="36"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-ni" style="text-align:center;color:#888;font-weight:bold"></div></foreignObject>
+
+            <!-- decay -Ax_i arrow (downward from x_i) -->
+            <line x1="576" y1="220" x2="576" y2="306" stroke="#c06058" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#sh-arr-red)"/>
+            <foreignObject x="584" y="248" width="80" height="36"><div xmlns="http://www.w3.org/1999/xhtml" id="sh-svglbl-decay" style="color:#c06058;font-size:11px"></div></foreignObject>
+
+            <!-- gate labels outside the boxes -->
+            <text x="420" y="119" text-anchor="middle" font-size="9" fill="#5a9a72" font-family="system-ui,sans-serif" font-style="italic">excitatory gate</text>
+            <text x="420" y="258" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui,sans-serif" font-style="italic">inhibitory gate</text>
+          </svg>
+        </div>
+
+        <!-- Bottom explanation cards -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px">
+          <div style="padding:12px 14px;background:rgba(90,154,114,.07);border-left:3px solid #5a9a72;border-radius:6px">
+            <div style="font-size:10px;font-weight:700;color:#5a9a72;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">흥분성 이득 (B−Cx<sub>i</sub>)</div>
+            <div style="color:var(--text-muted);line-height:1.7">x<sub>i</sub>→0 이면 이득=B (최대).<br>x<sub>i</sub>→B 이면 이득→0 (포화 방지).<br><strong style="color:#5a9a72">자동 이득 제어(AGC)</strong></div>
+          </div>
+          <div style="padding:12px 14px;background:rgba(192,96,88,.07);border-left:3px solid #c06058;border-radius:6px">
+            <div style="font-size:10px;font-weight:700;color:#c06058;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">억제성 구동 (Ex<sub>i</sub>+F)</div>
+            <div style="color:var(--text-muted);line-height:1.7">활동이 클수록 억제력 증가.<br>흥분성 이득과 <strong>대칭 구조</strong>.<br>막 전위를 안정 범위로 유지.</div>
+          </div>
+          <div style="padding:12px 14px;background:rgba(120,120,120,.05);border-left:3px solid #999;border-radius:6px">
+            <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">감쇠항 −Ax<sub>i</sub></div>
+            <div style="color:var(--text-muted);line-height:1.7">입력 없으면 x<sub>i</sub>→0.<br>Additive model과 동일.<br>STM이 영구 유지되지 않는 이유.</div>
+          </div>
+          <div style="padding:12px 14px;background:rgba(90,154,114,.06);border-left:3px solid #5a9a72;border-radius:6px">
+            <div style="font-size:10px;font-weight:700;color:#5a9a72;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">외부 흥분성 입력 I<sub>i</sub></div>
+            <div style="color:var(--text-muted);line-height:1.7">Σ_exc에 직접 합산.<br>Additive model의 I<sub>i</sub>와 달리<br>흥분성 이득에 의해 스케일됨.</div>
+          </div>
+          <div style="padding:12px 14px;background:rgba(192,96,88,.06);border-left:3px solid #c06058;border-radius:6px">
+            <div style="font-size:10px;font-weight:700;color:#c06058;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">외부 억제성 입력 J<sub>i</sub></div>
+            <div style="color:var(--text-muted);line-height:1.7">Σ_inh에 직접 합산.<br>Shunting model 고유 항.<br>억제성 이득에 의해 스케일됨.</div>
+          </div>
+          <div style="padding:12px 14px;background:rgba(122,111,160,.07);border-left:3px solid #7a6fa0;border-radius:6px">
+            <div style="font-size:10px;font-weight:700;color:#7a6fa0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">시냅스 가중치 z<sub>ji</sub> / Z<sub>ji</sub></div>
+            <div style="color:var(--text-muted);line-height:1.7">흥분성(z) · 억제성(Z) 별도 존재.<br>LTM으로 학습에 의해 변화.<br>구조적 연결 D, G와 MTM 게이트의 곱.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3-Neuron Network Simulation -->
+    <div class="card" style="margin-top:16px" id="p09-network">
+      <div class="card-title">3-Neuron On-Center Off-Surround Network</div>
+      <div style="font-size:13px;color:#6b6560;margin-bottom:12px">
+        3개 뉴런이 상호 억제하는 션팅 네트워크. 입력 크기를 키우면 경쟁이 강해져 <strong>승자 독식(winner-take-all)</strong>에 가까워진다.
+      </div>
+
+      <!-- Equations -->
+      <div style="padding:10px 16px;background:#f0ece8;border-radius:8px;margin-bottom:16px;display:flex;flex-direction:column;align-items:center;gap:6px">
+        <span id="p09-net-eq1"></span>
+        <span id="p09-net-eq2"></span>
+        <span id="p09-net-eq3"></span>
+      </div>
+
+      <!-- Network Diagram: inputs from top, lateral inhibition between neurons -->
+      <div style="text-align:center;margin-bottom:16px">
+        <svg viewBox="0 0 480 340" style="width:100%;max-width:520px;height:auto" overflow="visible">
+          <defs>
+            <marker id="net-arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#5a9a72"/>
+            </marker>
+            <marker id="net-arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#c06058"/>
+            </marker>
+            <marker id="net-arr-gray" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L7,3 Z" fill="#9b9590"/>
+            </marker>
+          </defs>
+
+          <!-- ── Input arrows from top ── -->
+          <text x="100" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#c06058" font-family="system-ui">I₁</text>
+          <line x1="100" y1="24" x2="100" y2="82" stroke="#5a9a72" stroke-width="2.5" marker-end="url(#net-arr-green)"/>
+          <text x="112" y="60" font-size="10" fill="#5a9a72" font-family="system-ui" font-weight="600">(B−x₁)</text>
+
+          <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#c49a3c" font-family="system-ui">I₂</text>
+          <line x1="240" y1="24" x2="240" y2="82" stroke="#5a9a72" stroke-width="2.5" marker-end="url(#net-arr-green)"/>
+          <text x="252" y="60" font-size="10" fill="#5a9a72" font-family="system-ui" font-weight="600">(B−x₂)</text>
+
+          <text x="380" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#4a7fb5" font-family="system-ui">I₃</text>
+          <line x1="380" y1="24" x2="380" y2="82" stroke="#5a9a72" stroke-width="2.5" marker-end="url(#net-arr-green)"/>
+          <text x="392" y="60" font-size="10" fill="#5a9a72" font-family="system-ui" font-weight="600">(B−x₃)</text>
+
+          <!-- "on-center" label -->
+          <text x="44" y="60" text-anchor="middle" font-size="9" fill="#5a9a72" font-family="system-ui" font-style="italic">on-center</text>
+          <text x="44" y="72" text-anchor="middle" font-size="9" fill="#5a9a72" font-family="system-ui">(흥분)</text>
+
+          <!-- ── Neuron nodes (horizontal row) ── -->
+          <circle cx="100" cy="116" r="32" fill="rgba(192,96,88,.10)" stroke="#c06058" stroke-width="2.5"/>
+          <text x="100" y="121" text-anchor="middle" font-size="17" font-weight="700" fill="#c06058" font-family="system-ui">x₁</text>
+
+          <circle cx="240" cy="116" r="32" fill="rgba(196,154,60,.10)" stroke="#c49a3c" stroke-width="2.5"/>
+          <text x="240" y="121" text-anchor="middle" font-size="17" font-weight="700" fill="#c49a3c" font-family="system-ui">x₂</text>
+
+          <circle cx="380" cy="116" r="32" fill="rgba(74,127,181,.10)" stroke="#4a7fb5" stroke-width="2.5"/>
+          <text x="380" y="121" text-anchor="middle" font-size="17" font-weight="700" fill="#4a7fb5" font-family="system-ui">x₃</text>
+
+          <!-- ── Lateral inhibition (off-surround): arcs with red arrowheads ── -->
+          <!-- x₁ → x₂ (top arc) -->
+          <path d="M134,102 Q170,60 206,102" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <!-- x₂ → x₁ (bottom arc) -->
+          <path d="M206,130 Q170,172 134,130" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <text x="170" y="55" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₁·x₂</text>
+
+          <!-- x₂ → x₃ (top arc) -->
+          <path d="M274,102 Q310,60 346,102" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <!-- x₃ → x₂ (bottom arc) -->
+          <path d="M346,130 Q310,172 274,130" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <text x="310" y="55" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₂·x₃</text>
+
+          <!-- x₁ → x₃ (long top arc) -->
+          <path d="M120,94 Q240,10 360,94" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <!-- x₃ → x₁ (long bottom arc) -->
+          <path d="M360,138 Q240,222 120,138" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <text x="240" y="218" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-weight="600">−x₁·x₃</text>
+
+          <!-- "off-surround" label -->
+          <text x="44" y="170" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui" font-style="italic">off-surround</text>
+          <text x="44" y="182" text-anchor="middle" font-size="9" fill="#c06058" font-family="system-ui">(억제)</text>
+
+          <!-- ── Decay arrows downward ── -->
+          <line x1="100" y1="148" x2="100" y2="188" stroke="#9b9590" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#net-arr-gray)"/>
+          <text x="100" y="202" text-anchor="middle" font-size="10" fill="#9b9590" font-family="system-ui">−Ax₁</text>
+
+          <line x1="240" y1="148" x2="240" y2="188" stroke="#9b9590" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#net-arr-gray)"/>
+          <text x="240" y="202" text-anchor="middle" font-size="10" fill="#9b9590" font-family="system-ui">−Ax₂</text>
+
+          <line x1="380" y1="148" x2="380" y2="188" stroke="#9b9590" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#net-arr-gray)"/>
+          <text x="380" y="202" text-anchor="middle" font-size="10" fill="#9b9590" font-family="system-ui">−Ax₃</text>
+
+          <!-- ── Legend ── -->
+          <rect x="80" y="240" width="320" height="28" rx="6" fill="#f8f5f0" stroke="#eae6e0" stroke-width="1"/>
+          <line x1="96" y1="254" x2="120" y2="254" stroke="#5a9a72" stroke-width="2.5" marker-end="url(#net-arr-green)"/>
+          <text x="128" y="258" font-size="10" fill="#5a9a72" font-family="system-ui" font-weight="600">흥분 (on-center)</text>
+
+          <line x1="236" y1="254" x2="260" y2="254" stroke="#c06058" stroke-width="2" marker-end="url(#net-arr-red)"/>
+          <text x="268" y="258" font-size="10" fill="#c06058" font-family="system-ui" font-weight="600">억제 (off-surround)</text>
+
+          <!-- ── Annotation: key insight ── -->
+          <text x="240" y="290" text-anchor="middle" font-size="11" fill="#6b6560" font-family="system-ui">
+            각 뉴런의 <tspan font-weight="700" fill="#5a9a72">활동(xⱼ)</tspan>이 이웃을 <tspan font-weight="700" fill="#c06058">직접 억제</tspan> → 경쟁 네트워크
+          </text>
+          <text x="240" y="308" text-anchor="middle" font-size="10" fill="#9b9590" font-family="system-ui">
+            입력 크기 ↑ → 억제 ↑ → 승자 독식(winner-take-all)에 수렴
+          </text>
+        </svg>
+      </div>
+
+      <!-- Input sliders for 3 neurons -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+        <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px">
+          <div style="font-size:12px;font-weight:600;color:#c06058;margin-bottom:4px">I₁ (Neuron 1)</div>
+          <input type="range" id="p09-net-I1" min="0" max="10" step="0.1" value="5" style="width:100%">
+          <span class="val" id="p09-net-I1-val">5.0</span>
+        </div>
+        <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px">
+          <div style="font-size:12px;font-weight:600;color:#c49a3c;margin-bottom:4px">I₂ (Neuron 2)</div>
+          <input type="range" id="p09-net-I2" min="0" max="10" step="0.1" value="3" style="width:100%">
+          <span class="val" id="p09-net-I2-val">3.0</span>
+        </div>
+        <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px">
+          <div style="font-size:12px;font-weight:600;color:#4a7fb5;margin-bottom:4px">I₃ (Neuron 3)</div>
+          <input type="range" id="p09-net-I3" min="0" max="10" step="0.1" value="1" style="width:100%">
+          <span class="val" id="p09-net-I3-val">1.0</span>
+        </div>
+      </div>
+
+      <!-- Magnitude multiplier -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:10px 14px;background:#f8f5f0;border-radius:8px">
+        <label style="font-size:12px;font-weight:600;color:#6b6560;white-space:nowrap">전체 크기 (magnitude)</label>
+        <input type="range" id="p09-net-mag" min="0.1" max="100" step="0.1" value="1" style="flex:1">
+        <span class="val" id="p09-net-mag-val">1.0</span>
+        <div style="font-size:10px;color:#9b9590">실제 입력: I = mag × [I₁, I₂, I₃]</div>
+      </div>
+
+      <!-- Charts: 2 columns -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="chart-card">
+          <div class="chart-label">x(t) Time Evolution</div>
+          <div id="p09-net-plot-time" style="width:100%;height:280px"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label">Equilibrium x* vs Magnitude</div>
+          <div id="p09-net-plot-eq" style="width:100%;height:280px"></div>
+        </div>
+      </div>
+
+      <!-- Activity bars (visual) -->
+      <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px" id="p09-net-bars">
+        <div style="text-align:center">
+          <div style="font-size:11px;font-weight:600;color:#c06058;margin-bottom:4px">x₁*</div>
+          <div style="height:120px;background:#f0ece8;border-radius:6px;position:relative;overflow:hidden">
+            <div id="p09-net-bar1" style="position:absolute;bottom:0;width:100%;background:linear-gradient(to top,#c06058,#d4847e);border-radius:0 0 6px 6px;transition:height 0.3s"></div>
+          </div>
+          <div style="font-size:14px;font-weight:700;color:#c06058;margin-top:4px" id="p09-net-x1-val">0.00</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;font-weight:600;color:#c49a3c;margin-bottom:4px">x₂*</div>
+          <div style="height:120px;background:#f0ece8;border-radius:6px;position:relative;overflow:hidden">
+            <div id="p09-net-bar2" style="position:absolute;bottom:0;width:100%;background:linear-gradient(to top,#c49a3c,#d4b86e);border-radius:0 0 6px 6px;transition:height 0.3s"></div>
+          </div>
+          <div style="font-size:14px;font-weight:700;color:#c49a3c;margin-top:4px" id="p09-net-x2-val">0.00</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;font-weight:600;color:#4a7fb5;margin-bottom:4px">x₃*</div>
+          <div style="height:120px;background:#f0ece8;border-radius:6px;position:relative;overflow:hidden">
+            <div id="p09-net-bar3" style="position:absolute;bottom:0;width:100%;background:linear-gradient(to top,#4a7fb5,#7aa8d4);border-radius:0 0 6px 6px;transition:height 0.3s"></div>
+          </div>
+          <div style="font-size:14px;font-weight:700;color:#4a7fb5;margin-top:4px" id="p09-net-x3-val">0.00</div>
+        </div>
+      </div>
+
+      <!-- Ratio display -->
+      <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px;font-size:12px">
+          <strong>입력 비율:</strong> <span id="p09-net-input-ratio">5 : 3 : 1</span>
+        </div>
+        <div style="padding:10px 14px;background:#f8f5f0;border-radius:8px;font-size:12px">
+          <strong>출력 비율:</strong> <span id="p09-net-output-ratio">? : ? : ?</span>
+        </div>
+      </div>
+
+      <div class="insight" id="p09-net-insight" style="margin-top:12px">
+        슬라이더를 조정하여 뉴런 간 경쟁을 관찰하세요.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/fig2_09.js"></script>
+</body>
+</html>

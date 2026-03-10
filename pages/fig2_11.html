@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.11 - MTM & LTM | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+    <div class="nav-section">Simulations</div>
+    <a href="fig2_09.html" class="nav-item">
+      <span class="nav-fig">2.9</span>
+      <span class="nav-label">Additive vs Shunting</span>
+    </a>
+    <a href="fig2_11.html" class="nav-item active">
+      <span class="nav-fig">2.11</span>
+      <span class="nav-label">MTM & LTM Dynamics</span>
+    </a>
+    <a href="fig2_19.html" class="nav-item">
+      <span class="nav-fig">2.19</span>
+      <span class="nav-label">Noise-Saturation Dilemma</span>
+    </a>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.24</span>
+      <span class="nav-label">Membrane Equation</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.25</span>
+      <span class="nav-label">Weber Law & Shift</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.27</span>
+      <span class="nav-label">Mudpuppy Retina</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.28</span>
+      <span class="nav-label">Adaptation Level</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.30</span>
+      <span class="nav-label">Noise Suppression</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.31</span>
+      <span class="nav-label">Pattern Matching</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.33</span>
+      <span class="nav-label">Opposites Attract</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.34</span>
+      <span class="nav-label">DOG/SOG Contours</span>
+    </div>
+    <div class="nav-item disabled">
+      <span class="nav-fig">2.37</span>
+      <span class="nav-label">Modeling Methodology</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.11: MTM &amp; LTM Dynamics</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<div class="page" id="page-fig2_11">
+
+  <!-- Card 1: Title + Description -->
+  <div class="card">
+    <div class="card-title">Medium-term & Long-term Memory</div>
+    <div class="card-desc" style="line-height:1.8">
+      앞서 Shunting STM 모델은 <em>노이즈-포화 딜레마</em>를 해결했다. 그러나 STM만으로는 두 가지가 빠져 있다:<br><br>
+      <strong style="color:var(--blue)">① 신호가 계속 오면 어떻게 되는가?</strong>
+      — 생물학적 시냅스에서 신경전달물질(vesicle)은 무한하지 않다. 반복 자극에 소진되고(habituation), 쉬면 회복된다.
+      이 과도적(transient) 반응을 모델링하기 위해 <strong>전달물질 게이트 <span style="color:var(--blue)">y</span></strong>의 동역학이 필요하다.
+      생산-소모의 <em>질량 작용(mass action)</em> 원리에서 직접 도출된다.<br><br>
+      <strong style="color:var(--accent)">② 경험에 의해 연결 강도가 어떻게 바뀌는가?</strong>
+      — 시냅스 가중치 <strong><span style="color:var(--accent)">z</span></strong>는 고정이 아니라 학습에 의해 변해야 한다.
+      Grossberg는 오차 함수 E=½(h−z)²의 <em>steepest descent</em>(최급하강법)에 사전 세포 활동 f(x)를 게이트로 곱하여 LTM 학습 규칙을 유도했다.
+      활동이 없으면 학습이 정지되므로 기존 기억이 보존된다(gated learning).
+    </div>
+  </div>
+
+  <!-- Card 2: Shunting 모델 내 위치 -->
+  <div class="card">
+    <div class="card-title">Shunting 모델에서의 위치</div>
+    <div style="overflow-x:auto;padding:4px 0;text-align:center;line-height:2.4">
+      <span id="eq-p11-shunting"></span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+      <div style="padding:12px 14px;background:var(--surface2);border-left:3px solid #9b9590;border-radius:6px">
+        <div style="font-size:10px;font-weight:700;color:#9b9590;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Additive: D · <span style="color:var(--accent)">z</span></div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7">가산 모델에서 시냅스 출력은 <code>D·<strong style="color:var(--accent)">z</strong>·f(x)</code>. LTM 가중치 <strong style="color:var(--accent)">z</strong>가 구조 상수 D와 곱해져 흥분성 합산에 직접 더해진다. <strong style="color:var(--blue)">y</strong>(MTM) 게이팅 없음.</div>
+      </div>
+      <div style="padding:12px 14px;background:var(--surface2);border-left:3px solid #9b9590;border-radius:6px">
+        <div style="font-size:10px;font-weight:700;color:#9b9590;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Shunting: D · <span style="color:var(--blue)">y</span> · <span style="color:var(--accent)">z</span></div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7">Shunting 모델에서 시냅스 출력은 <code>D·<strong style="color:var(--blue)">y</strong>·<strong style="color:var(--accent)">z</strong>·f(x)</code>. <strong style="color:var(--blue)">y</strong>(transmitter, MTM)가 <strong style="color:var(--accent)">z</strong>(weight, LTM)를 곱셈적으로 게이트하여 4중 곱으로 자동 이득 제어.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3: 분할 방정식 + 파라미터 설명 -->
+  <div class="card">
+    <div class="card-title">방정식 분해</div>
+    <div style="font-size:11px;color:var(--text-muted);line-height:1.8;margin-bottom:14px;padding:12px 14px;background:var(--surface2);border-radius:6px">
+      <div style="margin-bottom:8px">
+        <strong style="color:var(--text)">뉴런 j → 뉴런 i</strong> 하나의 시냅스 연결에 대한 방정식이다.
+        신호를 <em>보내는 쪽</em>이 <strong>j</strong>(사전 세포, presynaptic), <em>받는 쪽</em>이 <strong>i</strong>(사후 세포, postsynaptic).
+      </div>
+      <div style="margin-bottom:8px">
+        <strong style="color:var(--text)">f(x)</strong> = 사전 세포 j의 <em>신호 함수(signal function)</em>. 막 전위 x<sub>j</sub>를 입력받아 발화율(firing rate)을 출력한다.
+        보통 sigmoid 형태로, x가 임계값 이하이면 거의 0, 이상이면 포화 수준까지 증가한다.
+        MTM과 LTM 모두에서 <strong>게이트 역할</strong>을 한다:
+        f(x)=0이면 전달물질 소모도 없고(y 회복), 학습도 정지(z 고정).
+        f(x)>0이면 전달물질이 소진되고(habituation), 동시에 가중치가 목표를 향해 이동(learning).<br>
+        <strong style="color:var(--text)">h(x)</strong> = 시냅스 j→i의 <em>목표 가중치</em>. sigmoid 같은 활성화 함수가 <strong>아니다</strong>. 자세한 설명은 아래 별도 카드 참조.
+      </div>
+      <div>
+        실제 네트워크에서 뉴런 i에 연결된 <strong>모든 j</strong>마다 독립된 y<sub>ji</sub>, z<sub>ji</sub>가 존재한다.
+        아래 시뮬레이션은 단일 연결 하나를 추적하므로 첨자를 생략하고 y, z로 표기한다.
+      </div>
+    </div>
+
+    <!-- MTM equation with eq-seg -->
+    <div style="margin-bottom:16px">
+      <div class="eq-label"><span style="color:var(--blue)">MTM: Transmitter Gate</span></div>
+      <div style="overflow-x:auto;padding:8px 0;text-align:center;line-height:2.4">
+        <span id="eq-mtm-lhs"></span><span id="eq-mtm-prod" class="eq-seg"></span><span id="eq-mtm-dep" class="eq-seg"></span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:4px">
+        <strong style="color:var(--blue)">y</strong>는 자기 자신(<strong style="color:var(--blue)">y</strong>)과 활동 f(<strong style="color:#5a9a72">x</strong>)에 의해 조절 — 활동이 클수록 소진, 없으면 K로 회복
+      </div>
+    </div>
+
+    <!-- LTM equation with eq-seg -->
+    <div style="margin-bottom:18px">
+      <div class="eq-label"><span style="color:var(--accent)">LTM: Learning Rule</span></div>
+      <div style="overflow-x:auto;padding:8px 0;text-align:center;line-height:2.4">
+        <span id="eq-ltm-lhs"></span><span id="eq-ltm-gate" class="eq-seg"></span><span id="eq-ltm-err" class="eq-seg"></span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:4px">
+        <strong style="color:var(--accent)">z</strong>는 활동 f(<strong style="color:#5a9a72">x</strong>)와 자기 자신(<strong style="color:var(--accent)">z</strong>)에 의해 변화 — f(x)가 게이트, (h−z)가 오차 신호
+      </div>
+    </div>
+
+    <!-- H, K, L, M parameter grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+      <div data-hl="eq-mtm-prod" data-hl-class="eq-seg-hl-blue" style="background:var(--surface2);border-radius:8px;padding:12px 14px;cursor:default">
+        <div id="var-H" style="margin-bottom:6px;text-align:center"></div>
+        <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>생산율(production rate)</strong>. 비활성 시 전달물질 소포(vesicle)가 재합성되는 속도. 높을수록 빠르게 K로 회복.</div>
+      </div>
+      <div data-hl="eq-mtm-prod" data-hl-class="eq-seg-hl-blue" style="background:var(--surface2);border-radius:8px;padding:12px 14px;cursor:default">
+        <div id="var-K" style="margin-bottom:6px;text-align:center"></div>
+        <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>최대 전달물질 용량</strong>. 시냅스 소포 풀(vesicle pool)의 상한. y는 항상 [0, K] 범위에서 움직인다.</div>
+      </div>
+      <div data-hl="eq-mtm-dep" data-hl-class="eq-seg-hl-blue" style="background:var(--surface2);border-radius:8px;padding:12px 14px;cursor:default">
+        <div id="var-L" style="margin-bottom:6px;text-align:center"></div>
+        <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>소모율(depletion rate)</strong>. 활동 f(x)에 비례하여 전달물질이 소진되는 속도. Habituation의 강도를 결정.</div>
+      </div>
+      <div data-hl="eq-ltm-gate" data-hl-class="eq-seg-hl-accent" style="background:var(--surface2);border-radius:8px;padding:12px 14px;cursor:default">
+        <div id="var-M" style="margin-bottom:6px;text-align:center"></div>
+        <div style="font-size:12px;color:var(--text);line-height:1.6"><strong>학습률(learning rate)</strong>. f(x)에 의해 게이트되어, 활동이 없으면 학습 정지. Gated steepest descent의 스텝 크기.</div>
+      </div>
+    </div>
+
+    <!-- 첨자 포함 전체 방정식 -->
+    <div style="margin-top:16px;padding:12px 14px;background:var(--surface2);border-radius:8px">
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">전체 네트워크에서의 표기 (첨자 j→i 포함)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <div style="font-size:10px;font-weight:600;color:var(--blue);margin-bottom:6px">MTM</div>
+          <div id="eq-mtm-full-ji" style="text-align:center;padding:4px 0"></div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:6px;line-height:1.6">
+            각 시냅스 j→i마다 독립된 전달물질 y<sub>ji</sub>. 사전 세포 j의 활동 f<sub>j</sub>(x<sub>j</sub>)가 클수록 해당 시냅스의 전달물질만 소진된다.
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;color:var(--accent);margin-bottom:6px">LTM</div>
+          <div id="eq-ltm-full-ji" style="text-align:center;padding:4px 0"></div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:6px;line-height:1.6">
+            각 시냅스 j→i마다 독립된 가중치 z<sub>ji</sub>와 목표 h<sub>ji</sub>. 여기서 <strong>x</strong>는 개별 뉴런이 아닌 네트워크 전체 상태 벡터 (x₁, x₂, …, xₙ)이다 — h는 전체 활동 패턴에 의존하여 목표를 정한다. 사전 세포 j가 활성일 때만 해당 시냅스의 가중치가 목표를 향해 이동한다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3.5: h(x) 상세 설명 -->
+  <div class="card">
+    <div class="card-title">h(x)란 무엇인가?</div>
+    <div style="font-size:12px;color:var(--text);line-height:1.9">
+      <div style="margin-bottom:12px">
+        LTM 학습 규칙 dz/dt = Mf(x)(h−z)에서 <strong>h(x)</strong>는 "지금 이 시냅스의 가중치가 <em>얼마여야 하는가</em>"를 알려주는 <strong>목표 신호(target signal)</strong>이다.
+        sigmoid 같은 활성화 함수와 전혀 다르다. 활성화 함수는 뉴런 하나의 입출력 관계를 정하지만, h(x)는 <strong>시냅스 하나의 학습 목표</strong>를 정한다.
+      </div>
+
+      <div style="margin-bottom:12px">
+        <strong style="color:var(--text)">핵심 아이디어:</strong>
+        학습이란 "현재 가중치 z"와 "목표 h" 사이의 오차 (h−z)를 줄여나가는 과정이다.
+        그런데 이 목표는 네트워크에 어떤 입력 x가 들어오느냐에 따라 달라진다 — 그래서 h(x), x의 함수이다.
+        같은 시냅스라도 입력 패턴 A가 들어올 때와 패턴 B가 들어올 때 목표가 다를 수 있다.
+      </div>
+
+      <div style="margin-bottom:12px">
+        <strong style="color:var(--text)">함수 h 자체는 고정인가?</strong>
+        그렇다. h는 네트워크 구조(architecture)의 일부로, 설계 시 결정되어 학습 중에 바뀌지 않는다.
+        바뀌는 것은 오직 z(가중치)뿐이다. h가 정하는 것은 "규칙" — <em>어떤 입력이 오면 어떤 값을 목표로 삼아라</em> — 이고,
+        z가 실제로 그 목표를 향해 이동하는 것이 학습이다.
+      </div>
+
+      <div style="margin-bottom:12px">
+        <strong style="color:var(--text)">h의 형태가 학습의 성격을 결정한다:</strong>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+        <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px">h<sub>ji</sub> = x<sub>j</sub> / Σx<sub>k</sub></div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6"><strong>Instar 학습.</strong> 전체 입력 중 세포 j의 비율이 목표. 학습 후 가중치 벡터가 입력 패턴의 정규화된 형태를 저장한다. 패턴 인식의 기초.</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px">h<sub>ji</sub> = x<sub>j</sub></div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6"><strong>유계 Hebbian.</strong> 사전 세포의 활동 크기 자체가 목표. 고전적 Hebb 규칙과 유사하나 z→h로 수렴하므로 가중치 폭발이 없다.</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+          <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px">h<sub>ji</sub> = 상수 c</div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6"><strong>균일 수렴.</strong> 모든 시냅스가 같은 값 c로 수렴. 입력 패턴과 무관하게 균일한 연결 강도를 만든다.</div>
+        </div>
+      </div>
+
+      <div style="padding:10px 12px;background:rgba(191,106,66,.06);border:1px solid rgba(191,106,66,.18);border-radius:8px;font-size:11px;color:var(--text-muted);line-height:1.7">
+        <strong style="color:var(--accent)">비유:</strong> h(x)는 "선생님이 정해준 정답"이고, z는 "학생의 현재 답"이다.
+        선생님(h)은 문제(x)마다 다른 정답을 알려주고, 학생(z)은 틀린 만큼(h−z) 교정한다.
+        단, 학생이 깨어 있을 때(f(x)>0)만 공부할 수 있다 — 이것이 gated learning이다.
+        아래 시뮬레이션에서 h(x) 슬라이더는 이 "정답"을 직접 바꿔보는 것이다.
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4: Gradient Descent 유도 (collapsible) -->
+  <div class="card">
+    <div class="derivation-toggle open" id="p11-deriv-toggle">
+      <span class="arrow">▶</span>
+      <span>LTM 학습 규칙의 Steepest Descent 유도</span>
+      <span style="font-size:10px;color:var(--text-muted);margin-left:auto" id="p11-deriv-hint">(접기)</span>
+    </div>
+    <div class="derivation-body open" id="p11-deriv-body">
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Step 1: 오차 함수 정의</div>
+          <div id="eq-deriv-step1" style="text-align:center;padding:4px 0"></div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:6px">목표 h(x)와 현재 가중치 z의 차이를 제곱 오차로 정의.</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Step 2: 그래디언트 계산</div>
+          <div id="eq-deriv-step2" style="text-align:center;padding:4px 0"></div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:6px">E를 z에 대해 미분하면 오차 신호 (h−z)가 나타난다.</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Step 3: f(x) 게이팅</div>
+          <div id="eq-deriv-step3" style="text-align:center;padding:4px 0"></div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:6px">사전 세포 활동 f(x)를 곱하면 "gated steepest descent": 활동이 없으면 학습도 정지.</div>
+        </div>
+        <div style="background:rgba(191,106,66,.06);border:1px solid rgba(191,106,66,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;font-weight:700;color:#bf6a42;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Result: LTM 학습 규칙</div>
+          <div id="eq-deriv-result" style="text-align:center;padding:4px 0"></div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:6px">Grossberg의 gated steepest descent — Hebbian과 달리 유계(bounded), 안정적.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 5: Parameters -->
+  <div class="card">
+    <div class="card-title">Parameters</div>
+    <div class="controls-row">
+      <div class="control-group">
+        <label>Activity f(x)</label>
+        <input type="range" id="p11-slider-fx" min="0" max="10" step="0.1" value="3">
+        <span class="val" id="p11-val-fx">3.0</span>
+      </div>
+      <div class="control-group">
+        <label>Target h(x)</label>
+        <input type="range" id="p11-slider-hx" min="0" max="10" step="0.1" value="5">
+        <span class="val" id="p11-val-hx">5.0</span>
+      </div>
+      <div class="control-group">
+        <label style="min-width:50px">Auto</label>
+        <button class="btn" id="p11-btn-pulse" style="font-size:11px">Pulse on/off</button>
+        <button class="btn" id="p11-btn-patseq" style="font-size:11px;margin-left:8px">Pattern Seq</button>
+        <span id="p11-pat-indicator" style="font-size:11px;margin-left:8px;color:#9b9590"></span>
+      </div>
+    </div>
+    <div class="controls-row" style="margin-top:8px">
+      <div class="control-group">
+        <label>H (production)</label>
+        <input type="range" id="p11-slider-H" min="0.05" max="2" step="0.05" value="0.5">
+        <span class="val" id="p11-val-H">0.50</span>
+      </div>
+      <div class="control-group">
+        <label>K (capacity)</label>
+        <input type="range" id="p11-slider-K" min="0.2" max="5" step="0.1" value="1.0">
+        <span class="val" id="p11-val-K">1.0</span>
+      </div>
+      <div class="control-group">
+        <label>L (depletion)</label>
+        <input type="range" id="p11-slider-L" min="0.05" max="2" step="0.05" value="0.3">
+        <span class="val" id="p11-val-L">0.30</span>
+      </div>
+      <div class="control-group">
+        <label>M (learning)</label>
+        <input type="range" id="p11-slider-M" min="0.01" max="2" step="0.01" value="0.05">
+        <span class="val" id="p11-val-M">0.05</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analysis Charts: 2×2 grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="chart-card">
+      <div class="chart-label">dy/dt &amp; dz/dt Components</div>
+      <div id="p11-plot-deriv" style="width:100%;height:280px"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Gate Signal &amp; Learning Rate</div>
+      <div id="p11-plot-gate" style="width:100%;height:280px"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">y(t), z(t) Time Evolution</div>
+      <div id="p11-plot-time" style="width:100%;height:280px"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Equilibrium y*, z* vs f(x)</div>
+      <div id="p11-plot-eq" style="width:100%;height:280px"></div>
+    </div>
+  </div>
+
+  <!-- Equilibrium Comparison -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">Equilibrium Comparison</div>
+    <div class="eq-row">
+      <div class="eq-box">
+        <div class="eq-label"><span style="color:#4a7fb5;font-weight:600">MTM 평형</span></div>
+        <div>y* = HK / (H + L·f(x))</div>
+        <div style="font-size:12px;color:#9b9590;margin-top:4px">활동에 의해 감소, K가 상한</div>
+      </div>
+      <div class="eq-box">
+        <div class="eq-label"><span style="color:#bf6a42;font-weight:600">LTM 평형</span></div>
+        <div>z* = h(x) &nbsp;(f(x) &gt; 0일 때)</div>
+        <div style="font-size:12px;color:#9b9590;margin-top:4px">목표에 수렴, f=0이면 보존</div>
+      </div>
+    </div>
+    <div class="insight" id="p11-insight">
+      MTM 평형: y* = ... | LTM 평형: z* = ... | 시냅스 출력: y*·z* = ...
+    </div>
+  </div>
+
+  <!-- Gated Time Average Explanation -->
+  <div class="card" style="margin-top:16px" id="p11-gate-explain">
+    <div class="card-title">Gated Exponential Time Average</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:13px;line-height:1.7;color:#6b6560">
+          LTM 방정식 <code style="background:#f0ece8;padding:2px 5px;border-radius:3px;font-size:12px">dz/dt = M·f(x)·(h − z)</code> 는
+          <strong>1차 저역통과 필터</strong>와 동일한 형태이다.
+          고정 윈도우가 아니라 <strong>지수 감쇠 커널</strong>로 과거 입력을 평균한다.
+        </div>
+        <div style="margin-top:10px;padding:10px 14px;background:#f8f5f0;border-radius:8px;font-size:12px;line-height:1.8">
+          <div><strong>게이트 열림</strong> (f &gt; 0): 시간상수 <code style="background:#eae6e0;padding:1px 4px;border-radius:3px">τ = 1/(M·f)</code></div>
+          <div style="margin-left:16px;color:#9b9590">→ 최근 ~τ초의 입력을 지수적으로 가중 (최근일수록 큰 가중치)</div>
+          <div style="margin-top:4px"><strong>게이트 닫힘</strong> (f = 0): dz/dt = 0</div>
+          <div style="margin-left:16px;color:#9b9590">→ 학습 정지, 기억 완벽 보존 — 평균 구간에서 <strong>완전 제외</strong></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;line-height:1.7;color:#6b6560">
+          패턴이 주기적으로 반복되면 z는 <strong>정상상태</strong>(steady-state)에 수렴한다:
+        </div>
+        <div style="margin-top:8px;padding:12px 16px;background:#f0ece8;border-radius:8px;text-align:center;font-size:14px">
+          z̄<sub>j</sub> = Σ( f<sub>p</sub> · h<sub>pj</sub> · Δt<sub>p</sub> ) / Σ( f<sub>p</sub> · Δt<sub>p</sub> )
+        </div>
+        <div style="margin-top:10px;font-size:12px;line-height:1.8;color:#9b9590">
+          <div>• <strong>첫 수 주기</strong>: 초기값(z₀=0)의 영향 큼, z̄ 미도달</div>
+          <div>• <strong>수 주기 후</strong>: 초기값 씻겨나감, z̄에 근접</div>
+          <div>• <strong>M↑ 또는 f↑</strong>: τ↓ → 빠르게 정상상태 도달, 최근 패턴에 치중</div>
+          <div>• <strong>M↓ 또는 f↓</strong>: τ↑ → 느리게 수렴, 더 긴 역사를 반영</div>
+        </div>
+        <div id="p11-tau-display" style="margin-top:8px;padding:8px 12px;background:#f8f5f0;border-radius:6px;font-size:12px;color:#6b6560;text-align:center">
+          현재 τ = ...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-time Charts: 2 columns (streaming) -->
+  <div class="chart-grid" style="margin-top:16px">
+    <div class="chart-card">
+      <div class="chart-label">
+        <span class="dot" style="background:var(--blue)"></span>
+        MTM: Transmitter y(t) — real-time
+      </div>
+      <div id="p11-plot-mtm" style="width:100%;height:280px"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">
+        <span class="dot" style="background:var(--accent)"></span>
+        LTM: Weight z(t) — real-time
+      </div>
+      <div id="p11-plot-ltm" style="width:100%;height:280px"></div>
+    </div>
+  </div>
+
+  <!-- Pattern Learning Visualization -->
+  <div class="card" style="margin-top:16px" id="p11-pat-learn">
+    <div class="card-title">Pattern Learning Visualization — 25 Synapses × 2 Patterns</div>
+    <div style="font-size:13px;color:#6b6560;margin-bottom:12px">
+      뉴런이 반복적으로 두 패턴(ㅣ, ㅡ)을 보면, 시냅스 가중치 z는 어떤 모양으로 수렴할까?
+    </div>
+
+    <!-- Row 1: Input patterns (2 grids) -->
+    <div style="display:flex;gap:32px;justify-content:center;margin-bottom:20px">
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#4a7fb5;margin-bottom:6px">패턴 A "ㅣ" (f=5)</div>
+        <div id="p11-grid-patA" class="p11-grid p11-grid-md"></div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#bf6a42;margin-bottom:6px">패턴 B "ㅡ" (f=3)</div>
+        <div id="p11-grid-patB" class="p11-grid p11-grid-md"></div>
+      </div>
+    </div>
+
+    <!-- Row 2: Results (3 grids) -->
+    <div style="display:flex;gap:32px;justify-content:center;margin-bottom:16px">
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#5a9a72;margin-bottom:6px">이론적 z̄ (가중평균)</div>
+        <div id="p11-grid-target" class="p11-grid p11-grid-md"></div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#6b6560;margin-bottom:6px">학습된 z</div>
+        <div id="p11-grid-live" class="p11-grid p11-grid-md"></div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#9b9590;margin-bottom:6px">오차 |z-z̄|</div>
+        <div id="p11-grid-diff" class="p11-grid p11-grid-md"></div>
+      </div>
+    </div>
+
+    <!-- Hidden grids (JS compat) -->
+    <div id="p11-grid-final" style="display:none"></div>
+    <div id="p11-grid-target2" style="display:none"></div>
+
+    <!-- Progress bar -->
+    <div style="max-width:500px;margin:0 auto 12px">
+      <div style="font-size:11px;color:#9b9590;margin-bottom:4px;text-align:center">학습 진행 (<span id="p11-learn-cycle">0</span>/4 사이클)</div>
+      <div id="p11-learn-progress" style="height:20px;background:#f0ece8;border-radius:4px;overflow:hidden;position:relative">
+        <div id="p11-learn-progbar" style="height:100%;width:0%;transition:width 0.05s;border-radius:4px"></div>
+        <span id="p11-learn-progtext" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:10px;color:#6b6560;white-space:nowrap"></span>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div style="text-align:center;margin-bottom:12px;display:flex;gap:8px;align-items:center;justify-content:center">
+      <button class="btn" id="p11-learn-play" style="font-size:11px;padding:4px 12px">[>] Play</button>
+      <button class="btn" id="p11-learn-reset" style="font-size:11px;padding:4px 12px">[R] Reset</button>
+      <span id="p11-learn-status" style="font-size:11px;color:#9b9590">Ready</span>
+    </div>
+
+    <div class="insight" id="p11-learn-insight">
+      [>] Play를 눌러 학습 과정을 관찰하세요. — 단일 뉴런이 두 패턴을 번갈아 보면 어떤 z가 형성될까?
+    </div>
+  </div>
+
+  <!-- z as Template Weights Explanation -->
+  <div class="card" style="margin-top:16px" id="p11-template-explain">
+    <div class="card-title">z는 '사진'이 아니라 '선호도'다</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="font-size:13px;line-height:1.7;color:#6b6560">
+        시냅스 가중치 z를 5x5 그리드로 시각화하면 십자가 <strong>모양</strong>으로 보이지만,
+        z의 실제 역할은 <strong>입력-출력 매핑</strong>을 결정하는 것이다.
+        <div style="margin-top:10px;padding:10px 14px;background:#f8f5f0;border-radius:8px;font-size:12px;line-height:1.8">
+          <div>출력 뉴런의 입력:</div>
+          <div style="text-align:center;font-size:14px;margin:6px 0"><strong>x<sub>i</sub> = &Sigma;<sub>j</sub> f<sub>j</sub> &middot; y<sub>ji</sub> &middot; z<sub>ji</sub></strong></div>
+          <div>= 입력 패턴과 z의 <strong>내적(dot product)</strong></div>
+        </div>
+      </div>
+      <div style="font-size:13px;line-height:1.7;color:#6b6560">
+        <div style="padding:10px 14px;background:#f0ece8;border-radius:8px;font-size:12px;line-height:1.8">
+          <div><strong style="color:#4a7fb5">z가 저장하는 것:</strong> 본 패턴들의 가중 평균 (모양)</div>
+          <div><strong style="color:#bf6a42">z가 하는 일:</strong> 이 뉴런이 뭐에 반응할지 결정 (기능)</div>
+          <div style="margin-top:6px;color:#9b9590">z가 십자가 모양인 이유 = 입력이 십자가였으니까</div>
+          <div style="color:#9b9590">z의 목적 = 십자가 입력에 <strong>강하게 반응</strong>하는 뉴런 만들기</div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:#9b9590">
+          아래에서 직접 입력 패턴을 바꿔보면, z가 어떤 입력에 강하게/약하게 반응하는지 확인할 수 있다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Template Matching Test -->
+  <div class="card" style="margin-top:16px" id="p11-template-test">
+    <div class="card-title">Template Matching Test — 학습된 z로 입력 구분하기</div>
+    <div style="font-size:13px;color:#6b6560;margin-bottom:12px">
+      학습된 가중치 z에 다양한 입력을 넣어보자. 출력 = &Sigma;(input &times; z) = 내적. 입력이 z와 비슷할수록 출력이 크다.
+    </div>
+
+    <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+      <!-- Learned z (fixed) -->
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#5a9a72;margin-bottom:4px">학습된 z (고정)</div>
+        <div id="p11-test-z" class="p11-grid"></div>
+      </div>
+
+      <div style="font-size:24px;color:#9b9590;padding-top:40px">&middot;</div>
+
+      <!-- Input pattern (interactive) -->
+      <div style="text-align:center">
+        <div style="font-size:12px;font-weight:600;color:#4a7fb5;margin-bottom:4px">입력 패턴 (클릭하여 편집)</div>
+        <div id="p11-test-input" class="p11-grid" style="cursor:pointer"></div>
+        <div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
+          <button class="btn p11-preset-btn" data-preset="vertical" style="font-size:10px;padding:3px 8px">|</button>
+          <button class="btn p11-preset-btn" data-preset="horizontal" style="font-size:10px;padding:3px 8px">-</button>
+          <button class="btn p11-preset-btn" data-preset="cross" style="font-size:10px;padding:3px 8px">+</button>
+          <button class="btn p11-preset-btn" data-preset="diagonal" style="font-size:10px;padding:3px 8px">\</button>
+          <button class="btn p11-preset-btn" data-preset="block" style="font-size:10px;padding:3px 8px">[#]</button>
+          <button class="btn p11-preset-btn" data-preset="random" style="font-size:10px;padding:3px 8px">random</button>
+          <button class="btn p11-preset-btn" data-preset="clear" style="font-size:10px;padding:3px 8px">clear</button>
+        </div>
+      </div>
+
+      <div style="font-size:24px;color:#9b9590;padding-top:40px">=</div>
+
+      <!-- Output response -->
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:12px;font-weight:600;color:#bf6a42;margin-bottom:4px">출력 반응 (내적)</div>
+
+        <!-- Response bar -->
+        <div style="margin-top:8px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+            <div style="font-size:28px;font-weight:700;color:#bf6a42" id="p11-test-response">0.00</div>
+            <div style="font-size:11px;color:#9b9590">/ <span id="p11-test-maxresponse">0.00</span> (max)</div>
+          </div>
+          <div style="height:24px;background:#f0ece8;border-radius:6px;overflow:hidden;position:relative">
+            <div id="p11-test-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#bf6a42,#c49a3c);border-radius:6px;transition:width 0.2s"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#9b9590;margin-top:2px">
+            <span>0 (무반응)</span>
+            <span>max (완벽 매칭)</span>
+          </div>
+        </div>
+
+        <!-- Comparison table -->
+        <div id="p11-test-comparison" style="margin-top:12px;font-size:11px;line-height:1.6;color:#6b6560"></div>
+
+        <div class="insight" id="p11-test-insight" style="margin-top:8px">
+          입력 패턴을 선택하거나 그리드를 클릭하여 직접 그려보세요.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== PAGE: Fig 2.19 Noise-Saturation ===== -->
+
+  </div>
+</div>
+
+<script src="../js/fig2_11.js"></script>
+</body>
+</html>
