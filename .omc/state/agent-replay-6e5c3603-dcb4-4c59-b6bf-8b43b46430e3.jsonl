@@ -1,0 +1,6 @@
+{"t":0,"agent":"adac586","agent_type":"analyzer","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"adac586","agent_type":"analyzer","event":"agent_stop","success":true,"duration_ms":70716}
+{"t":0,"agent":"aea5173","agent_type":"merger","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"aea5173","agent_type":"merger","event":"agent_stop","success":true,"duration_ms":24335531}
+{"t":0,"agent":"a4470c5","agent_type":"analyzer","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a9cba12","agent_type":"merger","event":"agent_start","parent_mode":"none"}
