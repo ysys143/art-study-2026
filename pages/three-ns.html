@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.2 – Three N's | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.n-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.n-nonlinear { background: rgba(239,68,68,.15);  color: #ef4444; }
+.n-nonlocal  { background: rgba(59,130,246,.15); color: #3b82f6; }
+.n-nonstat   { background: rgba(34,197,94,.15);  color: #22c55e; }
+
+.finding-block {
+  background: var(--surface2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.finding-block strong { color: var(--accent); }
+
+.art-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+.art-step {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.6;
+  border-top: 2px solid var(--accent);
+}
+.art-step .step-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.2: 세 개의 N — Nonlinear · Nonlocal · Nonstationary</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+    <!-- ── 배경: 뉴턴 vs 헬름홀츠 ── -->
+    <div class="card">
+      <div class="card-title">배경: 뉴턴 vs 헬름홀츠의 색채 이론</div>
+      <div class="card-desc" style="margin-bottom:12px">
+        19세기 물리학과 뇌 과학의 분리를 촉발한 핵심 사건은 색채 지각 연구였습니다.
+        뉴턴과 헬름홀츠는 "흰색이란 무엇인가"에 대해 근본적으로 다른 답을 제시했으며,
+        그 차이는 단순한 의견 차이가 아니라 완전히 새로운 수학의 필요성을 드러냈습니다.
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:700;color:#ef4444;margin-bottom:8px">Newton (1704) — 국소적·선형적</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.8">
+            흰색 빛 = 모든 가시 파장의 <strong>동일한 강도</strong><br>
+            프리즘으로 빛을 무지개로 굴절시켜 증명<br>
+            정의 기반: <strong>공간 내 개별 위치의 빛 측정</strong><br>
+            → 단일 지점의 물리적 측정만으로 충분
+          </div>
+        </div>
+        <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:700;color:#22c55e;margin-bottom:8px">Helmholtz — 비국소적·비선형적</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.8">
+            장면의 <strong>평균 색상은 감쇠되어(desaturated)</strong> 인지됨<br>
+            해질녘 붉은 조명 → 색상이 중화되어 "실제" 색상을 지각<br>
+            정의 기반: <strong>장면 전체의 장거리 상호작용</strong><br>
+            → 단일 지점만으로는 불가능
+          </div>
+        </div>
+      </div>
+
+      <div class="finding-block">
+        <strong>핵심 발견:</strong> 흰색을 지각하려면 뇌는 장면 전체의 평균을 계산해야 합니다.
+        이를 위해 네트워크 위치 간 <strong>장거리 상호작용(비국소적)</strong>이 필요하고,
+        그 계산은 조명 강도로 <strong>나누는(비선형적)</strong> 연산을 포함하며,
+        과거 경험으로 형성된 기대(LTM)가 실시간으로 <strong>갱신되어야(비정상적)</strong> 합니다.
+        이것이 세 개의 N이 함께 탄생한 배경입니다.
+      </div>
+    </div>
+
+    <!-- ── N1: 비선형성 ── -->
+    <div class="card">
+      <div class="card-title">
+        <span class="n-badge n-nonlinear">N¹ Nonlinear</span>
+        비선형성 — 광원 할인(Discount the Illuminant)
+      </div>
+      <div class="card-desc" style="margin-bottom:12px">
+        덧셈·뺄셈이 아닌 연산(예: <strong>나눗셈·곱셈</strong>)을 포함하는 모든 과정은 비선형적입니다.
+        Helmholtz가 발견한 "광원 할인"은 뇌가 조명 강도 <em>c</em>로 <strong>나누어</strong>
+        실제 반사율 <em>r</em>을 복원하는 과정입니다. 이 할인 과정 없이는 조명이 바뀔 때마다
+        같은 물체가 다른 색으로 보여야 하지만, 실제 지각은 그렇지 않습니다.
+      </div>
+
+      <div class="eq-row">
+        <div class="eq-box">
+          <div class="eq-label"><span class="bad">선형 — 조명 의존</span></div>
+          <div id="eq-linear"></div>
+        </div>
+        <div class="eq-box">
+          <div class="eq-label"><span class="good">비선형 — 광원 할인 (나눗셈)</span></div>
+          <div id="eq-norm"></div>
+        </div>
+      </div>
+
+      <div class="card-desc" style="margin:12px 0 6px">
+        <strong>신경망에서의 비선형성 — Shunting STM 방정식:</strong><br>
+        Shunting 모델(Fig 2.9–2.10)은 입력을 단순히 더하는 것이 아니라 <em>(B − x)</em>와 <strong>곱합니다</strong>.
+        이 곱셈 구조가 자동 이득 제어(AGC)를 만들어냅니다. 더 나아가 Shunting STM 방정식에는
+        <em>f(x)·y·z</em> 같은 곱셈 항이 등장합니다 — MTM(<em>y</em>)과 LTM(<em>z</em>)이
+        세포 간 STM 신호 <em>f(x)</em>를 <strong>곱셈적으로 게이팅(gating)</strong>합니다.
+      </div>
+      <div class="eq-row">
+        <div class="eq-box">
+          <div class="eq-label"><span class="bad">Additive — 선형, 포화 없음</span></div>
+          <div id="eq-add"></div>
+        </div>
+        <div class="eq-box">
+          <div class="eq-label"><span class="good">Shunting — 비선형, 자동 이득 제어</span></div>
+          <div id="eq-shunt"></div>
+        </div>
+      </div>
+
+      <div class="card-desc" style="margin:10px 0 14px">
+        아래 그래프: 동일한 물체(반사율 <em>r</em>)를 다양한 조명 강도 <em>c</em> 아래서 봤을 때.
+        선형 응답은 <em>c</em>에 비례해 올라가지만, 비선형 정규화는 항상 실제 반사율 <em>r</em>을 복원합니다.
+      </div>
+      <div class="controls-row">
+        <div class="control-group">
+          <label>조명 강도 <em>c</em></label>
+          <input type="range" id="n1-c" min="0.1" max="5" step="0.05" value="1.5">
+          <span class="val" id="n1-c-val">1.50</span>
+        </div>
+        <div class="control-group">
+          <label>반사율 <em>r</em></label>
+          <input type="range" id="n1-r" min="0.05" max="1" step="0.05" value="0.6">
+          <span class="val" id="n1-r-val">0.60</span>
+        </div>
+      </div>
+      <div id="plot-n1" style="height:280px;margin-top:8px"></div>
+    </div>
+
+    <!-- ── N2: 비국소성 ── -->
+    <div class="card">
+      <div class="card-title">
+        <span class="n-badge n-nonlocal">N² Nonlocal</span>
+        비국소성 — 장거리 상호작용과 ART (Fig 2.2)
+      </div>
+      <div class="card-desc" style="margin-bottom:12px">
+        광원 할인의 "나눗셈"을 수행하려면 <strong>장면 전체의 평균</strong>을 알아야 합니다.
+        이는 단일 위치의 측정만으로는 불가능하며, 네트워크 위치 간의 <strong>장거리 공간 상호작용</strong>이
+        반드시 필요합니다. 이것이 비국소성이 비선형성과 불가분한 이유입니다.
+      </div>
+
+      <div class="finding-block">
+        <strong>Helmholtz의 무의식적 추론(unconscious inference):</strong>
+        우리는 종종 과거 학습을 기반으로 <em>기대하는 것</em>을 지각합니다.
+        이 하향식 기대와 상향식 입력 간의 비국소적 매칭이 지각을 완성합니다.
+        Grossberg는 이를 <strong>적응 공명 이론(Adaptive Resonance Theory, ART)</strong>으로 형식화했습니다.
+      </div>
+
+      <div style="margin:12px 0 6px;font-size:12px;font-weight:600;color:var(--text)">ART의 비국소적 구조 (Fig 2.2):</div>
+      <div class="art-steps">
+        <div class="art-step">
+          <div class="step-num">① 상향식 학습</div>
+          환경 입력이 LTM 가중치를 통해 인식 세포를 선택적으로 활성화
+        </div>
+        <div class="art-step">
+          <div class="step-num">② 인식 카테고리</div>
+          선택된 세포가 학습된 하향식 기대를 활성화·읽어냄
+        </div>
+        <div class="art-step">
+          <div class="step-num">③ 하향식 매칭</div>
+          기대가 특성-선택적 세포 네트워크를 통해 상향식 입력과 비교
+        </div>
+        <div class="art-step">
+          <div class="step-num">④ 협력적 경쟁</div>
+          하향식·상향식 신호가 협력·경쟁하며 최종 지각 결정
+        </div>
+      </div>
+
+      <div class="eq-row">
+        <div class="eq-box">
+          <div class="eq-label"><span class="bad">국소적 — 이웃 무시</span></div>
+          <div id="eq-local"></div>
+        </div>
+        <div class="eq-box">
+          <div class="eq-label"><span class="good">비국소적 — On-center Off-surround</span></div>
+          <div id="eq-nonlocal"></div>
+        </div>
+      </div>
+
+      <div class="card-desc" style="margin:10px 0 14px">
+        9개 세포에 가우시안 입력이 주어집니다. <strong>억제 강도 <em>k</em></strong>를 높이면
+        비국소적 억제가 작동하여 주도적인 세포 신호가 선명하게 드러납니다.
+        이것이 장면 전체 맥락이 국소 반응을 조절하는 방식입니다.
+      </div>
+      <div class="controls-row">
+        <div class="control-group">
+          <label>억제 강도 <em>k</em></label>
+          <input type="range" id="n2-k" min="0" max="2" step="0.05" value="0.5">
+          <span class="val" id="n2-k-val">0.50</span>
+        </div>
+        <div class="control-group">
+          <label>피크 세포</label>
+          <input type="range" id="n2-peak" min="0" max="8" step="1" value="4">
+          <span class="val" id="n2-peak-val">4</span>
+        </div>
+      </div>
+      <div id="plot-n2" style="height:280px;margin-top:8px"></div>
+    </div>
+
+    <!-- ── N3: 비정상성 ── -->
+    <div class="card">
+      <div class="card-title">
+        <span class="n-badge n-nonstat">N³ Nonstationary</span>
+        비정상성 — 변화하는 세계에 적응하는 LTM
+      </div>
+      <div class="card-desc" style="margin-bottom:12px">
+        19세기 물리학 방정식의 계수는 고정되어 있습니다(정상적, stationary).
+        그러나 Helmholtz가 발견한 "무의식적 추론"은 과거 경험이 지각에 영향을 미친다는 것을 보여줍니다.
+        이는 뇌의 가중치(LTM 흔적 <em>z</em>)가 <strong>시간에 따라 변해야</strong> 함을 의미합니다.
+        상향식·하향식 학습 과정은 모두 변화하는 세계에 적응하기 위해 LTM 흔적을 갱신합니다.
+      </div>
+
+      <div class="eq-row">
+        <div class="eq-box">
+          <div class="eq-label"><span class="bad">정상적 — 고정 가중치</span></div>
+          <div id="eq-stat"></div>
+        </div>
+        <div class="eq-box">
+          <div class="eq-label"><span class="good">비정상적 — LTM 학습 규칙</span></div>
+          <div id="eq-nonstat"></div>
+        </div>
+      </div>
+
+      <div class="card-desc" style="margin:10px 0 14px">
+        환경 <em>x(t)</em>가 여러 차례 <strong>단계 변화(step change)</strong>합니다.
+        <span style="color:#ef4444">고정 가중치(정상적)</span>는 초기값에 묶여 변화를 전혀 따라가지 못합니다.
+        <span style="color:#22c55e">LTM z(t)(비정상적)</span>는 각 변화를 추적하며 새 환경에 수렴합니다.
+        학습률 <em>ε</em>를 조절하면 추적 속도가 달라집니다.
+      </div>
+      <div class="controls-row">
+        <div class="control-group">
+          <label>학습률 <em>ε</em></label>
+          <input type="range" id="n3-eps" min="0.005" max="0.25" step="0.005" value="0.05">
+          <span class="val" id="n3-eps-val">0.050</span>
+        </div>
+      </div>
+      <div id="plot-n3" style="height:280px;margin-top:8px"></div>
+    </div>
+
+    <!-- ── 요약 ── -->
+    <div class="card">
+      <div class="card-title">세 개의 N — 요약</div>
+      <div class="card-desc" style="margin-bottom:14px">
+        Helmholtz의 색채 지각 실험 하나가 세 가지 새로운 수학적 개념의 필요성을 동시에 드러냈습니다.
+        이 세 가지는 독립적이지 않습니다 — 광원 할인(비선형)을 하려면 장면 전체 평균(비국소)이 필요하고,
+        그 계산에 쓰이는 가중치는 경험으로 갱신(비정상)되어야 합니다.
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:700;color:#ef4444;margin-bottom:8px">Nonlinear 비선형</div>
+          <ul style="font-size:12px;color:var(--text);line-height:1.9;padding-left:16px;margin:0">
+            <li>광원 할인 = 조명으로 나누기</li>
+            <li>전체 ≠ 부품의 합</li>
+            <li>Shunting: <em>(B−x)·I</em> 곱셈</li>
+            <li>게이팅: <em>f(x)·y·z</em> 항</li>
+          </ul>
+        </div>
+        <div style="background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.3);border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:700;color:#3b82f6;margin-bottom:8px">Nonlocal 비국소</div>
+          <ul style="font-size:12px;color:var(--text);line-height:1.9;padding-left:16px;margin:0">
+            <li>장면 전체 평균 계산 필요</li>
+            <li>On-center off-surround 구조</li>
+            <li>ART 상향식·하향식 매칭</li>
+            <li>무의식적 추론의 기반</li>
+          </ul>
+        </div>
+        <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:14px">
+          <div style="font-size:12px;font-weight:700;color:#22c55e;margin-bottom:8px">Nonstationary 비정상</div>
+          <ul style="font-size:12px;color:var(--text);line-height:1.9;padding-left:16px;margin:0">
+            <li>LTM이 경험으로 갱신됨</li>
+            <li>상향식·하향식 학습 모두 적응</li>
+            <li>실시간 자율 학습 가능</li>
+            <li>파국적 망각 방지</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/three-ns.js"></script>
+
+</body>
+</html>

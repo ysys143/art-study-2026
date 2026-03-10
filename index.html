@@ -112,55 +112,6 @@
     <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
   </div>
   <div id="sidebar-list">
-    <div class="nav-section">Simulations</div>
-    <a href="pages/fig2_09.html" class="nav-item">
-      <span class="nav-fig">2.9</span>
-      <span class="nav-label">Additive vs Shunting</span>
-    </a>
-    <a href="pages/fig2_11.html" class="nav-item">
-      <span class="nav-fig">2.11</span>
-      <span class="nav-label">MTM & LTM Dynamics</span>
-    </a>
-    <a href="pages/fig2_19.html" class="nav-item">
-      <span class="nav-fig">2.19</span>
-      <span class="nav-label">Noise-Saturation Dilemma</span>
-    </a>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.24</span>
-      <span class="nav-label">Membrane Equation</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.25</span>
-      <span class="nav-label">Weber Law & Shift</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.27</span>
-      <span class="nav-label">Mudpuppy Retina</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.28</span>
-      <span class="nav-label">Adaptation Level</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.30</span>
-      <span class="nav-label">Noise Suppression</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.31</span>
-      <span class="nav-label">Pattern Matching</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.33</span>
-      <span class="nav-label">Opposites Attract</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.34</span>
-      <span class="nav-label">DOG/SOG Contours</span>
-    </div>
-    <div class="nav-item disabled">
-      <span class="nav-fig">2.37</span>
-      <span class="nav-label">Modeling Methodology</span>
-    </div>
   </div>
 </div>
 
@@ -178,6 +129,15 @@
 
       <div class="section-title">Available Simulations</div>
       <div class="sim-grid">
+        <a href="pages/three-ns.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.2</span>
+            <span class="sim-card-title">Three N's</span>
+          </div>
+          <div class="sim-card-desc">
+            Nonlinear · Nonlocal · Nonstationary — why 19th-century linear physics failed to explain the brain, and the new mathematics Grossberg needed.
+          </div>
+        </a>
         <a href="pages/fig2_09.html" class="sim-card">
           <div class="sim-card-header">
             <span class="sim-card-fig">Fig 2.9</span>
@@ -208,35 +168,106 @@
           </div>
         </a>
 
-        <div class="sim-card disabled">
+        <a href="pages/feedforward-recurrent.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.23</span>
+            <span class="sim-card-title">Feedforward vs Recurrent</span>
+          </div>
+          <div class="sim-card-desc">
+            비순환(feedforward)은 즉시 평형에 도달하는 반면, 순환(recurrent)은 시간에 따라 수렴하며
+            단기 기억과 경쟁을 가능하게 합니다.
+          </div>
+        </a>
+
+        <a href="pages/fig2_24.html" class="sim-card">
           <div class="sim-card-header">
             <span class="sim-card-fig">Fig 2.24</span>
             <span class="sim-card-title">Membrane Equation</span>
           </div>
           <div class="sim-card-desc">
-            막 방정식 시뮬레이션 (준비 중)
+            완전한 막 방정식 시뮬레이션. 흥분성(Na⁺/Ca²⁺)과 억제성(K⁺/Cl⁻) 역전 전위가 활동 범위를 자동으로 [-C, B]에 묶는 메커니즘을 보여줍니다.
           </div>
-        </div>
+        </a>
 
-        <div class="sim-card disabled">
+        <a href="pages/fig2_25.html" class="sim-card">
           <div class="sim-card-header">
             <span class="sim-card-fig">Fig 2.25</span>
             <span class="sim-card-title">Weber Law & Shift</span>
           </div>
           <div class="sim-card-desc">
-            베버의 법칙과 적응 레벨 변화 (준비 중)
+            베버의 법칙이 shunting 네트워크에서 자연스럽게 도출됨을 보여줍니다. 배경 강도에 비례하는 변화만 감지 가능한 자동 이득 제어.
           </div>
-        </div>
+        </a>
 
-        <div class="sim-card disabled">
+        <a href="pages/fig2_27.html" class="sim-card">
           <div class="sim-card-header">
             <span class="sim-card-fig">Fig 2.27</span>
             <span class="sim-card-title">Mudpuppy Retina</span>
           </div>
           <div class="sim-card-desc">
-            도루뱀눈 망막 모델링 (준비 중)
+            Necturus 망막 on-center off-surround 수용야. Gaussian shunting 네트워크로 Mach 밴드, 밝기 항상성, 조명 할인을 재현합니다.
           </div>
-        </div>
+        </a>
+
+        <a href="pages/fig2_28.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.28</span>
+            <span class="sim-card-title">Adaptation Level</span>
+          </div>
+          <div class="sim-card-desc">
+            적응 수준 이론. Shunting 네트워크의 분모가 적응 수준 역할을 하여, 절대 밝기가 아닌 상대적 대비를 부호화합니다.
+          </div>
+        </a>
+
+        <a href="pages/fig2_30.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.30</span>
+            <span class="sim-card-title">Noise Suppression</span>
+          </div>
+          <div class="sim-card-desc">
+            노이즈 억제. 적응 수준 C/(B+C)=1/n일 때 균일 입력은 완전히 억제되고, 특징 있는 패턴만 통과합니다.
+          </div>
+        </a>
+
+        <a href="pages/fig2_31.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.31</span>
+            <span class="sim-card-title">Pattern Matching</span>
+          </div>
+          <div class="sim-card-desc">
+            패턴 매칭과 공명 기반. Bottom-up과 top-down 입력이 일치하면 증폭, 불일치하면 억제됩니다. ART 공명의 수학적 기초.
+          </div>
+        </a>
+
+        <a href="pages/fig2_33.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.33</span>
+            <span class="sim-card-title">Opposites Attract</span>
+          </div>
+          <div class="sim-card-desc">
+            반대가 끌어당긴다. 세포내 파라미터(C/B)가 세포간 연결(1/(n-1))을 결정하는 대칭 파괴 규칙. 형태 발생 중 노이즈 억제 조건이 자연 발생.
+          </div>
+        </a>
+
+        <a href="pages/fig2_34.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.34</span>
+            <span class="sim-card-title">DOG/SOG Contours</span>
+          </div>
+          <div class="sim-card-desc">
+            비율-대비 탐지기. Gaussian 가중 on-center off-surround 커널(DOG/SOG)로 균일 조명을 억제하고 공간 대비(윤곽)를 선택적으로 강화합니다.
+          </div>
+        </a>
+
+        <a href="pages/fig2_37.html" class="sim-card">
+          <div class="sim-card-header">
+            <span class="sim-card-fig">Fig 2.37</span>
+            <span class="sim-card-title">Modeling Methodology</span>
+          </div>
+          <div class="sim-card-desc">
+            Grossberg의 모델링 방법론과 사이클. 행동 데이터 → 설계 원리 → 수학 모델 → 예측 → 검증의 반복적 순환 과정.
+          </div>
+        </a>
       </div>
 
       <div class="about-section">
@@ -249,5 +280,6 @@
   </div>
 </div>
 
+<script src="js/nav.js"></script>
 </body>
 </html>

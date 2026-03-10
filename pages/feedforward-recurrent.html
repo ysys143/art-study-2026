@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비순환 vs 순환 네트워크 | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.network-diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.diagram-section {
+  text-align: center;
+  flex: 1;
+  min-width: 280px;
+}
+
+.diagram-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.svg-container {
+  background: var(--surface2);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg.feedforward, svg.recurrent {
+  width: 240px;
+  height: 160px;
+}
+
+.neuron-node {
+  fill: var(--surface);
+  stroke: var(--text);
+  stroke-width: 2px;
+}
+
+.neuron-text {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  fill: var(--text);
+}
+
+.connection {
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+.model-toggles {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.model-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all .15s;
+  user-select: none;
+}
+
+.model-toggle .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+.model-toggle.active { border-color: currentColor; background: var(--surface2); }
+.model-toggle:not(.active) { opacity: .4; }
+.model-toggle:not(.active) .dot { opacity: .3; }
+.model-toggle:hover { background: var(--surface2); }
+
+.eq-box {
+  flex: 1;
+  min-width: 260px;
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.eq-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+
+.eq-label .ff { color: var(--blue); }
+.eq-label .rnn { color: var(--red); }
+
+.insight-box {
+  padding: 12px 16px;
+  background: rgba(90,154,114,.06);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 16px 0;
+}
+
+.insight-box strong { color: var(--green); }
+
+.phase-indicator {
+  text-align: center;
+  padding: 10px 16px;
+  background: var(--surface2);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.phase-indicator .phase-val {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--accent);
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.23: 비순환 vs 순환 네트워크</h2>
+    <span class="tag">Feedforward vs Recurrent</span>
+  </div>
+  <div id="content">
+
+    <div class="card">
+      <div class="card-title">비순환(Feedforward) vs 순환(Recurrent) 네트워크</div>
+      <div class="card-desc">
+        둘 다 총 활동이 제한된다는 점은 같지만, <strong>언제/어떻게</strong> 제한되는지가 다릅니다.
+        비순환 네트워크는 입력이 들어오면 즉시 평형에 도달하는 반면, 순환 네트워크는 셀들이 서로 피드백하며
+        시간에 따라 수렴합니다. Grossberg는 이 구분을 강조하는데, ART, 단기 기억, 주의 등 대부분의 뇌 아키텍처가
+        <strong>순환 네트워크</strong>이기 때문입니다.
+      </div>
+
+      <!-- Network Diagrams -->
+      <div class="network-diagram">
+        <div class="diagram-section">
+          <div class="diagram-title">비순환 네트워크</div>
+          <div class="svg-container">
+            <svg class="feedforward" viewBox="0 0 240 160">
+              <defs>
+                <marker id="arrow-ff" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#4a7fb5" />
+                </marker>
+              </defs>
+              <circle class="neuron-node" cx="40" cy="55" r="15" />
+              <text class="neuron-text" x="40" y="55">I₁</text>
+              <circle class="neuron-node" cx="40" cy="105" r="15" />
+              <text class="neuron-text" x="40" y="105">I₂</text>
+              <circle class="neuron-node" cx="120" cy="55" r="15" />
+              <text class="neuron-text" x="120" y="55">x₁</text>
+              <circle class="neuron-node" cx="120" cy="105" r="15" />
+              <text class="neuron-text" x="120" y="105">x₂</text>
+              <circle class="neuron-node" cx="200" cy="80" r="15" />
+              <text class="neuron-text" x="200" y="80">y</text>
+              <line class="connection" x1="55" y1="55" x2="105" y2="55" stroke="#4a7fb5" stroke-width="2" marker-end="url(#arrow-ff)" />
+              <line class="connection" x1="55" y1="105" x2="105" y2="105" stroke="#4a7fb5" stroke-width="2" marker-end="url(#arrow-ff)" />
+              <line class="connection" x1="55" y1="55" x2="105" y2="105" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#arrow-ff)" />
+              <line class="connection" x1="55" y1="105" x2="105" y2="55" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#arrow-ff)" />
+              <line class="connection" x1="135" y1="55" x2="185" y2="80" stroke="#4a7fb5" stroke-width="2" marker-end="url(#arrow-ff)" />
+              <line class="connection" x1="135" y1="105" x2="185" y2="80" stroke="#4a7fb5" stroke-width="2" marker-end="url(#arrow-ff)" />
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">
+            입력 → 한 번 처리 → 출력 (즉시 평형)
+          </div>
+        </div>
+
+        <div class="diagram-section">
+          <div class="diagram-title">순환 네트워크</div>
+          <div class="svg-container">
+            <svg class="recurrent" viewBox="0 0 240 160">
+              <defs>
+                <marker id="arrow-rnn" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#c06058" />
+                </marker>
+              </defs>
+              <circle class="neuron-node" cx="50" cy="80" r="15" />
+              <text class="neuron-text" x="50" y="80">I</text>
+              <circle class="neuron-node" cx="130" cy="50" r="15" />
+              <text class="neuron-text" x="130" y="50">x₁</text>
+              <circle class="neuron-node" cx="130" cy="110" r="15" />
+              <text class="neuron-text" x="130" y="110">x₂</text>
+              <path class="connection" d="M 130 35 Q 90 30 60 65" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#arrow-rnn)" />
+              <path class="connection" d="M 145 55 Q 160 80 145 105" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#arrow-rnn)" />
+              <path class="connection" d="M 115 105 Q 100 80 115 55" fill="none" stroke="#c06058" stroke-width="2" marker-end="url(#arrow-rnn)" />
+              <line class="connection" x1="65" y1="80" x2="115" y2="50" stroke="#4a7fb5" stroke-width="2" marker-end="url(#arrow-rnn)" />
+              <line class="connection" x1="65" y1="80" x2="115" y2="110" stroke="#4a7fb5" stroke-width="2" marker-end="url(#arrow-rnn)" />
+            </svg>
+          </div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">
+            셀들이 서로 피드백 (시간에 따라 수렴)
+          </div>
+        </div>
+      </div>
+
+      <!-- Equations -->
+      <!-- Unified equation -->
+      <div class="eq-box" style="margin-bottom:16px">
+        <div class="eq-label">Shunting Membrane Equation (공통 형식)</div>
+        <div id="unified-equation"></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+          수식 형태는 동일하지만, <strong>억제 항의 출처(토폴로지)</strong>가 다릅니다.
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+        <div class="eq-box">
+          <div class="eq-label"><span class="ff">비순환 토폴로지</span></div>
+          <div id="ff-equation"></div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+            억제 입력 J가 <strong>외부/이전 층</strong>에서 고정 제공<br>
+            &rarr; 피드백 루프 없음, 한 번 수렴하면 끝
+          </div>
+        </div>
+        <div class="eq-box">
+          <div class="eq-label"><span class="rnn">순환 토폴로지</span></div>
+          <div id="rnn-equation"></div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+            억제가 <strong>같은 층 뉴런의 현재 활동 x<sub>j</sub></strong>에서 옴<br>
+            &rarr; 피드백 루프 &rarr; 시간적 동역학이 달라짐
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parameters -->
+    <div class="card">
+      <div class="card-title">Parameters</div>
+      <div class="controls-row">
+        <div class="control-group">
+          <label>Competition <em>c</em></label>
+          <input type="range" id="slider-comp" min="0" max="300" step="10" value="150">
+          <span class="val" id="val-comp">1.50</span>
+        </div>
+        <div class="control-group">
+          <label>Decay <em>A</em></label>
+          <input type="range" id="slider-A" min="10" max="200" step="10" value="50">
+          <span class="val" id="val-A">0.50</span>
+        </div>
+        <div class="control-group">
+          <label>Saturation <em>B</em></label>
+          <input type="range" id="slider-B" min="100" max="400" step="50" value="200">
+          <span class="val" id="val-B">2.0</span>
+        </div>
+      </div>
+
+      <!-- Real-time controls (same pattern as fig2_09) -->
+      <div style="display:flex;align-items:center;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap">
+        <div class="control-group">
+          <label>Input <em>I</em></label>
+          <input type="range" id="slider-I" min="0" max="1000" step="1" value="600">
+          <span class="val" id="val-I">3.00</span>
+        </div>
+        <div class="control-group">
+          <label>Speed</label>
+          <input type="range" id="slider-speed" min="1" max="100" step="1" value="50" style="width:120px">
+          <span class="val" id="val-speed">1.0x</span>
+        </div>
+        <button id="btn-pulse" style="padding:5px 16px;border-radius:8px;border:1.5px solid var(--accent);background:var(--accent-light);color:var(--accent);cursor:pointer;font-size:12px;font-weight:700">[~] Pulse</button>
+        <button id="btn-reset" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[R] Reset</button>
+        <button id="btn-pause" class="p09rt-start-blink" style="padding:5px 16px;border-radius:8px;border:1.5px solid #4caf50;background:var(--surface2);color:#4caf50;cursor:pointer;font-size:12px;font-weight:700">[>] Start</button>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+        펄스 입력 시 순환 네트워크의 <strong>attractor 상태</strong>와 <strong>단기 기억(STM)</strong>을 관찰할 수 있습니다.
+        Input Off 모드에서는 입력 없이 시스템의 자유 동역학을 관찰합니다.
+      </div>
+    </div>
+
+    <!-- Model Toggles -->
+    <div class="model-toggles">
+      <button class="model-toggle active" id="toggle-ff" style="color:var(--blue)">
+        <span class="dot" style="background:var(--blue)"></span>Feedforward
+      </button>
+      <button class="model-toggle active" id="toggle-rnn" style="color:var(--red)">
+        <span class="dot" style="background:var(--red)"></span>Recurrent
+      </button>
+    </div>
+
+    <!-- Phase Indicator -->
+    <div class="phase-indicator">
+      Feedforward 평형: x* = <span class="phase-val" id="ff-eq-x1">1.20</span>
+      &nbsp;|&nbsp;
+      Recurrent: x = <span class="phase-val" id="rnn-live-x1">0.00</span>
+      &nbsp;|&nbsp;
+      Time: <span class="phase-val" id="live-time">0.0</span>s
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-label">Time Evolution</div>
+        <div id="plot-time" style="width:100%;height:300px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-label">Activity Bar Comparison</div>
+        <div style="display:flex;justify-content:center;align-items:flex-end;gap:60px;height:280px;padding:20px 30px">
+          <div style="text-align:center">
+            <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:10px">Feedforward</div>
+            <div style="display:flex;justify-content:center;align-items:flex-end;height:220px">
+              <div id="bar-ff-x1" style="width:64px;height:0%;background:var(--blue);border-radius:6px 6px 0 0;transition:height 0.3s"></div>
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px">x*</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:10px">Recurrent</div>
+            <div style="display:flex;justify-content:center;align-items:flex-end;height:220px">
+              <div id="bar-rnn-x1" style="width:64px;height:0%;background:var(--red);border-radius:6px 6px 0 0;transition:height 0.3s"></div>
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px">x(t)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attractor Dynamics Explanation -->
+    <div class="card">
+      <div class="card-title">Attractor 동역학 해설</div>
+
+      <!-- 1. Feedforward: Memoryless -->
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:8px">1. 비순환 네트워크: 기억 없는 즉시 평형</div>
+        <div class="eq-box" style="margin-bottom:10px">
+          <div id="eq-ff-detail"></div>
+        </div>
+        <div style="font-size:12px;line-height:1.7;color:var(--text)">
+          비순환 네트워크의 출력은 입력의 <strong>대수적 함수</strong>입니다. 미분방정식을 풀 필요 없이
+          입력 <em>I<sub>i</sub></em>가 주어지면 즉시 평형값 <em>x<sub>i</sub>*</em>이 결정됩니다.
+          총 입력 <em>I = &Sigma;I<sub>k</sub></em>가 분모에 있으므로 <strong>정규화(normalization)</strong>가 자동으로 이루어지고,
+          활동의 총합은 항상 <em>B</em> 이하로 제한됩니다.<br>
+          <span style="color:var(--text-muted)">
+            &rarr; 현재 FF 평형: x₁* = <span id="insight-ff-val" style="color:var(--blue);font-weight:600">0.00</span>
+          </span><br>
+          그러나 <strong>입력이 사라지면(I=0) 출력도 즉시 0</strong>이 됩니다. 기억 능력이 없습니다.
+        </div>
+      </div>
+
+      <!-- 2. Recurrent: ODE and terms -->
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:8px">2. 순환 네트워크: 시간에 따른 수렴</div>
+        <div class="eq-box" style="margin-bottom:10px">
+          <div id="eq-rnn-detail"></div>
+        </div>
+        <div style="font-size:12px;line-height:1.7;color:var(--text)">
+          순환 네트워크는 <strong>미분방정식</strong>으로 기술됩니다. 각 항의 역할:
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0">
+          <div style="flex:1;min-width:200px;background:var(--surface2);border-radius:6px;padding:10px 12px;border-left:3px solid var(--red)">
+            <div style="font-size:11px;font-weight:600;color:var(--red)">수동적 감쇠 (passive decay)</div>
+            <div id="eq-term-decay" style="margin:6px 0"></div>
+            <div style="font-size:11px;color:var(--text-muted)">외부 자극 없으면 활동이 지수적으로 소멸</div>
+          </div>
+          <div style="flex:1;min-width:200px;background:var(--surface2);border-radius:6px;padding:10px 12px;border-left:3px solid var(--blue)">
+            <div style="font-size:11px;font-weight:600;color:var(--blue)">분로 흥분 (shunting excitation)</div>
+            <div id="eq-term-excite" style="margin:6px 0"></div>
+            <div style="font-size:11px;color:var(--text-muted)">활동이 B에 가까울수록 흥분 효과 감소 &rarr; 포화 방지</div>
+          </div>
+          <div style="flex:1;min-width:200px;background:var(--surface2);border-radius:6px;padding:10px 12px;border-left:3px solid var(--accent)">
+            <div style="font-size:11px;font-weight:600;color:var(--accent)">측면 억제 (lateral inhibition)</div>
+            <div id="eq-term-inhib" style="margin:6px 0"></div>
+            <div style="font-size:11px;color:var(--text-muted)">경쟁 셀의 활동이 클수록 자신의 활동 억제</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Attractor after input removal -->
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:8px">3. 입력 제거 후: Attractor와 단기 기억(STM)</div>
+        <div class="eq-box" style="margin-bottom:10px">
+          <div id="eq-no-input"></div>
+        </div>
+        <div style="font-size:12px;line-height:1.7;color:var(--text)">
+          입력이 사라져도(<em>I<sub>i</sub>=0</em>) 순환 연결 덕분에 활동이 즉시 사라지지 않습니다.
+          경쟁 항 <em>c &middot; x<sub>i</sub> &middot; x<sub>j</sub></em>가 핵심입니다:
+          더 강한 셀이 약한 셀을 억제하면서 <strong>자기 자신은 억제를 덜 받아</strong>
+          비대칭 상태가 안정적으로 유지됩니다.
+        </div>
+        <div class="insight-box" style="margin:12px 0">
+          <strong>핵심 메커니즘:</strong> 셀 1이 셀 2보다 크면 (<em>x₁ > x₂</em>)&thinsp;&rarr;&thinsp;셀 2가 받는 억제(<em>c &middot; x₂ &middot; x₁</em>)가 더 강해
+          &rarr;&thinsp;셀 2 감소&thinsp;&rarr;&thinsp;셀 1이 받는 억제 약화&thinsp;&rarr;&thinsp;셀 1 유지.
+          이 <strong>양성 피드백 루프</strong>가 attractor를 형성합니다.
+        </div>
+      </div>
+
+      <!-- 4. Winner-Take-All -->
+      <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px">4. 끌개(Attractor)의 유형과 Winner-Take-All</div>
+        <div style="font-size:12px;line-height:1.7;color:var(--text);margin-bottom:12px">
+          Winner-take-all은 끌개의 <strong>특수한 유형</strong>입니다.
+          순환 네트워크의 ODE가 수렴하는 <strong>안정 고정점(stable fixed point)</strong>이 곧 끌개인데,
+          경쟁 계수 <em>c</em>의 크기에 따라 끌개의 형태가 달라집니다:
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <div class="eq-box" style="flex:1;min-width:220px">
+            <div class="eq-label">c = 0: 독립 끌개</div>
+            <div id="eq-wta-indep"></div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px">각 셀이 독립적으로 평형 도달</div>
+          </div>
+          <div class="eq-box" style="flex:1;min-width:220px">
+            <div class="eq-label">c 작음: 공존 끌개</div>
+            <div id="eq-wta-weak"></div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px"><strong>부분 대비(partial contrast)</strong> &mdash; 두 셀 모두 활성</div>
+          </div>
+          <div class="eq-box" style="flex:1;min-width:220px">
+            <div class="eq-label">c 큼: 선택 끌개</div>
+            <div id="eq-wta-strong"></div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px"><strong>Winner-take-all</strong> &mdash; 범주적 선택</div>
+          </div>
+        </div>
+        <div class="insight-box" style="margin:12px 0">
+          <strong>왜 WTA도 끌개인가?</strong>
+          상태 공간에서 <strong>(B, 0)</strong>과 <strong>(0, B)</strong>는 각각 안정 고정점입니다.
+          초기 입력의 미세한 차이가 시스템을 어느 끌개로 끌어당길지 결정합니다.
+          Grossberg는 이를 <strong>"choice attractor"</strong>라고 부릅니다 &mdash;
+          시스템이 노이즈 속에서 범주적 선택을 내리는 메커니즘이자,
+          <strong>noise-saturation dilemma의 해결책</strong>입니다.
+        </div>
+        <div style="font-size:12px;line-height:1.7;color:var(--text)">
+          &rarr; 슬라이더로 <em>c</em>를 높여보고, 펄스 입력 후 끌개 형태의 변화를 관찰해 보세요.
+          <em>c</em>가 클수록 두 셀의 활동 차이가 극대화되는 것을 확인할 수 있습니다.
+        </div>
+      </div>
+
+      <!-- 5. Summary comparison -->
+      <div style="background:var(--surface2);border-radius:8px;padding:14px 16px;border:1px solid var(--border)">
+        <div style="font-size:12px;font-weight:600;margin-bottom:10px;color:var(--text)">비순환 vs 순환: 핵심 차이 요약</div>
+        <table style="width:100%;font-size:12px;border-collapse:collapse">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border)">
+              <th style="text-align:left;padding:6px 8px;color:var(--text-muted)">특성</th>
+              <th style="text-align:center;padding:6px 8px;color:var(--blue)">비순환 (Feedforward)</th>
+              <th style="text-align:center;padding:6px 8px;color:var(--red)">순환 (Recurrent)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:6px 8px;color:var(--text-muted)">평형 도달</td>
+              <td style="text-align:center;padding:6px 8px">즉시 (t=0)</td>
+              <td style="text-align:center;padding:6px 8px">시간에 따라 수렴</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:6px 8px;color:var(--text-muted)">입력 제거 후</td>
+              <td style="text-align:center;padding:6px 8px">즉시 x=0</td>
+              <td style="text-align:center;padding:6px 8px">attractor 상태 유지</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:6px 8px;color:var(--text-muted)">기억 능력</td>
+              <td style="text-align:center;padding:6px 8px">없음</td>
+              <td style="text-align:center;padding:6px 8px">STM (단기 기억)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:6px 8px;color:var(--text-muted)">대비 증강</td>
+              <td style="text-align:center;padding:6px 8px">입력 비율 보존</td>
+              <td style="text-align:center;padding:6px 8px">Winner-take-all 가능</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;color:var(--text-muted)">수학적 해</td>
+              <td style="text-align:center;padding:6px 8px">대수적 (닫힌 형태)</td>
+              <td style="text-align:center;padding:6px 8px">미분방정식 (수치 해)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/feedforward-recurrent.js"></script>
+</body>
+</html>
