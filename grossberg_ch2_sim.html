@@ -216,6 +216,21 @@
     border-radius: 50%;
     transition: opacity .15s;
   }
+  @keyframes p09rt-blink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+    50% { opacity: 0.6; box-shadow: 0 0 8px 3px rgba(76,175,80,0.5); }
+  }
+  .p09rt-start-blink {
+    animation: p09rt-blink 1.1s ease-in-out infinite;
+  }
+  @keyframes p09rt-pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb, 180,120,60), 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(var(--accent-rgb, 180,120,60), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb, 180,120,60), 0); }
+  }
+  .p09rt-pulse-btn {
+    animation: p09rt-pulse-ring 2s ease-out infinite;
+  }
   .model-toggle.active {
     border-color: currentColor;
     background: var(--surface2);
@@ -487,6 +502,10 @@
     .chart-grid { grid-template-columns: 1fr; }
     .bar-grid { grid-template-columns: 1fr; }
   }
+  .eq-seg { display:inline-block; padding:2px 5px; border-radius:5px; transition:background .18s, box-shadow .18s; }
+  .eq-seg-hl-green  { background:rgba(90,154,114,.18); box-shadow:0 0 0 1.5px rgba(90,154,114,.45); }
+  .eq-seg-hl-purple { background:rgba(122,111,160,.18); box-shadow:0 0 0 1.5px rgba(122,111,160,.45); }
+  .eq-seg-hl-red    { background:rgba(192,96,88,.18);  box-shadow:0 0 0 1.5px rgba(192,96,88,.45); }
 </style>
 </head>
 <body>
@@ -673,8 +692,14 @@
             <input type="range" id="p09rt-slider-I" min="0" max="1000" step="1" value="720">
             <span class="val" id="p09rt-val-I">20.9</span>
           </div>
+          <div class="control-group">
+            <label>Speed</label>
+            <input type="range" id="p09rt-slider-speed" min="1" max="100" step="1" value="50" style="width:120px">
+            <span class="val" id="p09rt-val-speed">1.0x</span>
+          </div>
+          <button id="p09rt-btn-pulse" style="padding:5px 16px;border-radius:8px;border:1.5px solid var(--accent);background:var(--accent-light);color:var(--accent);cursor:pointer;font-size:12px;font-weight:700">[~] Pulse</button>
           <button id="p09rt-btn-reset" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[R] Reset</button>
-          <button id="p09rt-btn-pause" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[||] Pause</button>
+          <button id="p09rt-btn-pause" class="p09rt-start-blink" style="padding:5px 16px;border-radius:8px;border:1.5px solid #4caf50;background:var(--surface2);color:#4caf50;cursor:pointer;font-size:12px;font-weight:700">[>] Start</button>
         </div>
         <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start">
           <div class="chart-card">
@@ -728,6 +753,324 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- General form equations -->
+    <div class="card" style="margin-top:0" id="p09-general-card">
+      <div class="card-title" style="font-size:1em;margin-bottom:14px">General Model Forms <span style="font-size:0.75em;color:var(--text-muted);font-weight:400">(Grossberg, PNAS 1967–68)</span></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- Additive general -->
+        <div style="background:rgba(192,96,88,.04);border:1px solid rgba(192,96,88,.18);border-radius:10px;padding:16px">
+          <div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">STM: Additive Model</div>
+          <div style="overflow-x:auto;padding:4px 0;text-align:center;line-height:2.4">
+            <span id="eq-ad-lhs"></span><span id="eq-ad-exc-sum" class="eq-seg"></span><span id="eq-ad-sep"></span><span id="eq-ad-inh-sum" class="eq-seg"></span><span id="eq-ad-rhs"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px">
+            <!-- Left: variable table -->
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:11px;color:var(--text-muted)">
+                <thead>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.25)">
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--red);width:52px">변수</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--red)">의미</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--red);width:100px">생물학적 대응</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-A"></span></td><td style="padding:4px 8px">수동 감쇠율</td><td style="padding:4px 8px;color:#888">membrane leak</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-B"></span></td><td style="padding:4px 8px">흥분성 구조 가중치</td><td style="padding:4px 8px;color:#888">excitatory synapse</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-C"></span></td><td style="padding:4px 8px">억제성 구조 가중치</td><td style="padding:4px 8px;color:#888">inhibitory synapse</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-z"></span></td><td style="padding:4px 8px">흥분성 LTM 가중치</td><td style="padding:4px 8px;color:#888">excitatory LTM trace</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-Z"></span></td><td style="padding:4px 8px">억제성 LTM 가중치</td><td style="padding:4px 8px;color:#888">inhibitory LTM trace</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-f"></span></td><td style="padding:4px 8px">흥분성 신호 함수 (sigmoid)</td><td style="padding:4px 8px;color:#888">excitatory firing rate</td></tr>
+                  <tr style="border-bottom:1px solid rgba(192,96,88,.1)"><td style="padding:4px 8px"><span id="tv-add-g"></span></td><td style="padding:4px 8px">억제성 신호 함수</td><td style="padding:4px 8px;color:#888">inhibitory firing rate</td></tr>
+                  <tr><td style="padding:4px 8px"><span id="tv-add-I"></span></td><td style="padding:4px 8px">외부 흥분성 입력</td><td style="padding:4px 8px;color:#888">external sensory input</td></tr>
+                </tbody>
+              </table>
+              <div style="margin-top:12px">
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600">시뮬레이션 특수형</div>
+                <div id="eq-add-special" style="overflow-x:auto;padding:2px 0"></div>
+              </div>
+            </div>
+            <!-- Right: term chunk breakdown -->
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">곱셈 항 분해</div>
+
+              <!-- Excitatory chunk -->
+              <div data-hl="eq-ad-exc-sum" data-hl-class="eq-seg-hl-purple" style="background:rgba(122,111,160,.07);border:1px solid rgba(122,111,160,.2);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#7a6fa0;margin-bottom:8px">흥분성 피드백 (positive feedback)</div>
+                <div id="eq-add-chunk-exc" style="overflow-x:auto;margin-bottom:10px"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+                  <div style="text-align:center;padding:6px 4px;background:rgba(122,111,160,.1);border-radius:5px">
+                    <div id="chip-ae-f" style="color:#7a6fa0;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">신호 함수<br>발화율</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(122,111,160,.1);border-radius:5px">
+                    <div id="chip-ae-B" style="color:#7a6fa0;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">고정 구조<br>가중치</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(122,111,160,.1);border-radius:5px">
+                    <div id="chip-ae-z" style="color:#7a6fa0;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">LTM 학습<br>가중치</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inhibitory chunk -->
+              <div data-hl="eq-ad-inh-sum" data-hl-class="eq-seg-hl-red" style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.18);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#c06058;margin-bottom:8px">억제성 피드백 (negative feedback)</div>
+                <div id="eq-add-chunk-inh" style="overflow-x:auto;margin-bottom:10px"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+                  <div style="text-align:center;padding:6px 4px;background:rgba(192,96,88,.08);border-radius:5px">
+                    <div id="chip-ai-g" style="color:#c06058;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">억제성<br>발화율</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(192,96,88,.08);border-radius:5px">
+                    <div id="chip-ai-C" style="color:#c06058;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">억제성<br>구조 가중치</div>
+                  </div>
+                  <div style="text-align:center;padding:6px 4px;background:rgba(192,96,88,.08);border-radius:5px">
+                    <div id="chip-ai-Z" style="color:#c06058;margin-bottom:2px"></div>
+                    <div style="font-size:10px;color:var(--text-muted)">억제성<br>LTM 가중치</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shunting general -->
+        <div style="background:rgba(90,154,114,.04);border:1px solid rgba(90,154,114,.18);border-radius:10px;padding:16px">
+          <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">STM: Shunting Model <span style="font-size:9px;font-weight:400">(Membrane Eq.)</span></div>
+          <div style="overflow-x:auto;padding:4px 0;text-align:center;line-height:2.4">
+            <span id="eq-sh-lhs"></span><span id="eq-sh-exc-gain" class="eq-seg"></span><span id="eq-sh-lbr1"></span><span id="eq-sh-exc-sum" class="eq-seg"></span><span id="eq-sh-ext-i"></span><span id="eq-sh-sep"></span><span id="eq-sh-inh-gain" class="eq-seg"></span><span id="eq-sh-lbr2"></span><span id="eq-sh-inh-sum" class="eq-seg"></span><span id="eq-sh-ext-j"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;align-items:start">
+            <!-- Left: variable table -->
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:11px;color:var(--text-muted)">
+                <thead>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.25)">
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--green);width:52px">변수</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--green)">의미</th>
+                    <th style="text-align:left;padding:4px 8px;font-weight:700;color:var(--green);width:100px">생물학적 대응</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-B"></span></td><td style="padding:4px 8px">흥분성 포화전압 (상한)</td><td style="padding:4px 8px;color:#888">Na⁺ reversal potential</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-C"></span></td><td style="padding:4px 8px">흥분성 이득 스케일</td><td style="padding:4px 8px;color:#888">membrane conductance</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-D"></span></td><td style="padding:4px 8px">흥분성 구조 가중치</td><td style="padding:4px 8px;color:#888">excitatory synapse weight</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-E"></span></td><td style="padding:4px 8px">억제성 활동 스케일</td><td style="padding:4px 8px;color:#888">inhibitory gain factor</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-F"></span></td><td style="padding:4px 8px">기저 억제 입력</td><td style="padding:4px 8px;color:#888">resting inhibitory current</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-G"></span></td><td style="padding:4px 8px">억제성 구조 가중치</td><td style="padding:4px 8px;color:#888">inhibitory synapse weight</td></tr>
+                  <tr style="border-bottom:1px solid rgba(90,154,114,.1)"><td style="padding:4px 8px"><span id="tv-sh-yY"></span></td><td style="padding:4px 8px">흥/억 MTM 게이트</td><td style="padding:4px 8px;color:#888">neurotransmitter gate</td></tr>
+                  <tr><td style="padding:4px 8px"><span id="tv-sh-J"></span></td><td style="padding:4px 8px">외부 억제성 입력</td><td style="padding:4px 8px;color:#888">external inhibitory input</td></tr>
+                </tbody>
+              </table>
+              <div style="margin-top:12px">
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600">시뮬레이션 특수형</div>
+                <div id="eq-shunt-special2" style="overflow-x:auto;padding:2px 0"></div>
+              </div>
+              <div style="margin-top:14px;font-size:11px;color:var(--text-muted);line-height:1.9;padding:10px 12px;background:rgba(90,154,114,.05);border-radius:6px;border:1px solid rgba(90,154,114,.15)">
+                <div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:6px">균형점 (equilibrium)</div>
+                <div id="eq-shunt-equil" style="font-size:1.05em;margin-bottom:8px"></div>
+                <span style="color:var(--green)">&#10003;</span> 입력 <em>I</em> 이 커져도 <strong>x* &le; B</strong> 보장<br>
+                <span style="color:var(--green)">&#10003;</span> 비율 <em>θᵢ = Iᵢ / I</em> 가 보존됨
+              </div>
+            </div>
+            <!-- Right: chunk breakdown -->
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">곱셈 항 분해</div>
+
+              <!-- Excitatory gain -->
+              <div data-hl="eq-sh-exc-gain" data-hl-class="eq-seg-hl-green" style="background:rgba(90,154,114,.08);border:1px solid rgba(90,154,114,.25);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#5a9a72;margin-bottom:6px">흥분성 이득 제어 인자</div>
+                <div id="eq-shunt-gain-exc" style="overflow-x:auto;margin-bottom:6px;text-align:left;font-size:1.15em"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.8">
+                  <span id="chip-sg-xi1" style="color:#5a9a72"></span>→0 이면 이득=<span id="chip-sg-Bi1" style="color:#5a9a72"></span> (최대)<br>
+                  <span id="chip-sg-xi2" style="color:#5a9a72"></span>→<span id="chip-sg-Bi2" style="color:#5a9a72"></span> 이면 이득→0 (포화 방지)<br>
+                  → <strong style="color:#5a9a72">자동 이득 제어(AGC)</strong>
+                </div>
+              </div>
+
+              <!-- Excitatory Σ chunk -->
+              <div data-hl="eq-sh-exc-sum" data-hl-class="eq-seg-hl-purple" style="background:rgba(122,111,160,.07);border:1px solid rgba(122,111,160,.2);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#7a6fa0;margin-bottom:8px">흥분성 합산 항 (4중 곱)</div>
+                <div id="eq-shunt-chunk-exc" style="overflow-x:auto;margin-bottom:8px"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+                  가산형의 고정 가중치 <span id="chip-se-z" style="color:#7a6fa0"></span>가<br>
+                  구조적 연결 <span id="chip-se-D" style="color:#7a6fa0"></span> × MTM 게이트 <span id="chip-se-y" style="color:#7a6fa0"></span>로 분해됨.<br>
+                  발화율 <span id="chip-se-f" style="color:#7a6fa0"></span>까지 포함해 4중 곱.
+                </div>
+              </div>
+
+              <!-- Inhibitory driving factor -->
+              <div data-hl="eq-sh-inh-gain" data-hl-class="eq-seg-hl-red" style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.18);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#c06058;margin-bottom:6px">억제성 구동 인자</div>
+                <div id="eq-shunt-gain-inh" style="overflow-x:auto;margin-bottom:8px;text-align:left;font-size:1.15em"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+                  <span id="chip-si-EF" style="color:#c06058"></span> — 현재 활동 기반 억제성 구동력.<br>
+                  흥분성 이득 <span id="chip-sg-Bi3" style="color:#5a9a72"></span>와 대칭 구조,<br>
+                  활동이 클수록 억제가 강해짐.
+                </div>
+              </div>
+
+              <!-- Inhibitory chunk -->
+              <div data-hl="eq-sh-inh-sum" data-hl-class="eq-seg-hl-red" style="background:rgba(192,96,88,.06);border:1px solid rgba(192,96,88,.18);border-radius:8px;padding:12px;cursor:default">
+                <div style="font-size:10px;font-weight:700;color:#c06058;margin-bottom:8px">억제성 합산 항 (4중 곱)</div>
+                <div id="eq-shunt-chunk-inh" style="overflow-x:auto;margin-bottom:8px"></div>
+                <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+                  흥분성과 동일하게 고정 가중치 <span id="chip-si-Z" style="color:#c06058"></span>가<br>
+                  구조적 연결 <span id="chip-si-G" style="color:#c06058"></span> × MTM 게이트 <span id="chip-si-Y" style="color:#c06058"></span>로 분해됨.<br>
+                  발화율 <span id="chip-si-g" style="color:#c06058"></span>까지 포함해 4중 곱.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Network visualization -->
+    <div class="card" style="margin-top:0">
+      <div class="card-title" style="font-size:1em;margin-bottom:4px">뉴런 네트워크 구조: <em>j → i</em> 연결</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">수식 안의 <em>j</em>는 <strong>입력 뉴런</strong>(보내는 쪽), <em>i</em>는 <strong>출력 뉴런</strong>(받는 쪽)을 뜻합니다. Σ<sub>j</sub>는 모든 입력 뉴런의 기여를 합산합니다.</div>
+
+      <!-- SVG diagram -->
+      <div style="display:flex;justify-content:center;margin-bottom:24px">
+        <svg viewBox="0 0 580 232" style="width:100%;max-width:640px;height:auto" overflow="visible">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#9b9590"/>
+            </marker>
+            <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#c06058"/>
+            </marker>
+            <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 Z" fill="#7a6fa0"/>
+            </marker>
+          </defs>
+
+          <!-- section labels -->
+          <text x="32" y="16" font-size="10" fill="#aaa" font-weight="600" font-family="system-ui,sans-serif">입력 뉴런들</text>
+          <text x="450" y="16" font-size="10" fill="#c06058" font-weight="600" font-family="system-ui,sans-serif">뉴런 i</text>
+          <text x="373" y="148" font-size="9" fill="#7a6fa0" font-family="system-ui,sans-serif">합산</text>
+
+          <!-- Source neurons -->
+          <circle cx="90" cy="44"  r="22" fill="#f5f3ef" stroke="#9b9590" stroke-width="1.5"/>
+          <circle cx="90" cy="104" r="22" fill="#f5f3ef" stroke="#9b9590" stroke-width="1.5"/>
+          <circle cx="90" cy="164" r="22" fill="#f5f3ef" stroke="#9b9590" stroke-width="1.5"/>
+          <circle cx="90" cy="212" r="22" fill="none"    stroke="#9b9590" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="90" y="192" text-anchor="middle" font-size="14" fill="#bbb" font-family="system-ui,sans-serif">⋮</text>
+          <foreignObject x="66" y="196" width="48" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-nn" style="text-align:center;color:#aaa"></div>
+          </foreignObject>
+
+          <!-- neuron labels via foreignObject -->
+          <foreignObject x="66" y="28" width="48" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-n1" style="text-align:center;color:#555"></div>
+          </foreignObject>
+          <foreignObject x="66" y="88" width="48" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-n2" style="text-align:center;color:#555"></div>
+          </foreignObject>
+          <foreignObject x="66" y="148" width="48" height="32">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-n3" style="text-align:center;color:#555"></div>
+          </foreignObject>
+
+          <!-- arrows j→Σ -->
+          <line x1="113" y1="52"  x2="372" y2="102" stroke="#9b9590" stroke-width="1.2" marker-end="url(#arr)"/>
+          <line x1="113" y1="104" x2="372" y2="108" stroke="#9b9590" stroke-width="1.2" marker-end="url(#arr)"/>
+          <line x1="113" y1="156" x2="372" y2="116" stroke="#9b9590" stroke-width="1.2" marker-end="url(#arr)"/>
+
+          <!-- f_j labels near source (left side of arrows) -->
+          <foreignObject x="116" y="26" width="68" height="22">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-f1" style="color:#555;font-size:11px"></div>
+          </foreignObject>
+          <foreignObject x="116" y="82" width="68" height="22">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-f2" style="color:#555;font-size:11px"></div>
+          </foreignObject>
+          <foreignObject x="116" y="136" width="68" height="22">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-f3" style="color:#555;font-size:11px"></div>
+          </foreignObject>
+
+          <!-- z_{ji} labels near dest (right side, before Σ) -->
+          <foreignObject x="296" y="68" width="48" height="22">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-z1" style="color:#7a6fa0;font-size:11px"></div>
+          </foreignObject>
+          <foreignObject x="300" y="86" width="48" height="22">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-z2" style="color:#7a6fa0;font-size:11px"></div>
+          </foreignObject>
+          <foreignObject x="296" y="106" width="48" height="22">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-z3" style="color:#7a6fa0;font-size:11px"></div>
+          </foreignObject>
+
+          <!-- Summing junction -->
+          <circle cx="392" cy="110" r="18" fill="none" stroke="#7a6fa0" stroke-width="1.8" stroke-dasharray="4,2"/>
+          <text x="392" y="115" text-anchor="middle" font-size="15" fill="#7a6fa0" font-family="system-ui,sans-serif">Σ</text>
+
+          <!-- Σ→i arrow -->
+          <line x1="411" y1="110" x2="440" y2="110" stroke="#7a6fa0" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+
+          <!-- external input I_i -->
+          <line x1="470" y1="28" x2="470" y2="80" stroke="#bf6a42" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+          <foreignObject x="478" y="36" width="50" height="40">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-input" style="color:#bf6a42;font-size:11px"></div>
+          </foreignObject>
+
+          <!-- Target neuron i -->
+          <circle cx="470" cy="110" r="28" fill="rgba(192,96,88,.08)" stroke="#c06058" stroke-width="2"/>
+          <foreignObject x="442" y="92" width="56" height="36">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-ni" style="text-align:center;color:#c06058;font-weight:bold"></div>
+          </foreignObject>
+
+          <!-- decay arrow -->
+          <line x1="470" y1="138" x2="470" y2="196" stroke="#c06058" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+          <foreignObject x="478" y="158" width="72" height="42">
+            <div xmlns="http://www.w3.org/1999/xhtml" id="svglbl-decay" style="color:#c06058;font-size:11px"></div>
+          </foreignObject>
+        </svg>
+      </div>
+
+      <!-- Term breakdown table -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+
+        <div style="padding:12px 14px;background:rgba(160,150,180,.07);border-left:3px solid #9b8fc8;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#7a6fa0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">시냅스 가중치 z<sub>ji</sub></div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6">뉴런 <em>j</em>→<em>i</em> 연결 강도.<br>Long-term Memory(LTM)로 학습에 의해 변화. 가중치가 클수록 j의 영향이 강함.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(160,150,180,.07);border-left:3px solid #9b8fc8;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#7a6fa0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">신호함수 f<sub>j</sub>(x<sub>j</sub>)</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.7">
+              뉴런 j의 활동 x<sub>j</sub>를 <strong style="color:#7a6fa0">발화율(firing rate)</strong>로 변환하는 비선형 함수.<br>
+              보통 <em>S자 sigmoid</em> — 낮은 활동은 무시하고, 임계값(θ) 이상에서 급격히 반응, 최대치에서 포화.<br>
+              시뮬레이션 특수형에서는 <span style="color:#c06058">f(x) = x</span> (선형)로 단순화.
+          </div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(192,96,88,.07);border-left:3px solid #c06058;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">감쇠항 −Ax<sub>i</sub></div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6">입력이 없으면 x<sub>i</sub>가 자연스럽게 0으로 돌아옴.<br>Short-term Memory(STM)이 <em>유지</em>되지 않는 이유.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(90,154,114,.07);border-left:3px solid #5a9a72;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Shunting: (B−x<sub>i</sub>)·입력</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6">x<sub>i</sub>가 B에 가까울수록 <em>입력의 효과가 줄어듦</em>.<br>자동 이득 제어(AGC) → x<sub>i</sub>가 절대 B를 초과하지 않음.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(191,106,66,.07);border-left:3px solid #bf6a42;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">외부입력 I<sub>i</sub></div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6">뉴런 i에 직접 들어오는 감각 자극 등 외부 신호.<br>시뮬레이션에서 슬라이더로 조절하는 값.</div>
+        </div>
+
+        <div style="padding:12px 14px;background:rgba(120,120,120,.06);border-left:3px solid #aaa;border-radius:6px">
+          <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Σ<sub>j=1</sub><sup>n</sup> 합산</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6">n개 뉴런 모두에서 오는 신호를 더함.<br>각자의 가중치 z<sub>ji</sub>와 발화율 f<sub>j</sub>(x<sub>j</sub>)를 곱해서 합산.</div>
+        </div>
+
       </div>
     </div>
 
@@ -1242,6 +1585,101 @@ function initPage09() {
   katex.render(String.raw`B`, document.getElementById('var-B'), { displayMode: false });
   katex.render(String.raw`x^* = \frac{I}{A} \;\;\text{(unbounded!)}`, document.getElementById('eq-add-eq'), { displayMode: true });
   katex.render(String.raw`x^* = \frac{BI}{A+I} \leq B`, document.getElementById('eq-shunt-eq'), { displayMode: true });
+
+  // SVG network diagram labels
+  katex.render(String.raw`x_n(t)`, document.getElementById('svglbl-nn'), { displayMode: false });
+  katex.render(String.raw`x_1(t)`, document.getElementById('svglbl-n1'), { displayMode: false });
+  katex.render(String.raw`x_2(t)`, document.getElementById('svglbl-n2'), { displayMode: false });
+  katex.render(String.raw`x_3(t)`, document.getElementById('svglbl-n3'), { displayMode: false });
+  katex.render(String.raw`f_1(x_1)`, document.getElementById('svglbl-f1'), { displayMode: false });
+  katex.render(String.raw`f_2(x_2)`, document.getElementById('svglbl-f2'), { displayMode: false });
+  katex.render(String.raw`f_3(x_3)`, document.getElementById('svglbl-f3'), { displayMode: false });
+  katex.render(String.raw`z_{1i}`, document.getElementById('svglbl-z1'), { displayMode: false });
+  katex.render(String.raw`z_{2i}`, document.getElementById('svglbl-z2'), { displayMode: false });
+  katex.render(String.raw`z_{3i}`, document.getElementById('svglbl-z3'), { displayMode: false });
+  katex.render(String.raw`x_i(t)`, document.getElementById('svglbl-ni'), { displayMode: false });
+  katex.render(String.raw`I_i`, document.getElementById('svglbl-input'), { displayMode: false });
+  katex.render(String.raw`{-}Ax_i`, document.getElementById('svglbl-decay'), { displayMode: false });
+
+  // Table variable cells + chip labels
+  const ck = (id, tex) => katex.render(tex, document.getElementById(id), { displayMode: false });
+  // Additive table
+  ck('tv-add-A', String.raw`A_i`);
+  ck('tv-add-B', String.raw`B_{ji}`);
+  ck('tv-add-C', String.raw`C_{ji}`);
+  ck('tv-add-z', String.raw`z_{ji}`);
+  ck('tv-add-Z', String.raw`Z_{ji}`);
+  ck('tv-add-f', String.raw`f_j(x_j)`);
+  ck('tv-add-g', String.raw`g_j(x_j)`);
+  ck('tv-add-I', String.raw`I_i`);
+  // Shunting table
+  ck('tv-sh-B',  String.raw`B_i`);
+  ck('tv-sh-C',  String.raw`C_i`);
+  ck('tv-sh-D',  String.raw`D_{ji}`);
+  ck('tv-sh-E',  String.raw`E_i`);
+  ck('tv-sh-F',  String.raw`F_i`);
+  ck('tv-sh-G',  String.raw`G_{ji}`);
+  ck('tv-sh-yY', String.raw`y_{ji},\,Y_{ji}`);
+  ck('tv-sh-J',  String.raw`J_i`);
+  ck('chip-ae-f', String.raw`f_j(x_j)`);
+  ck('chip-ae-B', String.raw`B_{ji}`);
+  ck('chip-ae-z', String.raw`z_{ji}`);
+  ck('chip-ai-g', String.raw`g_j(x_j)`);
+  ck('chip-ai-C', String.raw`C_{ji}`);
+  ck('chip-ai-Z', String.raw`Z_{ji}`);
+  ck('chip-sg-xi1', String.raw`x_i`);
+  ck('chip-sg-Bi1', String.raw`B_i`);
+  ck('chip-sg-xi2', String.raw`x_i`);
+  ck('chip-sg-Bi2', String.raw`B_i`);
+  ck('chip-se-f', String.raw`f_j(x_j)`);
+  ck('chip-se-D', String.raw`D_{ji}`);
+  ck('chip-se-y', String.raw`y_{ji}`);
+  ck('chip-se-z', String.raw`z_{ji}`);
+  ck('chip-si-g', String.raw`g_j(x_j)`);
+  ck('chip-si-G', String.raw`G_{ji}`);
+  ck('chip-si-Y', String.raw`Y_{ji}`);
+  ck('chip-si-Z', String.raw`Z_{ji}`);
+  ck('chip-si-EF', String.raw`E_i X_i + F_i`);
+
+  // Term chunk breakdowns
+  katex.render(String.raw`\displaystyle\sum_{j=1}^{n} f_j(x_j)\cdot B_{ji}\cdot z_{ji}`, document.getElementById('eq-add-chunk-exc'), { displayMode: false });
+  katex.render(String.raw`\displaystyle\sum_{j=1}^{n} g_j(x_j)\cdot C_{ji}\cdot Z_{ji}`, document.getElementById('eq-add-chunk-inh'), { displayMode: false });
+  katex.render(String.raw`(B_i - C_i\,x_i)`, document.getElementById('eq-shunt-gain-exc'), { displayMode: false });
+  katex.render(String.raw`(E_i X_i + F_i)`, document.getElementById('eq-shunt-gain-inh'), { displayMode: false });
+  ck('chip-sg-Bi3', String.raw`B_i`);
+  katex.render(String.raw`\displaystyle\sum_{j=1}^{n} f_j(x_j)\cdot D_{ji}\cdot y_{ji}\cdot z_{ji}`, document.getElementById('eq-shunt-chunk-exc'), { displayMode: false });
+  katex.render(String.raw`\displaystyle\sum_{j=1}^{n} g_j(x_j)\cdot G_{ji}\cdot Y_{ji}\cdot Z_{ji}`, document.getElementById('eq-shunt-chunk-inh'), { displayMode: false });
+
+  // General forms — segmented for hover highlighting
+  const rk = (id, tex) => { const el = document.getElementById(id); if (el) katex.render(tex, el, { displayMode: false }); };
+  rk('eq-ad-lhs',     String.raw`\dfrac{d}{dt}x_i = -A_i x_i +`);
+  rk('eq-ad-exc-sum', String.raw`\displaystyle\sum_{j=1}^{n} f_j(x_j)\,B_{ji}\,z_{ji}`);
+  rk('eq-ad-sep',     String.raw`\;-\;`);
+  rk('eq-ad-inh-sum', String.raw`\displaystyle\sum_{j=1}^{n} g_j(x_j)\,C_{ji}\,Z_{ji}`);
+  rk('eq-ad-rhs',     String.raw`\;+\; I_i`);
+  katex.render(
+    String.raw`\frac{d}{dt}x_i = -A_i x_i + \textstyle\sum_j f_j(x_j)\,z_{ji} + I_i`,
+    document.getElementById('eq-add-special'), { displayMode: true }
+  );
+  rk('eq-sh-lhs',      String.raw`\dfrac{d}{dt}x_i = -A_i x_i +`);
+  rk('eq-sh-exc-gain', String.raw`(B_i - C_i\,x_i)`);
+  rk('eq-sh-lbr1',     String.raw`\Bigl[`);
+  rk('eq-sh-exc-sum',  String.raw`\displaystyle\sum_{j=1}^{n} f_j(x_j)\,D_{ji}\,y_{ji}\,z_{ji}`);
+  rk('eq-sh-ext-i',    String.raw`+\,I_i\Bigr]`);
+  rk('eq-sh-sep',      String.raw`\;-\;`);
+  rk('eq-sh-inh-gain', String.raw`(E_i X_i + F_i)`);
+  rk('eq-sh-lbr2',     String.raw`\Bigl[`);
+  rk('eq-sh-inh-sum',  String.raw`\displaystyle\sum_{j=1}^{n} g_j(x_j)\,G_{ji}\,Y_{ji}\,Z_{ji}`);
+  rk('eq-sh-ext-j',    String.raw`+\,J_i\Bigr]`);
+  katex.render(
+    String.raw`\frac{d}{dt}x_i = -A x_i + (B - x_i)\,I_i`,
+    document.getElementById('eq-shunt-special2'), { displayMode: true }
+  );
+  katex.render(
+    String.raw`x^* = \dfrac{B\,I_i}{A + I_i} \;\leq\; B`,
+    document.getElementById('eq-shunt-equil'), { displayMode: false }
+  );
+
   updatePage09();
   setTimeout(() => { setupEqDragListener(); setupHoverSync(); initPage09rt(); }, 300);
 }
@@ -1306,10 +1744,13 @@ function updatePage09() {
     showlegend: true,
     legend: { x: 0.02, y: 0.98, font: { size: 10 } },
     shapes: [
+      { type: 'rect', x0: 0, x1: totalTime, y0: pB, y1: yMaxTime,
+        fillcolor: 'rgba(160,160,160,0.10)', line: { width: 0 } },
       { type: 'line', x0: 0, x1: totalTime, y0: pB, y1: pB, line: { color: '#5a9a7244', width: 1.5, dash: 'dash' } },
     ],
     annotations: [
-      { x: totalTime * 0.95, y: pB, text: 'B=' + pB, showarrow: false, font: { size: 10, color: '#5a9a72' }, yshift: 10 }
+      { x: totalTime * 0.95, y: pB, text: 'B=' + pB, showarrow: false, font: { size: 10, color: '#5a9a72' }, yshift: 10 },
+      { x: totalTime * 0.5, y: (pB + yMaxTime) / 2, text: 'x > B: physically impossible (Shunting)', showarrow: false, font: { size: 9, color: '#aaa' } }
     ]
   };
 
@@ -1377,7 +1818,9 @@ function updatePage09() {
     legend: { x: 0.02, y: 0.98, font: { size: 10 } },
     dragmode: false,
     shapes: [
-      { type: 'line', x0: -3, x1: 3, y0: pB, y1: pB, line: { color: '#5a9a7244', width: 1, dash: 'dash' } },
+      { type: 'rect', x0: 0.001, x1: 1000, y0: pB, y1: eqYmax,
+        fillcolor: 'rgba(160,160,160,0.10)', line: { width: 0 } },
+      { type: 'line', x0: 0.001, x1: 1000, y0: pB, y1: pB, line: { color: '#5a9a7244', width: 1, dash: 'dash' } },
     ]
   };
 
@@ -1386,7 +1829,13 @@ function updatePage09() {
   tracesEq.push({ x: [pI, pI], y: [0, eqYmax], mode: 'lines', name: 'I=' + pI.toFixed(1),
     line: { color: '#bf6a42aa', width: 2, dash: 'dot' }, showlegend: false, hoverinfo: 'skip' });
   if (p09_showAdd) {
-    tracesEq.push({ x: Is, y: eqAdd, mode: 'lines', name: 'Additive: I/A', line: { color: '#c06058', width: 2.5 } });
+    // Split additive trace: solid below B, dashed above B
+    const addBelowX = Is.filter((_, i) => eqAdd[i] <= pB);
+    const addBelowY = eqAdd.filter(v => v <= pB);
+    const addAboveX = Is.filter((_, i) => eqAdd[i] >= pB);
+    const addAboveY = eqAdd.filter(v => v >= pB);
+    tracesEq.push({ x: addBelowX, y: addBelowY, mode: 'lines', name: 'Additive: I/A', line: { color: '#c06058', width: 2.5 } });
+    if (addAboveX.length > 0) tracesEq.push({ x: addAboveX, y: addAboveY, mode: 'lines', name: 'Additive > B', line: { color: '#c06058', width: 1.5, dash: 'dash' }, showlegend: false, opacity: 0.5 });
     tracesEq.push({ x: [pI], y: [eqAtI_add], mode: 'markers+text', name: 'Add@I',
       marker: { color: '#c06058', size: 9, symbol: 'circle', line: { color: '#fff', width: 1.5 } },
       text: [eqAtI_add.toFixed(1)], textposition: 'top right', textfont: { size: 10, color: '#c06058' },
@@ -1615,8 +2064,10 @@ function stepPage11() {
 // Real-time dynamics (bottom of fig2_09)
 // =============================================
 let p09rt_anim = null;
-let p09rt_paused = false;
+let p09rt_running = false;
+let p09rt_input_stopped = false;
 let p09rt_state = { xa: 0, xs: 0, t: 0, tsArr: [], xaArr: [], xsArr: [] };
+let p09rt_pulse = { active: false, endT: 0, peakI: 0 };
 
 function p09rt_getParams() {
   const raw = parseFloat(document.getElementById('p09rt-slider-I').value);
@@ -1642,15 +2093,44 @@ function p09rt_renderNumbers({ xa, xs, dxa, dxs, pI, pA, pB }) {
   document.getElementById('p09rt-dxs').textContent = fmt(dxs);
   document.getElementById('p09rt-decay-a').textContent = fmt(-pA * xa);
   document.getElementById('p09rt-input-a').textContent = fmt(pI);
+  // Show live I in slider label during pulse
+  if (p09rt_pulse.active) {
+    const disp = pI < 0.1 ? pI.toExponential(1) : pI < 10 ? pI.toFixed(2) : pI.toFixed(1);
+    document.getElementById('p09rt-val-I').textContent = disp;
+  }
   document.getElementById('p09rt-decay-s').textContent = fmt(-pA * xs);
   document.getElementById('p09rt-bxi').textContent = fmt((pB - xs) * pI);
 }
 
+function p09rt_getSpeed() {
+  const v = parseFloat(document.getElementById('p09rt-slider-speed').value);
+  // Map 1-100 → 0.02x - 5x (log scale)
+  const speed = Math.pow(10, (v / 100) * 2.7 - 1.7); // 0.02 to ~5
+  document.getElementById('p09rt-val-speed').textContent = speed < 1 ? speed.toFixed(2) + 'x' : speed.toFixed(1) + 'x';
+  return speed;
+}
+
 function p09rt_step() {
-  if (p09rt_paused) return;
-  const { pI, pA, pB } = p09rt_getParams();
+  if (!p09rt_running) return;
+  const { pA, pB } = p09rt_getParams();
   const s = p09rt_state;
-  const dt = 0.05;
+  const speed = p09rt_getSpeed();
+  const dt = 0.05 * speed;
+
+  // Pulse logic: use peakI during pulse, then exponential decay
+  let pI;
+  if (p09rt_pulse.active) {
+    if (s.t < p09rt_pulse.endT) {
+      pI = p09rt_pulse.peakI;
+    } else {
+      // Decay phase: exponential decay toward 0
+      const elapsed = s.t - p09rt_pulse.endT;
+      pI = p09rt_pulse.peakI * Math.exp(-elapsed * 1.5);
+      if (pI < 0.001) { pI = 0; p09rt_pulse.active = false; const pb = document.getElementById('p09rt-btn-pulse'); pb.textContent = '[~] Pulse'; pb.classList.remove('p09rt-pulse-btn'); }
+    }
+  } else {
+    pI = p09rt_input_stopped ? 0 : p09rt_getParams().pI;
+  }
   const subSteps = Math.max(10, Math.ceil((pA + pI) * dt * 5));
   const dtSub = dt / subSteps;
   for (let i = 0; i < subSteps; i++) {
@@ -1669,21 +2149,34 @@ function p09rt_step() {
   // Keep 600 points max
   if (s.tsArr.length > 600) { s.tsArr.shift(); s.xaArr.shift(); s.xsArr.shift(); }
 
-  const yMax = Math.max(pI / pA * 1.1, pB * 1.3, 1);
+  const yMax = pB * 1.5;
+  const WINDOW = Math.max(10, 30 * speed); // scale window with speed
+  const xMin = Math.max(0, s.t - WINDOW);
+  const xMax = Math.max(xMin + WINDOW, s.t + 0.5);
   const traces = [];
-  if (p09_showAdd) traces.push({ x: s.tsArr, y: s.xaArr, mode: 'lines', name: 'Additive', line: { color: '#c06058', width: 2 } });
-  if (p09_showShunt) traces.push({ x: s.tsArr, y: s.xsArr, mode: 'lines', name: 'Shunting', line: { color: '#5a9a72', width: 2 } });
+  if (p09_showAdd) traces.push({ x: s.tsArr.slice(), y: s.xaArr.slice(), mode: 'lines', name: 'Additive', line: { color: '#c06058', width: 2 } });
+  if (p09_showShunt) traces.push({ x: s.tsArr.slice(), y: s.xsArr.slice(), mode: 'lines', name: 'Shunting', line: { color: '#5a9a72', width: 2 } });
 
   Plotly.react('p09rt-plot', traces, {
     paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: '#faf8f5',
     font: { color: '#9b9590', size: 11, family: 'system-ui' },
     margin: { l: 48, r: 16, t: 8, b: 40 },
-    xaxis: { title: 'Time', gridcolor: '#eae6e0', zeroline: false },
-    yaxis: { title: 'x(t)', gridcolor: '#eae6e0', range: [0, yMax], zeroline: false },
+    xaxis: { title: 'Time', gridcolor: '#eae6e0', zeroline: false, range: [xMin, xMax], fixedrange: true },
+    yaxis: { title: 'x(t)', gridcolor: '#eae6e0', range: [0, yMax], zeroline: false, fixedrange: true },
     showlegend: true,
     legend: { x: 0.02, y: 0.98, font: { size: 10 } },
-    shapes: [{ type: 'line', x0: s.tsArr[0], x1: s.t, y0: pB, y1: pB,
-      line: { color: '#5a9a7244', width: 1, dash: 'dash' } }]
+    shapes: [
+      { type: 'rect', x0: xMin, x1: xMax, y0: pB, y1: yMax,
+        fillcolor: 'rgba(160,160,160,0.12)', line: { width: 0 } },
+      { type: 'line', x0: xMin, x1: xMax, y0: pB, y1: pB,
+        line: { color: '#5a9a7266', width: 1.5, dash: 'dash' } }
+    ],
+    annotations: [
+      { x: xMin + (xMax - xMin) * 0.5, y: pB * 1.5, text: 'x > B : physically impossible', showarrow: false,
+        font: { size: 10, color: '#aaa' }, bgcolor: 'rgba(0,0,0,0)' },
+      { x: xMin + (xMax - xMin) * 0.97, y: pB, text: 'B=' + pB, showarrow: false,
+        font: { size: 10, color: '#5a9a72' }, yshift: 10, xanchor: 'right' }
+    ]
   }, { responsive: true, displayModeBar: false });
 
   p09rt_renderNumbers({ xa: s.xa, xs: s.xs, dxa, dxs, pI, pA, pB });
@@ -1694,16 +2187,40 @@ function initPage09rt() {
   p09rt_anim = setInterval(p09rt_step, 50);
 
   document.getElementById('p09rt-slider-I').addEventListener('input', () => {
-    p09rt_reset();
+    const { pI } = p09rt_getParams();
+    const disp = pI < 0.1 ? pI.toExponential(1) : pI < 10 ? pI.toFixed(2) : pI.toFixed(1);
+    document.getElementById('p09rt-val-I').textContent = disp;
+  });
+  document.getElementById('p09rt-slider-speed').addEventListener('input', p09rt_getSpeed);
+  document.getElementById('p09rt-btn-pulse').addEventListener('click', function() {
+    const { pI } = p09rt_getParams();
+    const pulseDuration = 2; // sim-time units
+    p09rt_pulse = { active: true, endT: p09rt_state.t + pulseDuration, peakI: pI };
+    this.textContent = '[~] Pulsing...';
+    this.classList.add('p09rt-pulse-btn');
   });
   document.getElementById('p09rt-btn-reset').addEventListener('click', p09rt_reset);
   document.getElementById('p09rt-btn-pause').addEventListener('click', function() {
-    p09rt_paused = !p09rt_paused;
-    this.textContent = p09rt_paused ? '[>] Resume' : '[||] Pause';
+    if (!p09rt_running) {
+      // First click: start simulation
+      p09rt_running = true;
+      p09rt_input_stopped = false;
+      this.classList.remove('p09rt-start-blink');
+      this.style.border = '1px solid var(--border)';
+      this.style.color = 'var(--text)';
+      this.textContent = '[||] Input Off';
+    } else {
+      p09rt_input_stopped = !p09rt_input_stopped;
+      if (p09rt_input_stopped) {
+        p09rt_pulse.active = false;
+        const pb2 = document.getElementById('p09rt-btn-pulse'); pb2.textContent = '[~] Pulse'; pb2.classList.remove('p09rt-pulse-btn');
+      }
+      this.textContent = p09rt_input_stopped ? '[>] Input On' : '[||] Input Off';
+    }
   });
 }
 
-// Restore last visited page (runs after all init code)
+// Restore last visited page + scroll position
 (function() {
   let startPage = 'fig2_09';
   try {
@@ -1711,7 +2228,27 @@ function initPage09rt() {
     if (saved && document.getElementById('page-' + saved)) startPage = saved;
   } catch(e) {}
   switchPage(startPage);
+  try {
+    const savedY = localStorage.getItem('grossberg_scrollY');
+    if (savedY) requestAnimationFrame(() => window.scrollTo(0, parseInt(savedY, 10)));
+  } catch(e) {}
 })();
+
+window.addEventListener('scroll', function() {
+  try { localStorage.setItem('grossberg_scrollY', window.scrollY); } catch(e) {}
+}, { passive: true });
+
+// Equation segment hover highlighting
+document.querySelectorAll('[data-hl]').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    const t = document.getElementById(card.dataset.hl);
+    if (t) t.classList.add(card.dataset.hlClass || 'eq-seg-hl-green');
+  });
+  card.addEventListener('mouseleave', () => {
+    const t = document.getElementById(card.dataset.hl);
+    if (t) t.classList.remove('eq-seg-hl-green', 'eq-seg-hl-purple', 'eq-seg-hl-red');
+  });
+});
 </script>
 </body>
 </html>
