@@ -55,8 +55,8 @@
   "hotPaths": [
     {
       "path": "grossberg_ch2_sim.html",
-      "accessCount": 786,
-      "lastAccessed": 1773126723392,
+      "accessCount": 841,
+      "lastAccessed": 1773137728800,
       "type": "file"
     },
     {
@@ -72,10 +72,64 @@
       "type": "file"
     },
     {
+      "path": "pages/fig2_09.html",
+      "accessCount": 35,
+      "lastAccessed": 1773137727043,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_11.js",
+      "accessCount": 12,
+      "lastAccessed": 1773136950842,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_09.js",
+      "accessCount": 10,
+      "lastAccessed": 1773137154460,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_11.html",
+      "accessCount": 9,
+      "lastAccessed": 1773136951137,
+      "type": "file"
+    },
+    {
       "path": "grossberg_ch2.pdf",
       "accessCount": 8,
       "lastAccessed": 1773110064247,
       "type": "file"
+    },
+    {
+      "path": "pages/fig2_19.html",
+      "accessCount": 8,
+      "lastAccessed": 1773136981519,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_19.js",
+      "accessCount": 6,
+      "lastAccessed": 1773136981828,
+      "type": "file"
+    },
+    {
+      "path": "css/common.css",
+      "accessCount": 5,
+      "lastAccessed": 1773135884366,
+      "type": "file"
+    },
+    {
+      "path": "grossberg_ch2_sim.backup",
+      "accessCount": 5,
+      "lastAccessed": 1773136947529,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 5,
+      "lastAccessed": 1773137349819,
+      "type": "directory"
     },
     {
       "path": "grossberg_ch2_front_half.md",
@@ -88,12 +142,6 @@
       "accessCount": 4,
       "lastAccessed": 1773110056895,
       "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 4,
-      "lastAccessed": 1773127702003,
-      "type": "directory"
     },
     {
       "path": "docs/grossberg_ch2_1.md",
@@ -210,6 +258,12 @@
       "type": "file"
     },
     {
+      "path": "index.html",
+      "accessCount": 3,
+      "lastAccessed": 1773135803990,
+      "type": "file"
+    },
+    {
       "path": "instruction.md",
       "accessCount": 2,
       "lastAccessed": 1773076387028,
@@ -255,6 +309,12 @@
       "path": "images/fig2_33.jpeg",
       "accessCount": 1,
       "lastAccessed": 1773129164915,
+      "type": "file"
+    },
+    {
+      "path": "js/simulations.js",
+      "accessCount": 1,
+      "lastAccessed": 1773134929070,
       "type": "file"
     }
   ],
