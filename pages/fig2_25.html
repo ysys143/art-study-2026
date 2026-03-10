@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.25 - Weber Law, Adaptation & Shift Property | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.eq-box {
+  flex: 1;
+  min-width: 260px;
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.eq-box.highlight {
+  border-color: var(--accent);
+  background: rgba(191,106,66,.06);
+}
+.eq-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+.eq-label.accent { color: var(--accent); }
+
+.shift-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(191,106,66,.12);
+  border: 1px solid rgba(191,106,66,.3);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 8px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.live-readout {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  align-items: center;
+}
+.live-val-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.live-val-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  font-weight: 600;
+}
+.live-val {
+  font-size: 20px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.insight-box {
+  padding: 12px 16px;
+  background: rgba(90,154,114,.06);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.insight-box strong { color: var(--green); }
+
+.warn-box {
+  padding: 12px 16px;
+  background: rgba(192,96,88,.06);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.warn-box strong { color: var(--red); }
+
+.shift-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border-radius: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.shift-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.shift-pair-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: .4px;
+}
+.shift-pair-val {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--blue);
+}
+.shift-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+.shift-result-val {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--accent);
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.25: Weber Law, Adaptation, and Shift Property</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION -->
+<div class="card">
+  <div class="card-title">베버의 법칙, 적응, 그리고 이동 특성</div>
+  <div class="card-desc">
+    On-center off-surround shunting 네트워크의 평형 활동을 <strong>로그 좌표</strong>로 변환하면,
+    배경 입력 J의 변화가 반응 곡선을 <strong>수평으로 이동</strong>시킬 뿐 형태를 바꾸지 않음을 보여준다.
+    이것이 베버의 법칙의 기하학적 표현이다 — 배경이 변해도 패턴 형태는 보존된다.
+  </div>
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label">평형 활동 (Equilibrium Activity)</div>
+      <div id="eq-equil"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label">로그 좌표 변환</div>
+      <div id="eq-log"></div>
+    </div>
+    <div class="eq-box highlight">
+      <div class="eq-label accent">Shift Property (핵심)</div>
+      <div id="eq-shift"></div>
+      <div class="shift-badge">S = ln((A+J&#x2081;)/(A+J&#x2082;))</div>
+    </div>
+  </div>
+  <div class="insight-box">
+    <strong>핵심 결과:</strong> 배경 입력 J가 J&#x2081;에서 J&#x2082;로 바뀌면, 반응 곡선은 로그 입력축을 따라
+    S = ln((A+J&#x2081;)/(A+J&#x2082;)) 만큼 수평 이동한다. 곡선의 형태(모양)는 완전히 보존된다.
+    이것이 베버의 법칙이다: 감지 가능한 최소 변화(JND)가 배경 강도에 비례한다.
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="card">
+  <div class="card-title">Parameters</div>
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="10" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Saturation <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="20" step="0.5" value="10">
+      <span class="val" id="val-B">10</span>
+    </div>
+    <div class="control-group">
+      <label>Curves (# J levels)</label>
+      <input type="range" id="slider-nJ" min="2" max="6" step="1" value="4">
+      <span class="val" id="val-nJ">4</span>
+    </div>
+    <div class="control-group">
+      <label>J min</label>
+      <input type="range" id="slider-Jmin" min="0" max="20" step="0.5" value="0">
+      <span class="val" id="val-Jmin">0.0</span>
+    </div>
+    <div class="control-group">
+      <label>J max</label>
+      <input type="range" id="slider-Jmax" min="1" max="100" step="1" value="30">
+      <span class="val" id="val-Jmax">30</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CHART — Shift Property Visualization -->
+<div class="card">
+  <div class="card-title">이동 특성 시각화 — 로그 입력 축 위의 반응 곡선들</div>
+  <div class="card-desc">
+    각 곡선은 서로 다른 배경 입력 J 값에 대응한다.
+    J가 클수록 곡선이 오른쪽으로 이동한다. <strong>모든 곡선은 동일한 형태</strong>를 가진다.
+    인접 두 곡선 사이의 수평 간격이 이동량 S이다.
+  </div>
+  <div id="plotly-main" style="width:100%;height:420px"></div>
+  <div class="shift-info" id="shift-info">
+    <div class="shift-pair">
+      <div class="shift-pair-label">J&#x2081; (낮은 배경)</div>
+      <div class="shift-pair-val" id="shift-J1-val">—</div>
+    </div>
+    <div class="shift-arrow">&#x2192;</div>
+    <div class="shift-pair">
+      <div class="shift-pair-label">J&#x2082; (높은 배경)</div>
+      <div class="shift-pair-val" id="shift-J2-val">—</div>
+    </div>
+    <div class="shift-arrow">=</div>
+    <div class="shift-pair">
+      <div class="shift-pair-label">이동량 S = ln((A+J&#x2081;)/(A+J&#x2082;))</div>
+      <div class="shift-result-val" id="shift-S-val">—</div>
+    </div>
+    <div style="flex:1"></div>
+    <div class="shift-pair">
+      <div class="shift-pair-label">log&#x2081;&#x2080; 환산</div>
+      <div class="shift-pair-val" id="shift-S-log10">—</div>
+    </div>
+  </div>
+  <div style="margin-top:12px">
+    <div class="legend" id="curve-legend"></div>
+  </div>
+</div>
+
+<!-- INTERACTIVE DEMO -->
+<div class="card">
+  <div class="card-title">실시간 평형 활동 탐색기</div>
+  <div class="card-desc">
+    중심 입력 I와 배경 입력 J를 조절하면 평형 활동 x* = BI/(A+I+J) 를 실시간으로 계산합니다.
+    J를 두 배로 키울 때 곡선이 오른쪽으로 이동하는 것을 확인하세요.
+  </div>
+  <div class="controls-row">
+    <div class="control-group">
+      <label>K = ln(I)</label>
+      <input type="range" id="slider-K" min="-4" max="6" step="0.1" value="0">
+      <span class="val" id="val-K">0.0</span>
+    </div>
+    <div class="control-group">
+      <label>배경 입력 <em>J</em></label>
+      <input type="range" id="slider-J-demo" min="0" max="50" step="0.5" value="5">
+      <span class="val" id="val-J-demo">5.0</span>
+    </div>
+  </div>
+  <div class="live-readout">
+    <div class="live-val-group">
+      <div class="live-val-label">K = ln(I)</div>
+      <div class="live-val" id="live-K">0.00</div>
+    </div>
+    <div class="live-val-group">
+      <div class="live-val-label">I = e^K</div>
+      <div class="live-val" id="live-I">1.00</div>
+    </div>
+    <div class="live-val-group">
+      <div class="live-val-label">J (배경)</div>
+      <div class="live-val" id="live-J">5.0</div>
+    </div>
+    <div class="live-val-group">
+      <div class="live-val-label">x* = BI/(A+I+J)</div>
+      <div class="live-val" id="live-x">—</div>
+    </div>
+    <div class="live-val-group">
+      <div class="live-val-label">x*/B</div>
+      <div class="live-val" id="live-xB">—</div>
+    </div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button id="btn-double-J" style="padding:8px 18px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">
+      J를 두 배로 (곡선 오른쪽 이동 확인)
+    </button>
+    <span style="font-size:12px;color:var(--text-muted)" id="double-J-msg"></span>
+  </div>
+  <div id="plotly-demo" style="width:100%;height:320px;margin-top:16px"></div>
+</div>
+
+<!-- INSIGHT + COMPARISON -->
+<div class="card">
+  <div class="card-title">왜 베버의 법칙인가?</div>
+  <div class="insight-box">
+    <strong>Shunting 네트워크의 자동 이득 제어:</strong>
+    평형식 x* = Be^K / (A + e^K + J)에서 분모 (A + e^K + J)가 이득(gain)을 자동으로 조절한다.
+    J가 커지면 분모가 커지고 감도(sensitivity)가 낮아진다. 이 효과가 로그 축에서 정확히 수평 이동으로
+    나타나므로, 반응 곡선의 형태(shape)는 완전히 보존된다.
+    <br><br>
+    <strong>베버의 법칙 (Weber's Law):</strong> 배경 자극 강도 I&#x2080;에서 감지 가능한 최소 변화(JND)는
+    &Delta;I &#x221D; I&#x2080; 를 만족한다. 즉, 배경이 밝을수록 더 큰 변화가 있어야 감지된다.
+    Shunting 네트워크는 이 법칙을 회로 구조에서 자연스럽게 구현한다.
+  </div>
+
+  <div class="card-title" style="margin-top:16px">가산 모형(Additive)과의 비교</div>
+  <div class="card-desc">
+    가산 모형의 평형: x* = I/A (J에 무관). 배경이 바뀌어도 곡선이 이동하지 않아 베버의 법칙이 성립하지 않는다.
+  </div>
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label" style="color:var(--red)">가산 모형 — 베버 법칙 없음</div>
+      <div id="eq-additive"></div>
+    </div>
+    <div class="eq-box highlight">
+      <div class="eq-label accent">션팅 모형 — 베버 법칙 성립</div>
+      <div id="eq-shunting"></div>
+    </div>
+  </div>
+  <div id="plotly-compare" style="width:100%;height:300px;margin-top:12px"></div>
+  <div class="warn-box" style="margin-top:8px">
+    <strong>가산 모형의 한계:</strong> x* = I/A 는 J(배경)에 전혀 의존하지 않아 배경 적응 효과가 없다.
+    배경이 바뀌어도 반응 곡선은 변하지 않는다. 베버의 법칙이 위반된다.
+  </div>
+  <div class="insight-box" style="margin-top:8px">
+    <strong>Shunting 모형의 장점:</strong> 분모에 J가 포함되어 배경 강도에 따라 이득이 자동 조절된다.
+    J&#x2081; &#x2192; J&#x2082; 변화는 로그 축 위에서 S = ln((A+J&#x2081;)/(A+J&#x2082;)) 만큼의 수평 이동만 발생시킨다.
+    Grossberg (1983)에서 처음 수학적으로 증명되었다.
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_25.js"></script>
+</body>
+</html>

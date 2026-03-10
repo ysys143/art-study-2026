@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.34 - Ratio-Contrast Detector / DOG·SOG Contours | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.kernel-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  align-items: center;
+}
+.kernel-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.kernel-legend-item .swatch {
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.condition-box {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.condition-card {
+  flex: 1;
+  min-width: 200px;
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+}
+.condition-card.satisfied {
+  background: rgba(90,154,114,.06);
+  border-color: rgba(90,154,114,.25);
+}
+.condition-card.violated {
+  background: rgba(192,96,88,.05);
+  border-color: rgba(192,96,88,.2);
+}
+.condition-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.condition-card-title.green { color: var(--green); }
+.condition-card-title.red { color: var(--red); }
+.condition-val {
+  font-size: 13px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  color: var(--text);
+}
+.chart-full {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.chart-full .chart-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+.chart-full .chart-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pattern-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.pattern-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.pattern-btn:hover { background: var(--surface2); }
+.pattern-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.noise-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 12px;
+}
+.noise-status.suppressed {
+  background: rgba(90,154,114,.1);
+  color: var(--green);
+  border: 1px solid rgba(90,154,114,.25);
+}
+.noise-status.not-suppressed {
+  background: rgba(192,96,88,.08);
+  color: var(--red);
+  border: 1px solid rgba(192,96,88,.2);
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.34: Ratio-Contrast Detector / DOG·SOG Contours</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION -->
+<div class="card">
+  <div class="card-title">메커니즘 설명</div>
+  <div class="card-desc">
+    <strong>Ratio-contrast detector</strong>는 Gaussian-weighted on-center off-surround 커널을 사용한다.
+    좁은 흥분성 커널 C<sub>ki</sub>와 넓은 억제성 커널 E<sub>ki</sub>의 차이인
+    <strong>DOG (Difference of Gaussians)</strong>는 윤곽선/경계 검출기로 작동하고,
+    합인 <strong>SOG (Sum of Gaussians)</strong>는 분모의 정규화 역할을 한다.
+    균일한 조명은 억제되고 공간적 대비(contour)는 강화된다 — 조명을 무시하고 반사율(reflectance)을 처리한다.
+  </div>
+</div>
+
+<!-- EQUATIONS -->
+<div class="card">
+  <div class="card-title">핵심 방정식</div>
+  <div class="eq-row">
+    <div class="eq-box" style="flex:2">
+      <div class="eq-label">ODE — Ratio-Contrast Detector</div>
+      <div id="eq-ode"></div>
+    </div>
+    <div class="eq-box" style="flex:1">
+      <div class="eq-label">Equilibrium</div>
+      <div id="eq-equil"></div>
+    </div>
+  </div>
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label">Gaussian 커널</div>
+      <div id="eq-kernels"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label"><span class="good">DOG — Difference of Gaussians</span></div>
+      <div id="eq-dog"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label"><span>SOG — Sum of Gaussians</span></div>
+      <div id="eq-sog"></div>
+    </div>
+  </div>
+  <div class="eq-row">
+    <div class="eq-box" style="flex:2">
+      <div class="eq-label"><span class="bad">잡음 억제 조건 (Noise Suppression Condition)</span></div>
+      <div id="eq-condition"></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERACTIVE SIMULATION -->
+<div class="card">
+  <div class="card-title">
+    인터랙티브 시뮬레이션
+    <span id="noise-status" class="noise-status suppressed">균일 억제 ON</span>
+  </div>
+  <div class="card-desc" style="margin-bottom:12px">
+    파라미터를 조정하여 DOG/SOG 커널의 형태 변화와 출력에서 윤곽 검출(Mach 밴드)이 어떻게 나타나는지 확인하라.
+  </div>
+
+  <!-- Pattern selector -->
+  <div class="pattern-btns" id="pattern-btns">
+    <button class="pattern-btn active" data-pattern="step">Step Edge (계단)</button>
+    <button class="pattern-btn" data-pattern="bar">Bar (단일 바)</button>
+    <button class="pattern-btn" data-pattern="uniform">Uniform (균일)</button>
+    <button class="pattern-btn" data-pattern="gradient">Gradient (경사)</button>
+  </div>
+
+  <!-- Parameters -->
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="5" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Excit bound <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="20" step="0.5" value="10">
+      <span class="val" id="val-B">10</span>
+    </div>
+    <div class="control-group">
+      <label>Inhib bound <em>D</em></label>
+      <input type="range" id="slider-D" min="0.1" max="10" step="0.1" value="2">
+      <span class="val" id="val-D">2.0</span>
+    </div>
+    <div class="control-group">
+      <label>C_amp (흥분 크기)</label>
+      <input type="range" id="slider-Camp" min="0.1" max="5" step="0.1" value="1">
+      <span class="val" id="val-Camp">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>E_amp (억제 크기)</label>
+      <input type="range" id="slider-Eamp" min="0.1" max="5" step="0.1" value="1">
+      <span class="val" id="val-Eamp">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>μ (좁은 커널 역폭)</label>
+      <input type="range" id="slider-mu" min="0.1" max="5" step="0.1" value="2">
+      <span class="val" id="val-mu">2.0</span>
+    </div>
+    <div class="control-group">
+      <label>ν (넓은 커널 역폭)</label>
+      <input type="range" id="slider-nu" min="0.05" max="2" step="0.05" value="0.3">
+      <span class="val" id="val-nu">0.30</span>
+    </div>
+    <div class="control-group">
+      <label>Illumination <em>I</em></label>
+      <input type="range" id="slider-I" min="0.1" max="100" step="0.1" value="10">
+      <span class="val" id="val-I">10.0</span>
+    </div>
+  </div>
+</div>
+
+<!-- KERNEL CHARTS -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-label">
+      Gaussian Kernels — C<sub>ki</sub> (green, narrow) &amp; E<sub>ki</sub> (red, broad)
+    </div>
+    <div class="kernel-legend">
+      <div class="kernel-legend-item">
+        <span class="swatch" style="background:#5a9a72"></span>
+        C<sub>ki</sub> = C·e<sup>-μ(k-i)²</sup> (흥분, 좁음)
+      </div>
+      <div class="kernel-legend-item">
+        <span class="swatch" style="background:#c06058"></span>
+        E<sub>ki</sub> = E·e<sup>-ν(k-i)²</sup> (억제, 넓음)
+      </div>
+    </div>
+    <div id="plot-kernels" style="width:100%;height:220px"></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">
+      DOG &amp; SOG — F<sub>ki</sub> = B·C<sub>ki</sub> − D·E<sub>ki</sub> &nbsp;|&nbsp; G<sub>ki</sub> = C<sub>ki</sub> + E<sub>ki</sub>
+    </div>
+    <div class="kernel-legend">
+      <div class="kernel-legend-item">
+        <span class="swatch" style="background:#4a7fb5"></span>
+        F<sub>ki</sub> DOG (윤곽 검출, Mexican hat)
+      </div>
+      <div class="kernel-legend-item">
+        <span class="swatch" style="background:#9b9590"></span>
+        G<sub>ki</sub> SOG (정규화 분모)
+      </div>
+    </div>
+    <div id="plot-dogSog" style="width:100%;height:220px"></div>
+  </div>
+</div>
+
+<!-- INPUT CHART -->
+<div class="chart-full" style="margin-top:12px">
+  <div class="chart-label">
+    <span class="dot" style="background:#4a7fb5"></span>
+    Input Pattern I<sub>i</sub> — 공간 입력
+  </div>
+  <div id="plot-input" style="width:100%;height:180px"></div>
+</div>
+
+<!-- OUTPUT CHART -->
+<div class="chart-full">
+  <div class="chart-label">
+    <span class="dot" style="background:#4a7fb5"></span>
+    Output x<sub>i</sub>* — DOG/SOG 윤곽 검출 (Mach 밴드 효과)
+  </div>
+  <div id="plot-output" style="width:100%;height:220px"></div>
+</div>
+
+<!-- NOISE SUPPRESSION STATUS -->
+<div class="card">
+  <div class="card-title">잡음 억제 조건 확인</div>
+  <div class="card-desc" style="margin-bottom:10px">
+    B·ΣC<sub>ki</sub> ≤ D·ΣE<sub>ki</sub> 이면: 균일 입력 억제, 윤곽 선택적 강화.
+  </div>
+  <div class="condition-box">
+    <div class="condition-card" id="cond-left-card">
+      <div class="condition-card-title">B · ΣC<sub>ki</sub></div>
+      <div class="condition-val" id="cond-left">—</div>
+    </div>
+    <div class="condition-card" id="cond-right-card">
+      <div class="condition-card-title">D · ΣE<sub>ki</sub></div>
+      <div class="condition-val" id="cond-right">—</div>
+    </div>
+    <div class="condition-card" id="cond-verdict-card">
+      <div class="condition-card-title" id="cond-verdict-title">상태</div>
+      <div class="condition-val" id="cond-verdict">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="card" style="margin-top:0">
+  <div class="card-title">핵심 요약</div>
+  <div class="insight" style="font-size:13px;line-height:1.8">
+    <strong>DOG 커널 (F<sub>ki</sub> = B·C<sub>ki</sub> − D·E<sub>ki</sub>)</strong> = 경계/윤곽 검출기.
+    좁은 흥분 커널과 넓은 억제 커널의 차이로 Mexican hat 모양을 형성한다.<br>
+    <strong>SOG 커널 (G<sub>ki</sub> = C<sub>ki</sub> + E<sub>ki</sub>)</strong> = 정규화 분모. 조명 변화에 대한 이득 제어를 담당한다.<br>
+    <strong>균일 패턴 → 억제됨</strong>, <strong>공간 대비(경계) → 강화됨</strong> (Mach 밴드 효과 발생).<br>
+    반응은 <em>반사율(reflectance)</em>과 <em>공간 스케일</em>에 선택적으로 반응한다.
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_34.js"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.31 - Pattern Matching / Substrate of Resonance | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.compare-card {
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.compare-card.mismatch {
+  background: rgba(192,96,88,.05);
+  border-color: rgba(192,96,88,.25);
+}
+.compare-card.match {
+  background: rgba(90,154,114,.05);
+  border-color: rgba(90,154,114,.25);
+}
+.compare-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.compare-card-title.red { color: var(--red); }
+.compare-card-title.green { color: var(--green); }
+.compare-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 6px;
+}
+.pattern-selector-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+.pattern-selector-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pattern-selector-group label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-muted);
+}
+.pattern-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pattern-btn {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.pattern-btn:hover { background: var(--surface2); }
+.pattern-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.pattern-btn.active-blue {
+  border-color: #4a7fb5;
+  background: rgba(74,127,181,.07);
+  color: #4a7fb5;
+}
+.pattern-btn.active-purple {
+  border-color: #9b6bb5;
+  background: rgba(155,107,181,.07);
+  color: #9b6bb5;
+}
+.phase-btns {
+  display: flex;
+  gap: 8px;
+}
+.phase-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.phase-btn.match-btn {
+  color: #5a9a72;
+}
+.phase-btn.match-btn:hover, .phase-btn.match-btn.active {
+  border-color: #5a9a72;
+  background: rgba(90,154,114,.1);
+}
+.phase-btn.mismatch-btn {
+  color: #c06058;
+}
+.phase-btn.mismatch-btn:hover, .phase-btn.mismatch-btn.active {
+  border-color: #c06058;
+  background: rgba(192,96,88,.1);
+}
+.chart-full {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.chart-full .chart-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+.chart-full .chart-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: auto;
+}
+.status-badge.suppressed {
+  background: rgba(192,96,88,.12);
+  color: #c06058;
+}
+.status-badge.amplified {
+  background: rgba(90,154,114,.12);
+  color: #5a9a72;
+}
+.status-badge.neutral {
+  background: var(--surface2);
+  color: var(--text-muted);
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.summary-item {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+.summary-item-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.summary-item-val {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: monospace;
+  color: var(--text);
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.31: Pattern Matching — Substrate of Resonance</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION -->
+<div class="card">
+  <div class="card-title">메커니즘: 패턴 매칭과 노이즈 억제 (Pattern Matching via Noise Suppression)</div>
+  <div class="card-desc">
+    두 입력 패턴이 <strong>동위상(in phase, 매칭)</strong>일 때 shunting 네트워크는 이를 증폭한다.
+    <strong>역위상(out of phase, 미스매치)</strong>일 때는 패턴이 상쇄되어 억제된다.
+    이것이 <strong>적응 공명 이론(ART)의 수학적 토대</strong>—공명의 기질(substrate)이다.<br><br>
+    하향식(Top-Down, TD) 기대 신호 J<sub>i</sub>와 상향식(Bottom-Up, BU) 감각 신호 I<sub>i</sub>가
+    매칭될 때만 세포 활동 x<sub>i</sub>가 증폭된다.
+    하향식 입력은 반드시 <strong>조절적(modulatory)</strong>이어야 한다.
+  </div>
+</div>
+
+<!-- EQUATION -->
+<div class="card">
+  <div class="card-title">핵심 방정식 — 공명의 기질 (Substrate of Resonance)</div>
+  <div class="eq-row">
+    <div class="eq-box" style="flex:2">
+      <div class="eq-label">결합 출력 방정식 (Combined Output)</div>
+      <div id="eq-combined"></div>
+    </div>
+    <div class="eq-box" style="flex:1">
+      <div class="eq-label">상대 위상 (Relative Phase θ<sub>i</sub>)</div>
+      <div id="eq-theta"></div>
+    </div>
+  </div>
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label"><span style="color:#5a9a72">Match (동위상) — 증폭</span></div>
+      <div id="eq-match"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label"><span style="color:#c06058">Mismatch (역위상) — 억제</span></div>
+      <div id="eq-mismatch"></div>
+    </div>
+  </div>
+  <div class="card-desc" style="margin-bottom:0;margin-top:4px;font-size:12px">
+    여기서 <em>I = ΣI<sub>i</sub></em> (BU 총합), <em>J = ΣJ<sub>i</sub></em> (TD 총합),
+    <em>θ<sub>i</sub></em>는 셀 i에서의 패턴 성분 비율이다.
+    동위상이면 θ<sub>i</sub>가 크고, 역위상이면 θ<sub>i</sub> ≈ 1/n (균일 → 억제).
+  </div>
+</div>
+
+<!-- INTERACTIVE SIMULATION -->
+<div class="card">
+  <div class="card-title">인터랙티브 시뮬레이션</div>
+  <div class="card-desc" style="margin-bottom:14px">
+    Bottom-Up(BU)과 Top-Down(TD) 패턴을 선택하거나 Match/Mismatch 버튼으로 빠르게 비교하라.
+  </div>
+
+  <!-- Pattern selectors -->
+  <div class="pattern-selector-row">
+    <div class="pattern-selector-group">
+      <label>Bottom-Up I<sub>i</sub> 패턴</label>
+      <div class="pattern-btns" id="bu-pattern-btns">
+        <button class="pattern-btn active-blue" data-pattern="triangle" data-target="bu">삼각파</button>
+        <button class="pattern-btn" data-pattern="step" data-target="bu">계단</button>
+        <button class="pattern-btn" data-pattern="bar" data-target="bu">바</button>
+        <button class="pattern-btn" data-pattern="uniform" data-target="bu">균일</button>
+      </div>
+    </div>
+    <div class="pattern-selector-group">
+      <label>Top-Down J<sub>i</sub> 패턴</label>
+      <div class="pattern-btns" id="td-pattern-btns">
+        <button class="pattern-btn active-purple" data-pattern="triangle" data-target="td">삼각파</button>
+        <button class="pattern-btn" data-pattern="step" data-target="td">계단</button>
+        <button class="pattern-btn" data-pattern="bar" data-target="td">바</button>
+        <button class="pattern-btn" data-pattern="uniform" data-target="td">균일</button>
+      </div>
+    </div>
+    <div class="pattern-selector-group">
+      <label>빠른 설정</label>
+      <div class="phase-btns">
+        <button class="phase-btn match-btn" id="btn-match">Match (동위상)</button>
+        <button class="phase-btn mismatch-btn" id="btn-mismatch">Mismatch (역위상)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parameters -->
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="5" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Excit. bound <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="20" step="0.5" value="9">
+      <span class="val" id="val-B">9</span>
+    </div>
+    <div class="control-group">
+      <label>Inhib. bound <em>C</em></label>
+      <input type="range" id="slider-C" min="0.5" max="5" step="0.1" value="1">
+      <span class="val" id="val-C">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Cells <em>n</em></label>
+      <input type="range" id="slider-n" min="5" max="20" step="1" value="10">
+      <span class="val" id="val-n">10</span>
+    </div>
+    <div class="control-group">
+      <label>크기 <em>mag</em></label>
+      <input type="range" id="slider-mag" min="1" max="20" step="0.5" value="10">
+      <span class="val" id="val-mag">10</span>
+    </div>
+  </div>
+</div>
+
+<!-- BU CHART -->
+<div class="chart-full">
+  <div class="chart-label">
+    <span class="dot" style="background:#4a7fb5"></span>
+    Bottom-Up 입력 I<sub>i</sub>
+    <span class="status-badge neutral" id="badge-bu">BU</span>
+  </div>
+  <div id="plot-bu" style="width:100%;height:160px"></div>
+</div>
+
+<!-- TD CHART -->
+<div class="chart-full">
+  <div class="chart-label">
+    <span class="dot" style="background:#9b6bb5"></span>
+    Top-Down 입력 J<sub>i</sub>
+    <span class="status-badge neutral" id="badge-td">TD</span>
+  </div>
+  <div id="plot-td" style="width:100%;height:160px"></div>
+</div>
+
+<!-- OUTPUT CHART -->
+<div class="chart-full">
+  <div class="chart-label">
+    <span class="dot" id="output-dot" style="background:#5a9a72"></span>
+    결합 출력 x<sub>i</sub>
+    <span class="status-badge neutral" id="badge-output">계산 중...</span>
+  </div>
+  <div id="plot-output" style="width:100%;height:200px"></div>
+</div>
+
+<!-- SIDE BY SIDE COMPARISON -->
+<div class="compare-grid" style="margin-bottom:16px">
+  <div class="compare-card mismatch">
+    <div class="compare-card-title red">Mismatch → 억제 (Suppressed)</div>
+    <svg width="100%" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="80" rx="6" fill="rgba(192,96,88,.03)"/>
+      <!-- BU pattern: triangle-like -->
+      <polyline points="20,60 60,20 100,60 140,20 180,60 220,20 260,60" fill="none" stroke="#4a7fb5" stroke-width="2" opacity="0.7"/>
+      <!-- TD pattern: inverted -->
+      <polyline points="20,20 60,60 100,20 140,60 180,20 220,60 260,20" fill="none" stroke="#9b6bb5" stroke-width="2" stroke-dasharray="4,2" opacity="0.7"/>
+      <!-- Output: flat -->
+      <line x1="20" y1="40" x2="260" y2="40" stroke="#c06058" stroke-width="2.5"/>
+      <text x="150" y="74" font-size="9" fill="#c06058" text-anchor="middle" font-weight="700">패턴 상쇄 → 평탄선 (억제)</text>
+    </svg>
+    <div class="compare-card-desc">
+      BU와 TD가 역위상: θ<sub>i</sub> ≈ 1/n (모든 셀 동등)
+      → 모든 셀이 적응 수준 C/(B+C) 근처로 억제됨.
+    </div>
+  </div>
+  <div class="compare-card match">
+    <div class="compare-card-title green">Match → 증폭 (Amplified)</div>
+    <svg width="100%" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="80" rx="6" fill="rgba(90,154,114,.03)"/>
+      <!-- BU pattern: triangle-like -->
+      <polyline points="20,60 60,30 100,50 140,15 180,50 220,30 260,60" fill="none" stroke="#4a7fb5" stroke-width="2" opacity="0.7"/>
+      <!-- TD pattern: same -->
+      <polyline points="20,60 60,30 100,50 140,15 180,50 220,30 260,60" fill="none" stroke="#9b6bb5" stroke-width="2" stroke-dasharray="4,2" opacity="0.7"/>
+      <!-- Output: amplified -->
+      <polyline points="20,65 60,20 100,45 140,8 180,45 220,20 260,65" fill="none" stroke="#5a9a72" stroke-width="2.5"/>
+      <text x="150" y="74" font-size="9" fill="#5a9a72" text-anchor="middle" font-weight="700">패턴 공명 → 증폭 (ART 공명)</text>
+    </svg>
+    <div class="compare-card-desc">
+      BU와 TD가 동위상: 패턴 특징이 있는 셀에서 θ<sub>i</sub>가 크게 됨
+      → 자동 이득 제어(shunting)에 의해 해당 셀 증폭.
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY STATS -->
+<div class="card">
+  <div class="card-title">현재 시뮬레이션 통계</div>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <div class="summary-item-label">BU 총합 I</div>
+      <div class="summary-item-val" id="stat-I">—</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item-label">TD 총합 J</div>
+      <div class="summary-item-val" id="stat-J">—</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item-label">적응 수준 C/(B+C)</div>
+      <div class="summary-item-val" id="stat-adapt">—</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item-label">출력 최대값</div>
+      <div class="summary-item-val" id="stat-xmax">—</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item-label">출력 최솟값</div>
+      <div class="summary-item-val" id="stat-xmin">—</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item-label">상태</div>
+      <div class="summary-item-val" id="stat-state">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY SUMMARY -->
+<div class="card">
+  <div class="card-title">핵심 요약 — ART의 수학적 기반</div>
+  <div class="insight" style="font-size:13px;line-height:1.8">
+    <strong>패턴 매칭 = 공명의 기질 (Substrate of Resonance)</strong><br>
+    • <strong>하향식 기대(TD, J<sub>i</sub>)와 상향식 감각(BU, I<sub>i</sub>)이 동위상일 때</strong>:
+      shunting 항이 자동 이득 제어를 통해 매칭된 패턴을 증폭한다.<br>
+    • <strong>역위상(미스매치)일 때</strong>: 모든 셀에서 θ<sub>i</sub> ≈ 1/n → 적응 수준에 의해 억제된다.<br>
+    • <strong>하향식 입력은 반드시 조절적(modulatory)이어야 한다</strong>: TD 단독으로는 활성화를 유도하지 않고,
+      BU와 함께 올 때만 증폭 효과가 나타난다.<br>
+    • 이것이 <strong>Adaptive Resonance Theory (ART)</strong>의 수학적 기반이다:
+      BU 감각과 TD 기대의 공명이 학습과 인식의 안정적 기반을 제공한다.
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_31.js"></script>
+</body>
+</html>

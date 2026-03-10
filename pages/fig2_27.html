@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.27 - Mudpuppy Retina / Cooperative-Competitive Dynamics | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.history-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+.history-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.history-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.history-card-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.history-card-year {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 700;
+  font-family: monospace;
+  margin-bottom: 8px;
+}
+.history-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.circuit-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 8px;
+}
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.compare-card {
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.compare-card.subtractive {
+  background: rgba(192,96,88,.05);
+  border-color: rgba(192,96,88,.25);
+}
+.compare-card.shunting {
+  background: rgba(90,154,114,.05);
+  border-color: rgba(90,154,114,.25);
+}
+.compare-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.compare-card-title.red { color: var(--red); }
+.compare-card-title.green { color: var(--green); }
+.compare-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 6px;
+}
+.pattern-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.pattern-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.pattern-btn:hover { background: var(--surface2); }
+.pattern-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.chart-full {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.chart-full .chart-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+.chart-full .chart-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.27: Mudpuppy Retina / Cooperative-Competitive Dynamics</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION -->
+<div class="card">
+  <div class="card-title">메커니즘: 협력-경쟁 동역학 (Cooperative-Competitive Dynamics)</div>
+  <div class="card-desc">
+    <strong>On-center off-surround</strong> 수용야 구조가 고양이 망막(Kuffler 1953),
+    투구게 망막(Hartline &amp; Ratcliff 1956), 도루뱀 망막(Werblin &amp; Dowling 1969)에서
+    잇달아 발견되었다. 각 발견은 동일한 생물학적 원리를 다른 수준에서 드러낸다:
+    center에서의 흥분(협력)과 surround에서의 억제(경쟁)가 결합하여
+    <strong>shunting 네트워크의 생물학적 구현</strong>을 이룬다.
+  </div>
+</div>
+
+<!-- THREE HISTORICAL DISCOVERIES -->
+<div class="card">
+  <div class="card-title">세 가지 역사적 발견</div>
+  <div class="history-grid">
+
+    <!-- Kuffler 1953 -->
+    <div class="history-card">
+      <div class="history-card-title">Cat Retina</div>
+      <div class="history-card-author">Kuffler</div>
+      <div class="history-card-year">1953</div>
+      <div class="history-card-desc">
+        고양이 망막 신경절세포에서 <strong>on-center off-surround</strong> 수용야 최초 발견.
+        좁은 중심(+)은 빛에 흥분, 넓은 주변(-)은 빛에 억제.
+      </div>
+      <!-- Concentric circle SVG -->
+      <svg width="120" height="120" viewBox="0 0 120 120" style="display:block;margin:12px auto 0">
+        <circle cx="60" cy="60" r="50" fill="rgba(192,96,88,.15)" stroke="#c06058" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="28" fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="3" fill="#4a7fb5"/>
+        <text x="60" y="64" font-size="10" font-weight="700" fill="#4a7fb5" text-anchor="middle">+</text>
+        <text x="60" y="42" font-size="9" fill="#c06058" text-anchor="middle">−</text>
+        <text x="94" y="50" font-size="9" fill="#c06058" text-anchor="middle">−</text>
+        <text x="26" y="50" font-size="9" fill="#c06058" text-anchor="middle">−</text>
+        <text x="60" y="104" font-size="8" fill="#9b9590" text-anchor="middle">on-center off-surround</text>
+      </svg>
+    </div>
+
+    <!-- Hartline & Ratcliff 1956 -->
+    <div class="history-card">
+      <div class="history-card-title">Limulus Retina</div>
+      <div class="history-card-author">Hartline &amp; Ratcliff</div>
+      <div class="history-card-year">1956 / 1957+</div>
+      <div class="history-card-desc">
+        투구게(Limulus) 망막에서 <strong>subtractive lateral inhibition</strong> 발견.
+        인접 광수용체가 서로를 억제한다. 최초의 수학적 모델이지만
+        덧셈/뺄셈 방식(additive)으로, 활동이 음수로 갈 수 있고 자동 이득 제어가 없다.
+      </div>
+      <!-- Simple lateral inhibition diagram -->
+      <svg width="120" height="90" viewBox="0 0 120 90" style="display:block;margin:12px auto 0">
+        <rect x="10" y="10" width="28" height="28" rx="5" fill="rgba(74,127,181,.15)" stroke="#4a7fb5" stroke-width="1.5"/>
+        <rect x="46" y="10" width="28" height="28" rx="5" fill="rgba(74,127,181,.15)" stroke="#4a7fb5" stroke-width="1.5"/>
+        <rect x="82" y="10" width="28" height="28" rx="5" fill="rgba(74,127,181,.15)" stroke="#4a7fb5" stroke-width="1.5"/>
+        <text x="24" y="29" font-size="9" fill="#4a7fb5" text-anchor="middle">R₁</text>
+        <text x="60" y="29" font-size="9" fill="#4a7fb5" text-anchor="middle">R₂</text>
+        <text x="96" y="29" font-size="9" fill="#4a7fb5" text-anchor="middle">R₃</text>
+        <!-- lateral inhibition arrows -->
+        <line x1="38" y1="24" x2="46" y2="24" stroke="#c06058" stroke-width="1.5" marker-end="url(#arrowR)"/>
+        <line x1="46" y1="20" x2="38" y2="20" stroke="#c06058" stroke-width="1.5" marker-end="url(#arrowL)"/>
+        <line x1="74" y1="24" x2="82" y2="24" stroke="#c06058" stroke-width="1.5" marker-end="url(#arrowR)"/>
+        <line x1="82" y1="20" x2="74" y2="20" stroke="#c06058" stroke-width="1.5" marker-end="url(#arrowL)"/>
+        <defs>
+          <marker id="arrowR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#c06058"/>
+          </marker>
+          <marker id="arrowL" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
+            <path d="M6,0 L0,3 L6,6 Z" fill="#c06058"/>
+          </marker>
+        </defs>
+        <text x="60" y="58" font-size="8" fill="#c06058" text-anchor="middle">x_i = (I_i − J_i) / A</text>
+        <text x="60" y="72" font-size="8" fill="#9b9590" text-anchor="middle">subtractive (additive)</text>
+        <text x="60" y="84" font-size="8" fill="#c06058" text-anchor="middle">x 가 음수 가능!</text>
+      </svg>
+    </div>
+
+    <!-- Werblin & Dowling 1969 -->
+    <div class="history-card">
+      <div class="history-card-title">Mudpuppy (Necturus) Retina</div>
+      <div class="history-card-author">Werblin &amp; Dowling</div>
+      <div class="history-card-year">1969+</div>
+      <div class="history-card-desc">
+        도루뱀 망막에서 <strong>shunting (silent) inhibition</strong> 발견.
+        수평세포(H)가 양극세포(B)를 곱셈/나눗셈 방식으로 억제하여
+        자동 이득 제어(automatic gain control)를 구현한다.
+        Grossberg의 shunting 방정식과 정확히 일치.
+      </div>
+      <svg width="120" height="80" viewBox="0 0 120 80" style="display:block;margin:12px auto 0">
+        <circle cx="60" cy="18" r="10" fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="1.5"/>
+        <text x="60" y="22" font-size="9" fill="#4a7fb5" text-anchor="middle">R</text>
+        <circle cx="60" cy="60" r="10" fill="rgba(90,154,114,.18)" stroke="#5a9a72" stroke-width="1.5"/>
+        <text x="60" y="64" font-size="9" fill="#5a9a72" text-anchor="middle">B</text>
+        <line x1="60" y1="28" x2="60" y2="50" stroke="#4a7fb5" stroke-width="1.5" marker-end="url(#arrowB)"/>
+        <text x="66" y="42" font-size="8" fill="#4a7fb5">+</text>
+        <defs>
+          <marker id="arrowB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#4a7fb5"/>
+          </marker>
+        </defs>
+        <text x="60" y="78" font-size="8" fill="#5a9a72" text-anchor="middle">shunting inh.</text>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<!-- MUDPUPPY CIRCUIT DIAGRAM -->
+<div class="card">
+  <div class="card-title">도루뱀(Mudpuppy) 망막 회로</div>
+  <div class="card-desc" style="margin-bottom:12px">
+    R = Receptor (광수용체), H = Horizontal cell (수평세포, 붉은색), B = Bipolar cell (양극세포).
+    R이 빛을 받아 B를 직접 흥분(on-center)시키고,
+    여러 R이 H를 통해 B를 측면 억제(off-surround)한다.
+    H→B 억제가 <strong>shunting(무음) 억제</strong>이다.
+  </div>
+  <div class="circuit-wrap">
+    <svg width="560" height="220" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
+      <rect width="560" height="220" rx="10" fill="#faf8f5"/>
+
+      <!-- Light arrows -->
+      <line x1="80"  y1="10" x2="80"  y2="30" stroke="#c49a3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="180" y1="10" x2="180" y2="30" stroke="#c49a3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="280" y1="10" x2="280" y2="30" stroke="#c49a3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="380" y1="10" x2="380" y2="30" stroke="#c49a3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="480" y1="10" x2="480" y2="30" stroke="#c49a3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="530" y="22" font-size="10" fill="#c49a3c">light</text>
+
+      <!-- R cells -->
+      <circle cx="80"  cy="50" r="18" fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="2"/>
+      <circle cx="180" cy="50" r="18" fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="2"/>
+      <circle cx="280" cy="50" r="18" fill="rgba(74,127,181,.28)" stroke="#4a7fb5" stroke-width="2.5"/>
+      <circle cx="380" cy="50" r="18" fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="2"/>
+      <circle cx="480" cy="50" r="18" fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="2"/>
+      <text x="80"  y="54" font-size="11" font-weight="700" fill="#4a7fb5" text-anchor="middle">R</text>
+      <text x="180" y="54" font-size="11" font-weight="700" fill="#4a7fb5" text-anchor="middle">R</text>
+      <text x="280" y="54" font-size="11" font-weight="700" fill="#4a7fb5" text-anchor="middle">R</text>
+      <text x="380" y="54" font-size="11" font-weight="700" fill="#4a7fb5" text-anchor="middle">R</text>
+      <text x="480" y="54" font-size="11" font-weight="700" fill="#4a7fb5" text-anchor="middle">R</text>
+
+      <!-- R → H (excitatory, downward to H) -->
+      <line x1="80"  y1="68" x2="80"  y2="102" stroke="#4a7fb5" stroke-width="1.5"/>
+      <line x1="180" y1="68" x2="180" y2="102" stroke="#4a7fb5" stroke-width="1.5"/>
+      <line x1="280" y1="68" x2="280" y2="102" stroke="#4a7fb5" stroke-width="1.5"/>
+      <line x1="380" y1="68" x2="380" y2="102" stroke="#4a7fb5" stroke-width="1.5"/>
+      <line x1="480" y1="68" x2="480" y2="102" stroke="#4a7fb5" stroke-width="1.5"/>
+
+      <!-- H cells -->
+      <circle cx="80"  cy="120" r="14" fill="rgba(192,96,88,.18)" stroke="#c06058" stroke-width="2"/>
+      <circle cx="180" cy="120" r="14" fill="rgba(192,96,88,.18)" stroke="#c06058" stroke-width="2"/>
+      <circle cx="280" cy="120" r="14" fill="rgba(192,96,88,.28)" stroke="#c06058" stroke-width="2.5"/>
+      <circle cx="380" cy="120" r="14" fill="rgba(192,96,88,.18)" stroke="#c06058" stroke-width="2"/>
+      <circle cx="480" cy="120" r="14" fill="rgba(192,96,88,.18)" stroke="#c06058" stroke-width="2"/>
+      <text x="80"  y="124" font-size="11" font-weight="700" fill="#c06058" text-anchor="middle">H</text>
+      <text x="180" y="124" font-size="11" font-weight="700" fill="#c06058" text-anchor="middle">H</text>
+      <text x="280" y="124" font-size="11" font-weight="700" fill="#c06058" text-anchor="middle">H</text>
+      <text x="380" y="124" font-size="11" font-weight="700" fill="#c06058" text-anchor="middle">H</text>
+      <text x="480" y="124" font-size="11" font-weight="700" fill="#c06058" text-anchor="middle">H</text>
+
+      <!-- H lateral connections (horizontal) -->
+      <line x1="94"  y1="120" x2="166" y2="120" stroke="#c06058" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="194" y1="120" x2="266" y2="120" stroke="#c06058" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="294" y1="120" x2="366" y2="120" stroke="#c06058" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="394" y1="120" x2="466" y2="120" stroke="#c06058" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+      <!-- H → B (inhibitory, shunting — red, diagonal to center B) -->
+      <!-- H of flanking cells inhibit center B -->
+      <line x1="166" y1="126" x2="270" y2="162" stroke="#c06058" stroke-width="2" marker-end="url(#circEnd)"/>
+      <line x1="294" y1="126" x2="290" y2="162" stroke="#c06058" stroke-width="2" marker-end="url(#circEnd)"/>
+      <defs>
+        <marker id="circEnd" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <circle cx="4" cy="4" r="3" fill="#c06058" opacity="0.9"/>
+        </marker>
+        <marker id="excEnd" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#4a7fb5"/>
+        </marker>
+      </defs>
+
+      <!-- R → B (excitatory, center direct) -->
+      <line x1="280" y1="68" x2="280" y2="162" stroke="#4a7fb5" stroke-width="2.5" stroke-dasharray="none" marker-end="url(#excEnd)"/>
+
+      <!-- B cell (center, target) -->
+      <circle cx="280" cy="180" r="18" fill="rgba(90,154,114,.22)" stroke="#5a9a72" stroke-width="2.5"/>
+      <text x="280" y="184" font-size="11" font-weight="700" fill="#5a9a72" text-anchor="middle">B</text>
+
+      <!-- Labels -->
+      <text x="30"  y="54" font-size="10" fill="#4a7fb5" text-anchor="middle">receptor</text>
+      <text x="30"  y="124" font-size="10" fill="#c06058" text-anchor="middle">horizontal</text>
+      <text x="30"  y="184" font-size="10" fill="#5a9a72" text-anchor="middle">bipolar</text>
+
+      <!-- Annotation: on-center -->
+      <text x="310" y="120" font-size="10" fill="#4a7fb5" font-weight="600">on-center</text>
+      <text x="310" y="132" font-size="9" fill="#4a7fb5">(excitatory)</text>
+
+      <!-- Annotation: off-surround -->
+      <text x="360" y="155" font-size="10" fill="#c06058" font-weight="600">off-surround</text>
+      <text x="360" y="167" font-size="9" fill="#c06058">(shunting inhib.)</text>
+    </svg>
+  </div>
+  <div class="insight">
+    <strong>핵심:</strong> 수평세포(H)는 <em>여러</em> R로부터 흥분 입력을 받아 측면으로 연결된 후
+    양극세포(B)를 <strong>shunting 억제</strong>한다. 이것이 on-center off-surround의 생물학적 구현이다.
+  </div>
+</div>
+
+<!-- EQUATION MAPPING -->
+<div class="card">
+  <div class="card-title">회로 → 수학 대응</div>
+  <div class="card-desc" style="margin-bottom:14px">
+    망막 회로가 어떻게 Grossberg의 shunting 방정식으로 대응되는지 보여준다.
+  </div>
+  <div class="eq-row">
+    <div class="eq-box" style="flex:2">
+      <div class="eq-label">Shunting ODE — 도루뱀 회로 대응</div>
+      <div id="eq-ode"></div>
+    </div>
+    <div class="eq-box" style="flex:1">
+      <div class="eq-label">Equilibrium</div>
+      <div id="eq-equil"></div>
+    </div>
+  </div>
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label"><span class="good">On-center (R→B, 직접 흥분)</span></div>
+      <div id="eq-excit"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label"><span class="bad">Off-surround (R→H→B, 측면 억제)</span></div>
+      <div id="eq-inhib"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBTRACTIVE vs SHUNTING COMPARISON -->
+<div class="card">
+  <div class="card-title">Subtractive vs Shunting — 핵심 차이</div>
+  <div class="compare-grid">
+    <div class="compare-card subtractive">
+      <div class="compare-card-title red">Limulus 방식 — Subtractive (가산)</div>
+      <div id="eq-sub"></div>
+      <div class="compare-card-desc">
+        평형: x* = (I − J) / A<br>
+        <strong style="color:var(--red)">문제:</strong> x가 음수 가능, 자동 이득 제어 없음,
+        입력이 커지면 모두 포화.
+      </div>
+    </div>
+    <div class="compare-card shunting">
+      <div class="compare-card-title green">Mudpuppy 방식 — Shunting (곱셈)</div>
+      <div id="eq-shunt"></div>
+      <div class="compare-card-desc">
+        평형: x* = BI / (A + I + J)<br>
+        <strong style="color:var(--green)">장점:</strong> x ∈ [0, B] 자동 경계,
+        입력 비율 보존(ratio preservation), 자동 이득 제어.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERACTIVE SIMULATION -->
+<div class="card">
+  <div class="card-title">인터랙티브 시뮬레이션 — Subtractive vs Shunting 비교</div>
+  <div class="card-desc" style="margin-bottom:12px">
+    1D 세포 배열에 공간 패턴을 적용하여 두 모델의 출력을 비교한다.
+    입력을 바꾸거나 파라미터를 조정해 shunting의 이점을 직접 확인하라.
+  </div>
+
+  <!-- Pattern buttons -->
+  <div class="pattern-btns" id="pattern-btns">
+    <button class="pattern-btn active" data-pattern="step">Step Edge (계단)</button>
+    <button class="pattern-btn" data-pattern="bar">Single Bar (단일 바)</button>
+    <button class="pattern-btn" data-pattern="uniform">Uniform (균일)</button>
+    <button class="pattern-btn" data-pattern="gradient">Gradient (경사)</button>
+  </div>
+
+  <!-- Parameters -->
+  <div class="controls-row">
+    <div class="control-group">
+      <label>입력 크기 <em>I₀</em></label>
+      <input type="range" id="slider-mag" min="0" max="1000" step="1" value="300">
+      <span class="val" id="val-mag">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="5" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Upper bound <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="20" step="0.5" value="10">
+      <span class="val" id="val-B">10</span>
+    </div>
+    <div class="control-group">
+      <label>Cells <em>n</em></label>
+      <input type="range" id="slider-n" min="5" max="20" step="1" value="12">
+      <span class="val" id="val-n">12</span>
+    </div>
+  </div>
+</div>
+
+<!-- INPUT CHART -->
+<div class="chart-full">
+  <div class="chart-label">
+    <span class="dot" style="background:#4a7fb5"></span>
+    Input Pattern I[i] — 공간 입력
+  </div>
+  <div id="plot-input" style="width:100%;height:180px"></div>
+</div>
+
+<!-- OUTPUT CHARTS: side by side -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:var(--red)"></span>
+      Subtractive (Limulus) — x* = (I − J) / A
+    </div>
+    <div id="plot-sub" style="width:100%;height:260px"></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:var(--green)"></span>
+      Shunting (Mudpuppy) — x* = B·I / (A + I + J)
+    </div>
+    <div id="plot-shunt" style="width:100%;height:260px"></div>
+  </div>
+</div>
+
+<!-- INSIGHT -->
+<div class="card" style="margin-top:16px">
+  <div class="card-title">핵심 요약</div>
+  <div class="insight" style="font-size:13px;line-height:1.8">
+    <strong>도루뱀 망막의 수평세포(H)→양극세포(B) 억제는 shunting(무음) 억제이다.</strong><br>
+    Limulus의 감산적 억제와 달리, shunting 억제는 <strong>자동 이득 제어</strong>를 제공하고
+    활동을 [0, B] 범위에 묶는다. 입력이 아무리 커져도 비율이 보존되고 음수 활동이 없다.<br><br>
+    • <strong>Kuffler (1953):</strong> On-center off-surround 수용야 — 현상 발견<br>
+    • <strong>Hartline &amp; Ratcliff (1956):</strong> Subtractive lateral inhibition — 최초 모델 (한계 있음)<br>
+    • <strong>Werblin &amp; Dowling (1969):</strong> Shunting inhibition — 올바른 생물학적 메커니즘<br>
+    • <strong>Grossberg:</strong> 이 구조를 수학적으로 분석 → shunting 네트워크의 이론적 근거
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_27.js"></script>
+</body>
+</html>

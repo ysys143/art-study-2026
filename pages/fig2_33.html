@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.33 - Opposites Attract / Noise Suppression Parameters | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+.sub-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.sub-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.param-status {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+.param-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.param-row-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.param-row-val {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.condition-box {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  transition: background .25s, border-color .25s, color .25s;
+}
+.condition-box.satisfied {
+  background: rgba(90,154,114,.1);
+  border: 1.5px solid rgba(90,154,114,.35);
+  color: var(--green);
+}
+.condition-box.violated {
+  background: rgba(192,96,88,.08);
+  border: 1.5px solid rgba(192,96,88,.3);
+  color: var(--red);
+}
+.dynamics-svg-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+}
+.chart-section {
+  margin-top: 12px;
+}
+.chart-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chart-section-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.33: Opposites Attract — Noise Suppression Parameters</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- CARD 1: 메커니즘 설명 -->
+<div class="card">
+  <div class="card-title">메커니즘 설명 — Noise Suppression Parameters의 기원</div>
+  <div class="card-desc">
+    노이즈 억제가 정확하게 작동하려면 파라미터 비율 <strong>C/B = 1/(n−1)</strong>이 성립해야 한다.
+    그런데 뇌는 어떻게 이 정밀한 조건을 스스로 구현하는가?
+    Grossberg는 <strong>형태발생(morphogenesis) 중 대칭 붕괴(symmetry-breaking)</strong>를 통해
+    세포 내(intracellular) 파라미터가 세포 간(intercellular) 연결 수를 결정한다고 제안한다.
+    이것이 <em>Opposites Attract Rule</em>이다: 흥분성과 억제성 포화점이 서로 반대 방향으로
+    성장을 조절하여, 발달 과정에서 정확한 연결 수가 자동으로 예측된다.
+  </div>
+  <div class="insight">
+    <strong>핵심 예측:</strong> 세포 내 흥분/억제 포화점(B, C)이 발달 중 세포 간 흥분/억제 연결
+    수의 성장을 제어한다. 즉, 세포 내 파라미터 → 세포 간 해부학적 연결.
+  </div>
+</div>
+
+<!-- CARD 2: Opposites Attract Rule -->
+<div class="card">
+  <div class="card-title">Opposites Attract Rule</div>
+  <div class="card-desc" style="margin-bottom:10px">
+    단일 세포의 흥분(B)과 억제(C) 포화점이 인접 연결 수 n을 결정한다.
+    노이즈 억제 조건 C/(B+C) = 1/n을 풀면 아래 관계가 나온다.
+  </div>
+
+  <div class="eq-row">
+    <div class="eq-box">
+      <div class="eq-label">Opposites Attract Rule</div>
+      <div id="eq-oar"></div>
+    </div>
+    <div class="eq-box">
+      <div class="eq-label">동치 형태들</div>
+      <div id="eq-equiv"></div>
+    </div>
+  </div>
+
+  <!-- Single-cell SVG diagram -->
+  <div style="display:flex;justify-content:center;margin:12px 0 4px">
+    <svg width="260" height="180" viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="260" height="180" rx="10" fill="#faf8f5"/>
+
+      <!-- center cell -->
+      <circle cx="130" cy="90" r="30" fill="rgba(90,154,114,.15)" stroke="#5a9a72" stroke-width="2"/>
+      <text x="130" y="88" font-size="12" font-weight="700" fill="#5a9a72" text-anchor="middle">cell</text>
+      <text x="130" y="103" font-size="10" fill="#5a9a72" text-anchor="middle">i</text>
+
+      <!-- Intracellular excitatory: green arrow up -->
+      <line x1="130" y1="60" x2="130" y2="20" stroke="#5a9a72" stroke-width="2.5" marker-end="url(#arrowUp33)"/>
+      <text x="148" y="44" font-size="10" font-weight="600" fill="#5a9a72">B (excit.)</text>
+      <text x="148" y="56" font-size="9" fill="#9b9590">intracellular</text>
+
+      <!-- Intracellular inhibitory: red arrow down -->
+      <line x1="130" y1="120" x2="130" y2="160" stroke="#c06058" stroke-width="2.5" marker-end="url(#arrowDown33)"/>
+      <text x="148" y="148" font-size="10" font-weight="600" fill="#c06058">C (inhib.)</text>
+      <text x="148" y="160" font-size="9" fill="#9b9590">intracellular</text>
+
+      <!-- Intercellular: red arrows left and right -->
+      <line x1="100" y1="90" x2="48" y2="90" stroke="#c06058" stroke-width="1.8" marker-end="url(#arrowLeft33)"/>
+      <text x="30" y="82" font-size="9" fill="#c06058" text-anchor="middle">1/(n−1)</text>
+      <text x="30" y="94" font-size="9" fill="#9b9590" text-anchor="middle">intercell.</text>
+
+      <line x1="160" y1="90" x2="212" y2="90" stroke="#c06058" stroke-width="1.8" marker-end="url(#arrowRight33)"/>
+      <text x="228" y="82" font-size="9" fill="#c06058" text-anchor="middle">1/(n−1)</text>
+      <text x="228" y="94" font-size="9" fill="#9b9590" text-anchor="middle">intercell.</text>
+
+      <defs>
+        <marker id="arrowUp33" markerWidth="7" markerHeight="7" refX="3.5" refY="7" orient="auto">
+          <path d="M0,7 L3.5,0 L7,7 Z" fill="#5a9a72"/>
+        </marker>
+        <marker id="arrowDown33" markerWidth="7" markerHeight="7" refX="3.5" refY="0" orient="auto">
+          <path d="M0,0 L3.5,7 L7,0 Z" fill="#c06058"/>
+        </marker>
+        <marker id="arrowLeft33" markerWidth="7" markerHeight="7" refX="0" refY="3.5" orient="auto">
+          <path d="M7,0 L0,3.5 L7,7 Z" fill="#c06058"/>
+        </marker>
+        <marker id="arrowRight33" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="#c06058"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+  <div style="text-align:center;font-size:11px;color:var(--text-muted);margin-bottom:4px">
+    녹색 위쪽 = 흥분성 intracellular (B) &nbsp;|&nbsp; 빨간 가로 = 억제성 intercellular (1/(n−1)) &nbsp;|&nbsp; 빨간 아래 = 억제성 intracellular (C)
+  </div>
+</div>
+
+<!-- CARD 3: Symmetry-Breaking -->
+<div class="card">
+  <div class="card-title">대칭 붕괴 (Symmetry-Breaking) — 동역학과 해부학</div>
+  <div class="two-col">
+
+    <!-- DYNAMICS sub-card -->
+    <div class="sub-card">
+      <div class="sub-card-title">Dynamics — 전압 범위</div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:10px">
+        V⁺ (흥분성 역전전위)는 매우 크고, V⁻ (억제성 역전전위)는 작다.
+        결과적으로 <strong style="color:var(--blue)">흥분 범위는 증폭</strong>되고
+        <strong style="color:var(--red)">억제 범위는 압축</strong>된다.
+      </div>
+      <div class="dynamics-svg-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- vertical axis: voltage -->
+          <line x1="60" y1="10" x2="60" y2="190" stroke="#eae6e0" stroke-width="1.5"/>
+          <text x="56" y="14" font-size="9" fill="#9b9590" text-anchor="end">V</text>
+
+          <!-- V+ top (large excitatory range) -->
+          <rect x="80" y="14" width="24" height="80" rx="3"
+                fill="rgba(74,127,181,.18)" stroke="#4a7fb5" stroke-width="1.5"/>
+          <text x="108" y="20" font-size="9" fill="#4a7fb5">V⁺</text>
+          <text x="108" y="30" font-size="8" fill="#9b9590">(large)</text>
+
+          <!-- Vp passive middle -->
+          <rect x="80" y="100" width="24" height="14" rx="2"
+                fill="rgba(155,149,144,.18)" stroke="#9b9590" stroke-width="1.2"/>
+          <text x="108" y="111" font-size="9" fill="#9b9590">Vᵖ</text>
+
+          <!-- V(t) indicator -->
+          <line x1="68" y1="107" x2="80" y2="107" stroke="#4a7fb5" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="66" y="110" font-size="9" fill="#4a7fb5" text-anchor="end">V(t)</text>
+
+          <!-- V- bottom (small inhibitory range) -->
+          <rect x="80" y="120" width="24" height="26" rx="3"
+                fill="rgba(192,96,88,.18)" stroke="#c06058" stroke-width="1.5"/>
+          <text x="108" y="132" font-size="9" fill="#c06058">Vᵖ/V⁻</text>
+          <text x="108" y="144" font-size="8" fill="#9b9590">(small)</text>
+
+          <!-- brace: excitatory range -->
+          <path d="M 52,14 Q 46,14 46,54 Q 46,94 52,94" fill="none" stroke="#4a7fb5" stroke-width="1.5"/>
+          <text x="44" y="56" font-size="9" fill="#4a7fb5" text-anchor="end">excit.</text>
+          <text x="44" y="67" font-size="9" fill="#4a7fb5" text-anchor="end">range</text>
+          <text x="44" y="78" font-size="8" fill="#4a7fb5" text-anchor="end">↑ amplified</text>
+
+          <!-- brace: inhibitory range -->
+          <path d="M 52,120 Q 46,120 46,133 Q 46,146 52,146" fill="none" stroke="#c06058" stroke-width="1.5"/>
+          <text x="44" y="130" font-size="9" fill="#c06058" text-anchor="end">inhib.</text>
+          <text x="44" y="141" font-size="9" fill="#c06058" text-anchor="end">range</text>
+          <text x="44" y="152" font-size="8" fill="#c06058" text-anchor="end">↓ compressed</text>
+
+          <!-- label: V+ >> V- -->
+          <text x="130" y="80" font-size="11" font-weight="700" fill="#4a7fb5">V⁺</text>
+          <text x="145" y="80" font-size="11" fill="#9b9590">&gt;&gt;</text>
+          <text x="158" y="80" font-size="11" font-weight="700" fill="#c06058">V⁻</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ANATOMY sub-card -->
+    <div class="sub-card">
+      <div class="sub-card-title">Anatomy — 공간 커널</div>
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:10px">
+        대칭 붕괴의 해부학적 결과:
+        <strong style="color:var(--green)">좁은 on-center</strong> (녹색 Gaussian) +
+        <strong style="color:var(--red)">넓은 off-surround</strong> (빨간 Gaussian).
+        이 DOG 구조가 노이즈 억제와 윤곽 검출을 동시에 수행한다.
+      </div>
+      <div class="dynamics-svg-wrap">
+        <svg width="200" height="160" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- zero line -->
+          <line x1="10" y1="120" x2="190" y2="120" stroke="#eae6e0" stroke-width="1.2"/>
+          <text x="8" y="123" font-size="8" fill="#9b9590" text-anchor="end">0</text>
+
+          <!-- narrow on-center gaussian (green) -->
+          <!-- approximate Gaussian curve points -->
+          <polyline points="
+            10,120 30,119 50,115 65,104 75,85 85,60 95,40 100,30
+            105,40 115,60 125,85 135,104 150,115 170,119 190,120
+          " fill="none" stroke="#5a9a72" stroke-width="2" stroke-linecap="round"/>
+          <text x="100" y="24" font-size="10" font-weight="700" fill="#5a9a72" text-anchor="middle">on-center (+)</text>
+          <text x="100" y="34" font-size="9" fill="#5a9a72" text-anchor="middle">narrow</text>
+
+          <!-- broad off-surround gaussian (red) — negative, wider -->
+          <polyline points="
+            10,110 25,107 40,101 60,111 80,118 100,120
+            120,118 140,111 160,101 175,107 190,110
+          " fill="none" stroke="#c06058" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,2"/>
+          <!-- flip for negative: goes below zero line -->
+          <polyline points="
+            10,120 20,122 35,127 50,130 70,124 100,120
+            130,124 150,130 165,127 180,122 190,120
+          " fill="rgba(192,96,88,.12)" stroke="#c06058" stroke-width="1.5" stroke-linecap="round"/>
+          <text x="150" y="140" font-size="10" font-weight="700" fill="#c06058" text-anchor="middle">off-surround (−)</text>
+          <text x="150" y="150" font-size="9" fill="#c06058" text-anchor="middle">broad</text>
+
+          <!-- center marker -->
+          <line x1="100" y1="115" x2="100" y2="125" stroke="#9b9590" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="100" y="158" font-size="8" fill="#9b9590" text-anchor="middle">center</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+    <div class="insight" style="flex:1">
+      <strong>노이즈 억제:</strong> 균일 패턴(uniform input)을 약화시킨다.
+      DOG 커널의 excitatory/inhibitory 영역이 상쇄된다.
+    </div>
+    <div class="insight" style="flex:1;border-left-color:var(--blue)">
+      <strong>윤곽 검출:</strong> 패턴 경계(gradient)를 강화한다.
+      중심부와 주변부 입력이 다를 때 차이가 증폭된다.
+    </div>
+  </div>
+</div>
+
+<!-- CARD 4: Interactive Simulation -->
+<div class="card">
+  <div class="card-title">인터랙티브 시뮬레이션 — Opposites Attract Condition</div>
+  <div class="card-desc" style="margin-bottom:12px">
+    B, C, n 슬라이더를 조절하여 Opposites Attract 조건(C/B = 1/(n−1))이 성립하는지 확인하고,
+    그에 따라 달라지는 on-center/off-surround 커널 형태와 윤곽 검출 결과를 확인하라.
+  </div>
+
+  <!-- Sliders -->
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Excit. bound <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="50" step="0.5" value="9">
+      <span class="val" id="val-B">9</span>
+    </div>
+    <div class="control-group">
+      <label>Inhib. bound <em>C</em></label>
+      <input type="range" id="slider-C" min="0.1" max="10" step="0.1" value="1">
+      <span class="val" id="val-C">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Cell count <em>n</em></label>
+      <input type="range" id="slider-n" min="3" max="20" step="1" value="10">
+      <span class="val" id="val-n">10</span>
+    </div>
+  </div>
+
+  <!-- Parameter status display -->
+  <div class="param-status">
+    <div class="param-row">
+      <span class="param-row-label">C/B (intracellular ratio)</span>
+      <span class="param-row-val" id="disp-cb">—</span>
+    </div>
+    <div class="param-row">
+      <span class="param-row-label">1/(n−1) (intercellular target)</span>
+      <span class="param-row-val" id="disp-target">—</span>
+    </div>
+    <div class="param-row">
+      <span class="param-row-label">B/C (asymmetry ratio V⁺/V⁻)</span>
+      <span class="param-row-val" id="disp-bc">—</span>
+    </div>
+  </div>
+
+  <div class="condition-box violated" id="condition-box">
+    조건 확인 중...
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:#4a7fb5"></span>
+      On-center / Off-surround Kernel (DOG)
+    </div>
+    <div id="plot-kernel" style="width:100%;height:280px"></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:#c49a3c"></span>
+      Step-edge Input + Network Response (윤곽 검출)
+    </div>
+    <div id="plot-response" style="width:100%;height:280px"></div>
+  </div>
+</div>
+
+<!-- CARD 5: Summary -->
+<div class="card" style="margin-top:16px">
+  <div class="card-title">핵심 요약</div>
+  <div class="insight" style="font-size:13px;line-height:1.9">
+    <strong>Opposites Attract Rule: 세포 내 파라미터가 세포 간 연결 수를 결정한다.</strong><br>
+    • <strong>B</strong> (흥분 포화점) ≫ <strong>C</strong> (억제 포화점) — 이 비대칭이 좁은 center + 넓은 surround를 낳는다.<br>
+    • 조건 C/B = 1/(n−1) ↔ B = (n−1)C ↔ C/(B+C) = 1/n — 세 표현이 동치.<br>
+    • <strong>발달 중 대칭 붕괴:</strong> 형태발생 과정에서 이 비율이 자동으로 맞춰진다.<br>
+    • <strong>결과:</strong> 노이즈 억제(균일 입력 약화) + 윤곽 검출(경계 강화)이 하나의 구조에서 동시 달성.
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_33.js"></script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.28 - Weber Law & Adaptation Level | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.deriv-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+.deriv-step {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.deriv-step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 22px;
+}
+.deriv-step-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 150px;
+}
+.deriv-step.highlight {
+  background: var(--accent-light);
+  border: 1.5px solid var(--accent-mid);
+}
+.deriv-step.highlight .deriv-step-num { color: var(--accent); }
+
+.factor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+.factor-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.factor-card .factor-name {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+.factor-card .factor-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+.factor-weber { border-top: 3px solid var(--green); }
+.factor-weber .factor-name { color: var(--green); }
+.factor-theta { border-top: 3px solid var(--blue); }
+.factor-theta .factor-name { color: var(--blue); }
+.factor-adapt { border-top: 3px solid var(--red); }
+.factor-adapt .factor-name { color: var(--red); }
+
+.cmp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+.cmp-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 16px;
+}
+.cmp-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.cmp-card.silent { border-left: 4px solid var(--red); }
+.cmp-card.hyper  { border-left: 4px solid var(--green); }
+.cmp-card.silent .cmp-card-title { color: var(--red); }
+.cmp-card.hyper  .cmp-card-title { color: var(--green); }
+
+.chart-full {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.chart-full .chart-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.28: Weber Law and Adaptation Level</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION + DERIVATION -->
+<div class="card">
+  <div class="card-title">베버의 법칙과 적응 수준 — Hyperpolarization vs Silent Inhibition</div>
+  <div class="card-desc">
+    완전한 션팅 방정식(흥분 채널 + 억제 채널)의 평형을 풀면 활동 x_i*가 세 요소의 곱으로 분해된다.
+    <strong>과분극 억제(C &gt; 0)</strong>가 있어야만 적응 수준 C/(B+C)가 0보다 커지고,
+    이를 기준으로 <strong>"밝다" (x &gt; 0)</strong> / <strong>"어둡다" (x &lt; 0)</strong>를 부호화할 수 있다.
+    C = 0(무음 억제)이면 모든 활동이 항상 ≥ 0이어서 "평균보다 어두운" 대비를 표현할 수 없다.
+  </div>
+
+  <div class="deriv-steps">
+    <div class="deriv-step">
+      <div class="deriv-step-num">1</div>
+      <div class="deriv-step-label">완전한 션팅 ODE</div>
+      <div id="eq-step1"></div>
+    </div>
+    <div class="deriv-step">
+      <div class="deriv-step-num">2</div>
+      <div class="deriv-step-label">평형 (dx/dt = 0)</div>
+      <div id="eq-step2"></div>
+    </div>
+    <div class="deriv-step">
+      <div class="deriv-step-num">3</div>
+      <div class="deriv-step-label">I = 전체 입력, θ_i = I_i/I 대입</div>
+      <div id="eq-step3"></div>
+    </div>
+    <div class="deriv-step highlight">
+      <div class="deriv-step-num">4</div>
+      <div class="deriv-step-label">최종 결과 (핵심)</div>
+      <div id="eq-step4"></div>
+    </div>
+  </div>
+
+  <!-- THREE FACTOR EXPLANATION -->
+  <div class="factor-grid">
+    <div class="factor-card factor-weber">
+      <div class="factor-name">Weber Law</div>
+      <div id="eq-factor-weber"></div>
+      <div class="factor-desc">
+        자동 이득 제어. I가 아무리 커져도 B+C로 포화.
+        분모의 I가 이득을 자동 조절 → 베버의 법칙 (JND ∝ I)
+      </div>
+    </div>
+    <div class="factor-card factor-theta">
+      <div class="factor-name">Reflectance θ_i</div>
+      <div id="eq-factor-theta"></div>
+      <div class="factor-desc">
+        전체 입력 중 셀 i의 비율.
+        조명이 바뀌어도(I 스케일) θ_i는 불변 → 조명 불변성
+      </div>
+    </div>
+    <div class="factor-card factor-adapt">
+      <div class="factor-name">Adaptation Level</div>
+      <div id="eq-factor-adapt"></div>
+      <div class="factor-desc">
+        내부 기준점. θ_i &gt; C/(B+C)이면 양(밝다),
+        θ_i &lt; C/(B+C)이면 음(어둡다). C=0이면 기준점=0
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="card">
+  <div class="card-title">Parameters</div>
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="10" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>Excit. bound <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="20" step="0.5" value="10">
+      <span class="val" id="val-B">10</span>
+    </div>
+    <div class="control-group">
+      <label>Inhib. bound <em>C</em></label>
+      <input type="range" id="slider-C" min="0" max="20" step="0.5" value="5">
+      <span class="val" id="val-C">5.0</span>
+    </div>
+    <div class="control-group">
+      <label>Total input <em>I</em></label>
+      <input type="range" id="slider-I" min="0" max="1000" step="1" value="400">
+      <span class="val" id="val-I">10.0</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE INDICATOR -->
+<div class="phase-indicator" id="phase-label">
+  <span class="phase-val">적응 수준 C/(B+C) = 0.333</span> &mdash; θ_i가 이보다 크면 밝다(+), 작으면 어둡다(-)
+</div>
+
+<!-- MAIN BAR CHART -->
+<div class="chart-full">
+  <div class="chart-label">각 셀의 평형 활동 x_i* — 점선: 적응 수준 기준, 파랑: 밝다(+), 빨강: 어둡다(-)</div>
+  <div id="plotly-main" style="width:100%;height:320px"></div>
+</div>
+
+<!-- SILENT vs HYPERPOLARIZING COMPARISON -->
+<div class="card">
+  <div class="card-title">Silent vs Hyperpolarizing Inhibition 비교</div>
+  <div class="card-desc">
+    동일한 반사율 패턴 θ = [0.70, 0.50, 0.30, 0.20, 0.10]에 두 모델을 적용한다.
+    C = 0(무음)이면 모두 ≥ 0이어서 "어두운" 셀을 표현할 수 없다.
+    현재 슬라이더의 C 값이 오른쪽 그래프에 반영된다.
+  </div>
+  <div class="cmp-grid">
+    <div class="cmp-card silent">
+      <div class="cmp-card-title">C = 0 (Silent Inhibition)</div>
+      <div style="font-size:11px;font-family:monospace;color:var(--text-muted);margin-bottom:10px">x_i = B·I·θ_i / (A+I) ≥ 0, 적응 수준 없음</div>
+      <div id="plotly-silent" style="width:100%;height:220px"></div>
+    </div>
+    <div class="cmp-card hyper">
+      <div class="cmp-card-title">C &gt; 0 (Hyperpolarizing Inhibition)</div>
+      <div style="font-size:11px;font-family:monospace;color:var(--text-muted);margin-bottom:10px">x_i = (B+C)I/(A+I) · [θ_i − C/(B+C)]</div>
+      <div id="plotly-hyper" style="width:100%;height:220px"></div>
+    </div>
+  </div>
+  <div class="insight" id="cmp-insight" style="margin-top:12px">
+    C 슬라이더를 0으로 내리면 두 그래프가 같아지고, C &gt; 0이면 기준점 이하 셀이 음수가 됩니다.
+  </div>
+</div>
+
+<!-- WEBER FACTOR + ILLUMINATION INVARIANCE -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:var(--green)"></span>
+      Weber 이득 (B+C)·I / (A+I) — I 증가에 따른 포화
+    </div>
+    <div id="plotly-weber" style="width:100%;height:280px"></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:var(--blue)"></span>
+      조명 불변성 데모 — I를 스케일해도 패턴 부호 보존
+    </div>
+    <div id="plotly-illum" style="width:100%;height:280px"></div>
+  </div>
+</div>
+
+<!-- ILLUMINATION INVARIANCE INTERACTIVE -->
+<div class="card" style="margin-top:16px">
+  <div class="card-title">조명 불변성 (Illumination Invariance) 인터랙티브</div>
+  <div class="card-desc">
+    조명 배율을 바꾸면 I가 일괄 스케일된다. θ_i = I_i/I는 변하지 않으므로,
+    <strong>활동의 부호와 상대 패턴</strong>이 보존된다.
+    Weber 이득 (B+C)I/(A+I)는 전체 크기만 바꾼다.
+  </div>
+  <div class="controls-row" style="margin-bottom:14px">
+    <div class="control-group">
+      <label>조명 배율</label>
+      <input type="range" id="slider-illum" min="1" max="500" step="1" value="50">
+      <span class="val" id="val-illum">50×</span>
+    </div>
+  </div>
+  <div id="plotly-illum2" style="width:100%;height:260px"></div>
+  <div class="insight" id="illum-insight" style="margin-top:10px">
+    조명이 50배 증가해도 패턴의 부호(밝다/어둡다)와 상대 순위는 변하지 않습니다.
+  </div>
+</div>
+
+<!-- KEY INSIGHT -->
+<div class="insight" style="margin-bottom:16px">
+  <strong>핵심:</strong>
+  C = 0(무음 억제)이면 적응 수준 = 0이어서 모든 활동이 ≥ 0이다.
+  C &gt; 0(과분극 억제)이면 적응 수준 <strong>C/(B+C)</strong>가 생겨,
+  이보다 약한 입력은 <strong style="color:var(--red)">음의 활동(어둡다)</strong>으로,
+  강한 입력은 <strong style="color:var(--blue)">양의 활동(밝다)</strong>으로 부호화된다.
+  이것이 신경 수준에서 '밝기 대비'가 표현되는 메커니즘이다.
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_28.js"></script>
+</body>
+</html>

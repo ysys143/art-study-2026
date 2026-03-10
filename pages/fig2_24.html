@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>막 방정식 | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.circuit-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.circuit-svg-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.var-table {
+  width: 100%;
+  font-size: 12px;
+  border-collapse: collapse;
+}
+.var-table th {
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+}
+.var-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+.var-table td:first-child {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.var-table td:last-child {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.inhibition-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+}
+.inh-box {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+}
+.inh-box.silent { border-color: rgba(74,127,181,.4); }
+.inh-box.hyper  { border-color: rgba(192,96,88,.4); }
+.inh-box-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  margin-bottom: 8px;
+}
+.inh-box.silent .inh-box-title { color: var(--blue); }
+.inh-box.hyper  .inh-box-title { color: var(--red); }
+
+.cond-bars-wrap {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 16px;
+  margin: 8px 0 16px;
+}
+.cond-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.cond-bar-track {
+  width: 48px;
+  height: 90px;
+  background: var(--surface2);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.cond-bar-fill {
+  width: 100%;
+  transition: height .25s ease;
+  border-radius: 3px 3px 0 0;
+  min-height: 1px;
+}
+.cond-bar-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.cond-bar-val {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.phase-indicator {
+  text-align: center;
+  padding: 10px 16px;
+  background: var(--surface2);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.phase-indicator .phase-val {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.insight-box {
+  padding: 12px 16px;
+  background: rgba(90,154,114,.06);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.insight-box strong { color: var(--green); }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.24: 신경생리학의 막 방정식</h2>
+    <span class="tag">Membrane Equation</span>
+  </div>
+  <div id="content">
+
+    <!-- Description -->
+    <div class="card">
+      <div class="card-title">막 방정식과 Shunting 네트워크</div>
+      <div class="card-desc">
+        Hodgkin-Huxley 스타일의 신경생리학 <strong>막 방정식(membrane equation)</strong>이
+        Grossberg의 <strong>shunting on-center off-surround 네트워크</strong>와 수학적으로 동일한
+        형태임을 보여줍니다. 각 이온 채널의 전도도(conductance)가 역전 전위(reversal potential)에서의
+        구동력을 조절하며, 이것이 자동 이득 제어(automatic gain control)와
+        <strong>silent inhibition</strong>의 물리적 근거입니다.
+      </div>
+
+      <!-- Full membrane equation -->
+      <div class="eq-box" style="margin-bottom:16px">
+        <div class="eq-label">막 방정식 (Membrane Equation)</div>
+        <div id="eq-membrane"></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+          C = 막 용량(capacitance) &nbsp;|&nbsp; V = 막 전위 &nbsp;|&nbsp; V⁺/V⁻/Vᵖ = 역전 전위 &nbsp;|&nbsp; g⁺/g⁻/gᵖ = 전도도
+        </div>
+      </div>
+
+      <!-- Variable mapping table -->
+      <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:10px">
+        신경망으로의 변수 대응
+      </div>
+      <table class="var-table">
+        <thead>
+          <tr>
+            <th>생리학 변수</th>
+            <th>신경망 변수</th>
+            <th>값 / 의미</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>C (capacitance)</td>
+            <td>1</td>
+            <td>단위 용량으로 정규화</td>
+          </tr>
+          <tr>
+            <td>V (membrane potential)</td>
+            <td>xᵢ (활동)</td>
+            <td>셀 i의 활동 수준</td>
+          </tr>
+          <tr>
+            <td>V⁺ (excitatory reversal)</td>
+            <td>B (saturation)</td>
+            <td>흥분 포화 상한. 활동이 B에 가까울수록 흥분 입력 효과 자동 감소</td>
+          </tr>
+          <tr>
+            <td>V⁻ = Vᵖ (inhibitory &amp; passive reversal)</td>
+            <td>0</td>
+            <td><strong>Silent inhibition</strong> — 억제 역전 전위 = 0. 억제는 x를 0으로만 끌어당기며 0 이하로 내려가지 않음</td>
+          </tr>
+          <tr>
+            <td>g⁺ (excitatory conductance)</td>
+            <td>Iᵢ (on-center input)</td>
+            <td>셀 i에 대한 흥분 입력</td>
+          </tr>
+          <tr>
+            <td>g⁻ (inhibitory conductance)</td>
+            <td>J = Σ<sub>k≠i</sub> Iₖ (off-surround)</td>
+            <td>주변 셀들의 억제 입력 합계</td>
+          </tr>
+          <tr>
+            <td>gᵖ (passive conductance)</td>
+            <td>A (decay)</td>
+            <td>수동 누수 전도도 — 입력 없으면 x → 0으로 감쇠</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Derived shunting equation -->
+      <div class="eq-box" style="margin-top:16px;margin-bottom:0">
+        <div class="eq-label">대입 결과: On-Center Off-Surround Shunting 방정식</div>
+        <div id="eq-shunting"></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+          막 방정식에 V⁺=B, C=1, V⁻=Vᵖ=0, g⁺=Iᵢ, g⁻=J, gᵖ=A 를 대입하면 그대로 도출됩니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- Circuit diagram + Silent inhibition explanation -->
+    <div class="card">
+      <div class="card-title">회로 다이어그램 &amp; Silent Inhibition</div>
+
+      <div class="circuit-wrap">
+        <!-- SVG circuit -->
+        <div class="circuit-svg-box">
+          <svg width="200" height="310" viewBox="0 0 200 310">
+            <defs>
+              <marker id="arr-grn" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill="#5a9a72" />
+              </marker>
+              <marker id="arr-red" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill="#c06058" />
+              </marker>
+              <marker id="arr-gray" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill="#9b9590" />
+              </marker>
+            </defs>
+
+            <!-- Main vertical wire -->
+            <line x1="80" y1="30" x2="80" y2="280" stroke="var(--border)" stroke-width="2.5"/>
+
+            <!-- V+ top -->
+            <circle cx="80" cy="30" r="7" fill="#5a9a72" opacity=".9"/>
+            <text x="94" y="28" font-size="13" font-weight="700" fill="#5a9a72">V⁺ = B</text>
+            <text x="94" y="42" font-size="10" fill="var(--text-muted)">(흥분 역전 전위)</text>
+
+            <!-- Excitatory arrow down toward V(t) -->
+            <line x1="80" y1="44" x2="80" y2="122" stroke="#5a9a72" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-grn)"/>
+            <text x="86" y="78" font-size="10" font-weight="600" fill="#5a9a72">g⁺ = Iᵢ</text>
+            <text x="86" y="90" font-size="9" fill="var(--text-muted)">(흥분 전도도)</text>
+
+            <!-- V(t) node -->
+            <circle cx="80" cy="155" r="22" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
+            <text x="80" y="151" font-size="12" font-weight="700" fill="var(--accent)" text-anchor="middle">V(t)</text>
+            <text x="80" y="164" font-size="9" fill="var(--text-muted)" text-anchor="middle">= xᵢ</text>
+
+            <!-- Passive right -->
+            <line x1="102" y1="155" x2="158" y2="155" stroke="#9b9590" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+            <text x="106" y="148" font-size="9" font-weight="600" fill="#9b9590">gᵖ = A</text>
+            <text x="106" y="168" font-size="9" fill="var(--text-muted)">→ Vᵖ = 0</text>
+
+            <!-- Inhibitory arrow down toward 0 -->
+            <line x1="80" y1="177" x2="80" y2="240" stroke="#c06058" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+            <text x="86" y="212" font-size="10" font-weight="600" fill="#c06058">g⁻ = J</text>
+            <text x="86" y="224" font-size="9" fill="var(--text-muted)">(억제 전도도)</text>
+
+            <!-- V- = 0 bottom -->
+            <circle cx="80" cy="280" r="7" fill="#c06058" opacity=".8"/>
+            <text x="94" y="278" font-size="13" font-weight="700" fill="#c06058">V⁻ = 0</text>
+            <text x="94" y="291" font-size="10" fill="var(--text-muted)">(silent inhibition)</text>
+
+            <!-- Ground lines -->
+            <line x1="64" y1="287" x2="96" y2="287" stroke="#c06058" stroke-width="1.5" opacity=".4"/>
+            <line x1="69" y1="291" x2="91" y2="291" stroke="#c06058" stroke-width="1" opacity=".25"/>
+            <line x1="73" y1="295" x2="87" y2="295" stroke="#c06058" stroke-width="1" opacity=".15"/>
+
+            <!-- Silent inhibition badge -->
+            <rect x="2" y="245" width="72" height="20" rx="4" fill="rgba(192,96,88,.08)" stroke="rgba(192,96,88,.3)" stroke-width="1"/>
+            <text x="38" y="259" font-size="9" font-weight="700" fill="#c06058" text-anchor="middle">Silent Inhibition</text>
+          </svg>
+        </div>
+
+        <!-- Inhibition comparison -->
+        <div style="flex:1;min-width:280px">
+          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:10px">
+            억제 유형 비교
+          </div>
+          <div class="inhibition-compare">
+            <div class="inh-box silent">
+              <div class="inh-box-title">Silent Inhibition (V⁻ = 0)</div>
+              <div id="eq-silent-inh" style="margin:8px 0"></div>
+              <div style="font-size:11px;color:var(--text-muted);line-height:1.5">
+                억제항 = <strong style="color:var(--blue)">−x·J</strong><br>
+                x = 0이면 억제 전류 = 0<br>
+                → 활동은 항상 <strong>x ≥ 0</strong><br>
+                → 억제 = 이득 분할(gain division)<br>
+                → 비선형 대비 향상
+              </div>
+            </div>
+            <div class="inh-box hyper">
+              <div class="inh-box-title">Hyperpolarizing (V⁻ = −C)</div>
+              <div id="eq-hyper-inh" style="margin:8px 0"></div>
+              <div style="font-size:11px;color:var(--text-muted);line-height:1.5">
+                억제항 = <strong style="color:var(--red)">−(x+C)·J</strong><br>
+                x = 0이어도 억제 전류 ≠ 0<br>
+                → 활동이 <strong>x &lt; 0</strong> 가능<br>
+                → 억제 = 뺄셈(subtraction)<br>
+                → 단순 역치 이동
+              </div>
+            </div>
+          </div>
+          <div class="insight-box">
+            <strong>핵심:</strong> Silent inhibition (V⁻ = 0)이면 억제 전류 = −x·J,
+            즉 현재 활동 x가 작을수록 억제 효과도 함께 줄어듭니다.
+            이것이 <strong>분로(shunting)</strong>의 물리적 의미입니다 —
+            억제가 활동을 <em>나누어</em> 이득을 제어하지, 고정량을 빼지 않습니다.
+            그 결과 활동은 항상 비음수(non-negative)이며 입력의 <strong>비율이 보존</strong>됩니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parameters -->
+    <div class="card">
+      <div class="card-title">Parameters</div>
+      <div class="controls-row">
+        <div class="control-group">
+          <label>Decay <em>A</em></label>
+          <input type="range" id="slider-A" min="10" max="200" step="5" value="50">
+          <span class="val" id="val-A">0.50</span>
+        </div>
+        <div class="control-group">
+          <label>Saturation <em>B</em></label>
+          <input type="range" id="slider-B" min="50" max="400" step="25" value="200">
+          <span class="val" id="val-B">2.0</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap">
+        <div class="control-group">
+          <label>On-Center <em>Iᵢ</em></label>
+          <input type="range" id="slider-I" min="0" max="1000" step="1" value="600">
+          <span class="val" id="val-I">3.00</span>
+        </div>
+        <div class="control-group">
+          <label>Off-Surround <em>J</em></label>
+          <input type="range" id="slider-J" min="0" max="1000" step="1" value="300">
+          <span class="val" id="val-J">1.00</span>
+        </div>
+        <div class="control-group">
+          <label>Speed</label>
+          <input type="range" id="slider-speed" min="1" max="100" step="1" value="50" style="width:120px">
+          <span class="val" id="val-speed">1.0x</span>
+        </div>
+        <button id="btn-pulse" style="padding:5px 16px;border-radius:8px;border:1.5px solid var(--accent);background:var(--accent-light);color:var(--accent);cursor:pointer;font-size:12px;font-weight:700">[~] Pulse</button>
+        <button id="btn-reset" style="padding:5px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:12px;font-weight:600">[R] Reset</button>
+        <button id="btn-pause" class="p09rt-start-blink" style="padding:5px 16px;border-radius:8px;border:1.5px solid #4caf50;background:var(--surface2);color:#4caf50;cursor:pointer;font-size:12px;font-weight:700">[>] Start</button>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+        <em>Iᵢ</em> = on-center 흥분 입력 (log scale). &nbsp;
+        <em>J</em> = off-surround 억제 입력 합 = Σ<sub>k≠i</sub> Iₖ (log scale). &nbsp;
+        Pulse: 입력을 순간 제거했다가 재투입 — silent inhibition으로 x가 절대 0 이하로 내려가지 않음을 확인하세요.
+      </div>
+    </div>
+
+    <!-- Phase indicator -->
+    <div class="phase-indicator">
+      x(t) = <span class="phase-val" id="live-x">0.00</span>
+      &nbsp;|&nbsp;
+      x* = <span class="phase-val" id="live-xstar">0.00</span>
+      &nbsp;|&nbsp;
+      Time: <span class="phase-val" id="live-time">0.0</span>s
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-label">
+          <span class="dot" style="background:var(--accent)"></span>
+          x(t) 시간 진화
+        </div>
+        <div id="plot-time" style="width:100%;height:300px"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-label">
+          <span class="dot" style="background:var(--blue)"></span>
+          평형값 x* = BI / (A + I + J) &nbsp;vs&nbsp; I
+        </div>
+        <div id="plot-equil" style="width:100%;height:300px"></div>
+      </div>
+    </div>
+
+    <!-- Conductance visualization -->
+    <div class="card">
+      <div class="card-title">전도도 기여 시각화 (Conductance Contributions)</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">
+        각 전류 항의 실시간 크기. 흥분 전류 (B−x)·Iᵢ, 억제 전류 x·J, 수동 전류 A·x 가 합쳐져 dx/dt 를 결정합니다.
+      </div>
+      <div class="cond-bars-wrap">
+        <div class="cond-bar-col">
+          <div class="cond-bar-track">
+            <div id="bar-excite" class="cond-bar-fill" style="height:0%;background:#4a7fb5"></div>
+          </div>
+          <div class="cond-bar-label" style="color:var(--blue)">흥분<br>(B−x)·I</div>
+          <div class="cond-bar-val" id="val-excite">0.00</div>
+        </div>
+        <div class="cond-bar-col">
+          <div class="cond-bar-track">
+            <div id="bar-inhibit" class="cond-bar-fill" style="height:0%;background:#c06058"></div>
+          </div>
+          <div class="cond-bar-label" style="color:var(--red)">억제<br>x·J</div>
+          <div class="cond-bar-val" id="val-inhibit">0.00</div>
+        </div>
+        <div class="cond-bar-col">
+          <div class="cond-bar-track">
+            <div id="bar-passive" class="cond-bar-fill" style="height:0%;background:#9b9590"></div>
+          </div>
+          <div class="cond-bar-label" style="color:var(--text-muted)">수동 감쇠<br>A·x</div>
+          <div class="cond-bar-val" id="val-passive">0.00</div>
+        </div>
+        <div class="cond-bar-col">
+          <div class="cond-bar-track" style="overflow:visible">
+            <div id="bar-dxdt" class="cond-bar-fill" style="height:0%;background:#bf6a42"></div>
+          </div>
+          <div class="cond-bar-label" style="color:var(--accent)">순 변화<br>|dx/dt|</div>
+          <div class="cond-bar-val" id="val-dxdt">0.00</div>
+        </div>
+      </div>
+
+      <!-- Equilibrium formula -->
+      <div class="eq-box" style="margin-top:4px">
+        <div class="eq-label">평형값 (Equilibrium)</div>
+        <div id="eq-equil"></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+          dx/dt = 0 을 풀면 → 자동 이득 제어: 분모 (A+I+J)가 있어 입력이 커져도 x* &lt; B 를 보장합니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- Insight -->
+    <div class="card">
+      <div class="card-title">핵심 통찰</div>
+      <div class="insight-box" style="margin:0 0 12px 0">
+        <strong>막 방정식 = Shunting 방정식:</strong>
+        Hodgkin-Huxley 막 방정식에 V⁺=B, V⁻=Vᵖ=0, C=1 을 대입하면
+        Grossberg의 on-center off-surround 네트워크 방정식이 정확히 도출됩니다.
+        신경생리학과 신경망은 동일한 수학을 공유합니다.
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <div style="flex:1;min-width:200px;background:var(--surface2);border-radius:6px;padding:10px 12px;border-left:3px solid var(--blue)">
+          <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:4px">자동 이득 제어</div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.5">
+            흥분 전류 = (B−x)·Iᵢ: x가 B에 가까울수록 흥분 효과가 자동으로 0이 됩니다.
+            전압이 역전 전위에 접근할수록 전류가 감소하는 물리 법칙 그대로입니다.
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--surface2);border-radius:6px;padding:10px 12px;border-left:3px solid var(--red)">
+          <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:4px">Silent Inhibition (분로)</div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.5">
+            억제 전류 = −x·J: x = 0이면 억제가 가해져도 아무 변화가 없습니다.
+            이것이 활동이 항상 0 이상을 유지하는 이유이고,
+            억제가 이득을 분할(divide)하는 방식으로 동작하는 이유입니다.
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px;background:var(--surface2);border-radius:6px;padding:10px 12px;border-left:3px solid var(--green)">
+          <div style="font-size:11px;font-weight:600;color:var(--green);margin-bottom:4px">비율 보존 (Ratio Invariance)</div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.5">
+            x* = BI/(A+I+J). I가 어떤 값이든 x* &lt; B.
+            여러 셀의 x*는 입력 비율을 보존합니다 — Weber의 법칙과 연결됩니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_24.js"></script>
+</body>
+</html>

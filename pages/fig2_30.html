@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig 2.30 - Noise Suppression & Weber Law | Grossberg Ch.2</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<style>
+.pattern-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.pattern-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.pattern-btn:hover { background: var(--surface2); }
+.pattern-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.chart-full {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.chart-full .chart-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+.chart-full .chart-label .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.eq-factor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+.eq-factor-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+.eq-factor-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.noise-demo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+.noise-demo-card {
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+}
+.noise-demo-card.suppressed {
+  border-color: rgba(192,96,88,.3);
+  background: rgba(192,96,88,.04);
+}
+.noise-demo-card.preserved {
+  border-color: rgba(90,154,114,.3);
+  background: rgba(90,154,114,.04);
+}
+.noise-demo-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.noise-demo-title.red { color: var(--red); }
+.noise-demo-title.green { color: var(--green); }
+.noise-demo-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.status-bar {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+.status-bar strong { color: var(--text); }
+.status-bar .suppressed-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(192,96,88,.12);
+  color: var(--red);
+  margin-left: 4px;
+}
+.status-bar .preserved-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(90,154,114,.12);
+  color: var(--green);
+  margin-left: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1><a href="../index.html" style="text-decoration:none;color:inherit">Grossberg Ch.2</a></h1>
+    <div class="sub">Conscious MIND Resonant BRAIN<br>Interactive Simulations</div>
+  </div>
+  <div id="sidebar-list">
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <h2>Figure 2.30: Noise Suppression &amp; Weber Law / Adaptation Level</h2>
+    <span class="tag">Interactive</span>
+  </div>
+  <div id="content">
+
+<!-- DESCRIPTION -->
+<div class="card">
+  <div class="card-title">메커니즘: 잡음 억제 (Noise Suppression)</div>
+  <div class="card-desc">
+    On-center off-surround shunting 네트워크는 <strong>공간적으로 균일한 입력</strong>(정보 없음)을
+    자동으로 억제한다. 모든 셀이 동일한 입력을 받는 "균일 패턴"은 총 조명량 I가 아무리 강해도
+    출력 x_i = 0이 된다. 이것이 <strong>영 공간 주파수(zero spatial frequency) 잡음 억제</strong>이다.
+    반면, 밝고 어두운 영역이 있는 특징 있는 패턴은 살아남는다.
+  </div>
+  <div class="noise-demo-row">
+    <div class="noise-demo-card suppressed">
+      <div class="noise-demo-title red">균일 입력 (잡음) — 억제됨</div>
+      <div class="noise-demo-desc">
+        모든 θ_i = 1/n = C/(B+C)<br>
+        → x_i = (B+C)I/(A+I) · [1/n − C/(B+C)] = 0<br>
+        <strong>I가 아무리 커도 출력 = 0</strong>
+      </div>
+    </div>
+    <div class="noise-demo-card preserved">
+      <div class="noise-demo-title green">비균일 입력 (특징) — 보존됨</div>
+      <div class="noise-demo-desc">
+        일부 θ_i &gt; 1/n, 일부 θ_i &lt; 1/n<br>
+        → x_i ≠ 0 for cells with θ_i ≠ C/(B+C)<br>
+        <strong>패턴(에지, 바 등)은 살아남음</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EQUATIONS -->
+<div class="card">
+  <div class="card-title">핵심 방정식</div>
+  <div class="eq-row">
+    <div class="eq-box" style="flex:2">
+      <div class="eq-label">완전한 평형 방정식</div>
+      <div id="eq-main"></div>
+    </div>
+  </div>
+  <div class="eq-factor-grid">
+    <div class="eq-factor-card">
+      <div class="eq-factor-label">Weber Law 인자</div>
+      <div id="eq-weber"></div>
+    </div>
+    <div class="eq-factor-card">
+      <div class="eq-factor-label">반사율 인자 θ_i</div>
+      <div id="eq-theta"></div>
+    </div>
+    <div class="eq-factor-card">
+      <div class="eq-factor-label">적응 수준 (Adaptation Level)</div>
+      <div id="eq-adapt"></div>
+    </div>
+  </div>
+  <div class="card-desc" style="margin-top:14px;line-height:1.8">
+    <strong>잡음 억제 조건:</strong> B &gt;&gt; C 이면 C/(B+C) ≈ 0. 반대로 B = (n−1)C 이면 C/(B+C) = 1/n.
+    균일 입력에서 모든 θ_i = 1/n이므로 <em>θ_i − C/(B+C) = 0</em> → x_i = 0.<br>
+    <strong>Weber Law:</strong> 비례 인자 (B+C)I/(A+I)는 총 조명 I에만 의존하며 반사율 θ_i에는 무관하다.
+    x_i의 부호(밝다/어둡다)는 I와 무관하게 θ_i와 적응 수준의 관계로만 결정된다.
+  </div>
+</div>
+
+<!-- SIMULATION -->
+<div class="card">
+  <div class="card-title">인터랙티브 시뮬레이션</div>
+  <div class="card-desc" style="margin-bottom:14px">
+    패턴을 선택하고 파라미터를 조정하라.
+    <strong>균일(Uniform)</strong> 패턴에서 x_i → 0이 되는 것을 확인하라.
+    B = (n−1)C 조건이 만족되면 잡음 억제가 완벽해진다.
+  </div>
+
+  <!-- Pattern buttons -->
+  <div class="pattern-btns" id="pattern-btns">
+    <button class="pattern-btn active" data-pattern="uniform">균일 (Uniform)</button>
+    <button class="pattern-btn" data-pattern="step">계단 (Step Edge)</button>
+    <button class="pattern-btn" data-pattern="bar">바 (Single Bar)</button>
+    <button class="pattern-btn" data-pattern="gradient">경사 (Gradient)</button>
+  </div>
+
+  <!-- Parameters -->
+  <div class="controls-row">
+    <div class="control-group">
+      <label>Decay <em>A</em></label>
+      <input type="range" id="slider-A" min="0.1" max="5" step="0.1" value="1">
+      <span class="val" id="val-A">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>On-center <em>B</em></label>
+      <input type="range" id="slider-B" min="1" max="50" step="0.5" value="9">
+      <span class="val" id="val-B">9.0</span>
+    </div>
+    <div class="control-group">
+      <label>Off-surround <em>C</em></label>
+      <input type="range" id="slider-C" min="0.1" max="10" step="0.1" value="1">
+      <span class="val" id="val-C">1.0</span>
+    </div>
+    <div class="control-group">
+      <label>셀 수 <em>n</em></label>
+      <input type="range" id="slider-n" min="3" max="12" step="1" value="10">
+      <span class="val" id="val-n">10</span>
+    </div>
+    <div class="control-group">
+      <label>총 조명 <em>I</em></label>
+      <input type="range" id="slider-I" min="0" max="1000" step="1" value="400">
+      <span class="val" id="val-I">10.0</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar" id="status-bar">
+  계산 중...
+</div>
+
+<!-- INPUT CHART -->
+<div class="chart-full">
+  <div class="chart-label">
+    <span class="dot" style="background:#4a7fb5"></span>
+    입력 패턴 I_i (각 셀의 입력 강도)
+  </div>
+  <div id="plot-input" style="width:100%;height:180px"></div>
+</div>
+
+<!-- THETA & ACTIVITY: side by side -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:#c49a3c"></span>
+      반사율 θ_i = I_i / I — 적응 수준과 비교
+    </div>
+    <div id="plot-theta" style="width:100%;height:260px"></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-label">
+      <span class="dot" style="background:#5a9a72"></span>
+      출력 활동 x_i* — 잡음 억제 결과
+    </div>
+    <div id="plot-activity" style="width:100%;height:260px"></div>
+  </div>
+</div>
+
+<!-- WEBER LAW: illumination invariance -->
+<div class="card" style="margin-top:16px">
+  <div class="card-title">Weber Law 확인 — 총 조명 I 변화에도 패턴 보존</div>
+  <div class="card-desc" style="margin-bottom:12px">
+    I 슬라이더를 움직여도 비균일 패턴의 부호(밝다/어둡다)가 바뀌지 않는다.
+    단, 균일 패턴은 모든 I에서 항상 0이다.
+  </div>
+  <div id="plot-weber" style="width:100%;height:260px"></div>
+</div>
+
+<!-- INSIGHT -->
+<div class="card" style="margin-top:16px">
+  <div class="card-title">핵심 요약</div>
+  <div class="insight" style="font-size:13px;line-height:1.9">
+    <strong>잡음 억제(Noise Suppression) 원리:</strong><br>
+    • 균일 입력(θ_i = 1/n for all i) → x_i = 0 for all i, I와 무관 (잡음 억제)<br>
+    • 특징 입력(some θ_i ≠ 1/n) → x_i ≠ 0 for those cells (신호 보존)<br>
+    • B = (n−1)C 이면 C/(B+C) = 1/n: 완벽한 잡음 억제 조건<br><br>
+    <strong>Weber Law (Zeiler 1963 Adaptation Level Theory):</strong><br>
+    • x_i*의 크기는 (B+C)I/(A+I)에 비례하지만, 부호는 θ_i와 C/(B+C)의 관계로만 결정<br>
+    • 총 조명 I가 달라져도 "밝다/어둡다" 판단(부호)은 변하지 않는다<br>
+    • 활동 범위는 [−C, 0, x_i(t), B]로 자동 제한됨
+  </div>
+</div>
+
+  </div>
+</div>
+
+<script src="../js/nav.js"></script>
+<script src="../js/fig2_30.js"></script>
+</body>
+</html>
