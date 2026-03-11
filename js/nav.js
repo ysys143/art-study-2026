@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { fig: '2.9',  label: 'Additive vs Shunting',   file: 'fig2_09.html',             active: true  },
   { fig: '2.11', label: 'MTM & LTM Dynamics',     file: 'fig2_11.html',             active: true  },
   { fig: '2.19', label: 'Noise-Saturation Dilemma', file: 'fig2_19.html',           active: true  },
-  { fig: '2.23', label: 'Feedforward vs Recurrent', file: 'feedforward-recurrent.html', active: true },
+  { fig: '2.23', label: 'Feedforward vs Recurrent', file: 'fig2_23.html', active: true },
   { fig: '2.24', label: 'Membrane Equation',      file: 'fig2_24.html',             active: true  },
   { fig: '2.25', label: 'Weber Law & Shift',      file: 'fig2_25.html',           active: true  },
   { fig: '2.27', label: 'Mudpuppy Retina',        file: 'fig2_27.html',           active: true  },

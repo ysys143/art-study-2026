@@ -1,26 +1,17 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1773057773579,
+  "lastScanned": 1773149930294,
   "projectRoot": "/Users/jaesolshin/Documents/GitHub/0309-icarus",
   "techStack": {
-    "languages": [
-      {
-        "name": "Python",
-        "version": null,
-        "confidence": "high",
-        "markers": [
-          "pyproject.toml"
-        ]
-      }
-    ],
+    "languages": [],
     "frameworks": [],
     "packageManager": null,
     "runtime": null
   },
   "build": {
     "buildCommand": null,
-    "testCommand": "pytest",
-    "lintCommand": "ruff check",
+    "testCommand": null,
+    "lintCommand": null,
     "devCommand": null,
     "scripts": {}
   },
@@ -33,289 +24,403 @@
   "structure": {
     "isMonorepo": false,
     "workspaces": [],
-    "mainDirectories": [],
+    "mainDirectories": [
+      "components",
+      "docs",
+      "pages"
+    ],
     "gitBranches": null
   },
   "customNotes": [],
   "directoryMap": {
+    "components": {
+      "path": "components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1773149930287,
+      "keyFiles": []
+    },
+    "css": {
+      "path": "css",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773149930288,
+      "keyFiles": [
+        "common.css"
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 4,
+      "lastAccessed": 1773149930288,
+      "keyFiles": [
+        "grossberg_ch2.md",
+        "grossberg_ch2_1.md",
+        "grossberg_ch2_2.md",
+        "instruction.md"
+      ]
+    },
     "images": {
       "path": "images",
       "purpose": null,
-      "fileCount": 15,
-      "lastAccessed": 1773057773572,
+      "fileCount": 38,
+      "lastAccessed": 1773149930289,
       "keyFiles": [
-        "fig2_24.jpeg",
-        "fig2_25.png",
-        "fig2_26.jpeg",
-        "fig2_27.jpeg",
-        "fig2_28.jpeg"
+        "fig2_01.jpeg",
+        "fig2_02.jpeg",
+        "fig2_03.jpeg",
+        "fig2_04.jpeg",
+        "fig2_05.jpeg"
+      ]
+    },
+    "js": {
+      "path": "js",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1773149930289,
+      "keyFiles": [
+        "fig2_09.js",
+        "fig2_11.js",
+        "fig2_19.js",
+        "simulations.js"
+      ]
+    },
+    "manim": {
+      "path": "manim",
+      "purpose": null,
+      "fileCount": 6,
+      "lastAccessed": 1773149930290,
+      "keyFiles": [
+        "main.py",
+        "pyproject.toml",
+        "simulation_demo_manim.py",
+        "uv.lock"
+      ]
+    },
+    "pages": {
+      "path": "pages",
+      "purpose": "Page components",
+      "fileCount": 3,
+      "lastAccessed": 1773149930290,
+      "keyFiles": [
+        "fig2_09.html",
+        "fig2_11.html",
+        "fig2_19.html"
+      ]
+    },
+    "pdf": {
+      "path": "pdf",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1773149930290,
+      "keyFiles": [
+        "export.pdf",
+        "grossberg_ch2.pdf",
+        "grossberg_ch2_excerpt.pdf"
       ]
     }
   },
   "hotPaths": [
     {
-      "path": "grossberg_ch2_sim.html",
-      "accessCount": 841,
-      "lastAccessed": 1773137728800,
+      "path": "pages/feedforward-recurrent.html",
+      "accessCount": 60,
+      "lastAccessed": 1773161647945,
       "type": "file"
     },
     {
-      "path": "docs/grossberg_ch2.md",
-      "accessCount": 143,
-      "lastAccessed": 1773133401323,
-      "type": "file"
-    },
-    {
-      "path": "grossberg_ch2_excerpt_explained.md",
-      "accessCount": 49,
-      "lastAccessed": 1773110050533,
-      "type": "file"
-    },
-    {
-      "path": "pages/fig2_09.html",
-      "accessCount": 35,
-      "lastAccessed": 1773137727043,
-      "type": "file"
-    },
-    {
-      "path": "js/fig2_11.js",
-      "accessCount": 12,
-      "lastAccessed": 1773136950842,
-      "type": "file"
-    },
-    {
-      "path": "js/fig2_09.js",
-      "accessCount": 10,
-      "lastAccessed": 1773137154460,
-      "type": "file"
-    },
-    {
-      "path": "pages/fig2_11.html",
-      "accessCount": 9,
-      "lastAccessed": 1773136951137,
-      "type": "file"
-    },
-    {
-      "path": "grossberg_ch2.pdf",
-      "accessCount": 8,
-      "lastAccessed": 1773110064247,
-      "type": "file"
-    },
-    {
-      "path": "pages/fig2_19.html",
-      "accessCount": 8,
-      "lastAccessed": 1773136981519,
-      "type": "file"
-    },
-    {
-      "path": "js/fig2_19.js",
-      "accessCount": 6,
-      "lastAccessed": 1773136981828,
-      "type": "file"
-    },
-    {
-      "path": "css/common.css",
-      "accessCount": 5,
-      "lastAccessed": 1773135884366,
-      "type": "file"
-    },
-    {
-      "path": "grossberg_ch2_sim.backup",
-      "accessCount": 5,
-      "lastAccessed": 1773136947529,
-      "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 5,
-      "lastAccessed": 1773137349819,
-      "type": "directory"
-    },
-    {
-      "path": "grossberg_ch2_front_half.md",
-      "accessCount": 4,
-      "lastAccessed": 1773109981170,
-      "type": "file"
-    },
-    {
-      "path": "grossberg_ch2_merged.md",
-      "accessCount": 4,
-      "lastAccessed": 1773110056895,
-      "type": "file"
-    },
-    {
-      "path": "docs/grossberg_ch2_1.md",
-      "accessCount": 3,
-      "lastAccessed": 1773127701645,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_07.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132649017,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_10.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132649058,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_09.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132649076,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_11.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132649097,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_06.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132649110,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_08.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132649153,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_18.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676304,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_20.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676325,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_23.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676340,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_12.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676356,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_22.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676370,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_17.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676408,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_16.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676421,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_21.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676460,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_19.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676474,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_13.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676514,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_15.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676567,
-      "type": "file"
-    },
-    {
-      "path": "images/fig2_14.jpeg",
-      "accessCount": 3,
-      "lastAccessed": 1773132676621,
+      "path": "js/feedforward-recurrent.js",
+      "accessCount": 46,
+      "lastAccessed": 1773161648883,
       "type": "file"
     },
     {
       "path": "index.html",
+      "accessCount": 40,
+      "lastAccessed": 1773192324937,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_09.html",
+      "accessCount": 30,
+      "lastAccessed": 1773160413317,
+      "type": "file"
+    },
+    {
+      "path": "js/nav.js",
+      "accessCount": 30,
+      "lastAccessed": 1773192324275,
+      "type": "file"
+    },
+    {
+      "path": "pages/three-ns.html",
+      "accessCount": 29,
+      "lastAccessed": 1773159889451,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_19.html",
+      "accessCount": 20,
+      "lastAccessed": 1773162480537,
+      "type": "directory"
+    },
+    {
+      "path": "css/common.css",
+      "accessCount": 20,
+      "lastAccessed": 1773162632946,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_27.js",
+      "accessCount": 15,
+      "lastAccessed": 1773162609763,
+      "type": "file"
+    },
+    {
+      "path": "docs/grossberg_ch2.md",
+      "accessCount": 13,
+      "lastAccessed": 1773200501292,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_11.html",
+      "accessCount": 12,
+      "lastAccessed": 1773160414500,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_27.html",
+      "accessCount": 10,
+      "lastAccessed": 1773162605239,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_28.js",
+      "accessCount": 9,
+      "lastAccessed": 1773162474887,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_19.js",
+      "accessCount": 7,
+      "lastAccessed": 1773161734470,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_25.js",
+      "accessCount": 7,
+      "lastAccessed": 1773162223957,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_09.js",
+      "accessCount": 6,
+      "lastAccessed": 1773160412969,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_30.js",
+      "accessCount": 6,
+      "lastAccessed": 1773162671697,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 6,
+      "lastAccessed": 1773199381271,
+      "type": "directory"
+    },
+    {
+      "path": "pages/fig2_24.html",
+      "accessCount": 4,
+      "lastAccessed": 1773161889870,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_24.js",
+      "accessCount": 4,
+      "lastAccessed": 1773162116611,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_33.html",
+      "accessCount": 4,
+      "lastAccessed": 1773162736071,
+      "type": "file"
+    },
+    {
+      "path": "js/three-ns.js",
       "accessCount": 3,
-      "lastAccessed": 1773135803990,
+      "lastAccessed": 1773159193670,
       "type": "file"
     },
     {
-      "path": "instruction.md",
-      "accessCount": 2,
-      "lastAccessed": 1773076387028,
+      "path": "pages/fig2_25.html",
+      "accessCount": 3,
+      "lastAccessed": 1773161821606,
       "type": "file"
     },
     {
-      "path": "images/fig2_01.jpeg",
-      "accessCount": 2,
-      "lastAccessed": 1773129346300,
+      "path": "pages/fig2_28.html",
+      "accessCount": 3,
+      "lastAccessed": 1773161875745,
       "type": "file"
     },
     {
-      "path": "images/fig2_02.jpeg",
-      "accessCount": 2,
-      "lastAccessed": 1773129346553,
+      "path": "js/fig2_31.js",
+      "accessCount": 3,
+      "lastAccessed": 1773162678376,
       "type": "file"
     },
     {
-      "path": "images/fig2_03.jpeg",
-      "accessCount": 2,
-      "lastAccessed": 1773129346843,
+      "path": "js/fig2_33.js",
+      "accessCount": 3,
+      "lastAccessed": 1773162742652,
       "type": "file"
     },
     {
-      "path": "images/fig2_04.jpeg",
-      "accessCount": 2,
-      "lastAccessed": 1773129352319,
+      "path": "pages/fig2_37.html",
+      "accessCount": 3,
+      "lastAccessed": 1773162807879,
       "type": "file"
     },
     {
-      "path": "images/fig2_05.jpeg",
+      "path": "pages/fig2_30.html",
       "accessCount": 2,
-      "lastAccessed": 1773129352647,
+      "lastAccessed": 1773162613742,
       "type": "file"
+    },
+    {
+      "path": "pages/fig2_31.html",
+      "accessCount": 2,
+      "lastAccessed": 1773162671921,
+      "type": "file"
+    },
+    {
+      "path": "pages/fig2_34.html",
+      "accessCount": 2,
+      "lastAccessed": 1773162734826,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_37.js",
+      "accessCount": 2,
+      "lastAccessed": 1773162804522,
+      "type": "file"
+    },
+    {
+      "path": "docs",
+      "accessCount": 1,
+      "lastAccessed": 1773150448810,
+      "type": "directory"
     },
     {
       "path": "docs/grossberg_ch2_2.md",
       "accessCount": 1,
-      "lastAccessed": 1773127690139,
+      "lastAccessed": 1773150454193,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_11.js",
+      "accessCount": 1,
+      "lastAccessed": 1773160414587,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_25.png",
+      "accessCount": 1,
+      "lastAccessed": 1773161564633,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_27.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773161565076,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_28.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773161565489,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_26.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773161566852,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_30.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162355695,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_31.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162356073,
       "type": "file"
     },
     {
       "path": "images/fig2_33.jpeg",
       "accessCount": 1,
-      "lastAccessed": 1773129164915,
+      "lastAccessed": 1773162356577,
       "type": "file"
     },
     {
-      "path": "js/simulations.js",
+      "path": "images/fig2_34.jpeg",
       "accessCount": 1,
-      "lastAccessed": 1773134929070,
+      "lastAccessed": 1773162356998,
       "type": "file"
+    },
+    {
+      "path": "images/fig2_37.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162357025,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_29.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162387418,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_32.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162387895,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_35.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162388227,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_36.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162388921,
+      "type": "file"
+    },
+    {
+      "path": "images/fig2_38.jpeg",
+      "accessCount": 1,
+      "lastAccessed": 1773162389561,
+      "type": "file"
+    },
+    {
+      "path": "js/fig2_34.js",
+      "accessCount": 1,
+      "lastAccessed": 1773162765928,
+      "type": "file"
+    },
+    {
+      "path": "pages",
+      "accessCount": 1,
+      "lastAccessed": 1773162997275,
+      "type": "directory"
     }
   ],
   "userDirectives": []

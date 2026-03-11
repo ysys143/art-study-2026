@@ -1,0 +1,17 @@
+{
+  "agents": [
+    {
+      "agent_id": "a38ca4c52fd9a152c",
+      "agent_type": "writer-back",
+      "started_at": "2026-03-11T03:39:24.991Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-03-11T03:39:33.999Z",
+      "duration_ms": 9008
+    }
+  ],
+  "total_spawned": 1,
+  "total_completed": 1,
+  "total_failed": 0,
+  "last_updated": "2026-03-11T03:39:34.101Z"
+}
