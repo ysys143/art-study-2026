@@ -109,11 +109,12 @@
       </div>
 
       <div class="finding-block">
-        <strong>핵심 발견:</strong> 흰색을 지각하려면 뇌는 장면 전체의 평균을 계산해야 합니다.
+        <strong>핵심 통찰:</strong> 색 항상성(color constancy)을 실현하려면 뇌는 장면 전체의 평균 조명을 계산해야 합니다.
         이를 위해 네트워크 위치 간 <strong>장거리 상호작용(비국소적)</strong>이 필요하고,
         그 계산은 조명 강도로 <strong>나누는(비선형적)</strong> 연산을 포함하며,
-        과거 경험으로 형성된 기대(LTM)가 실시간으로 <strong>갱신되어야(비정상적)</strong> 합니다.
-        이것이 세 개의 N이 함께 탄생한 배경입니다.
+        이 과정에 쓰이는 가중치가 경험을 통해 <strong>갱신(비정상(非定常))</strong>되어야 합니다.
+        각 성질은 개별적으로 새로운 것이 아니지만, <strong>셋이 동시에 요구</strong>되었다는 점이
+        19세기 물리학의 주류 도구로는 감당할 수 없는 난제를 만들었습니다.
       </div>
     </div>
 
@@ -124,7 +125,7 @@
         비선형성 — 광원 할인(Discount the Illuminant)
       </div>
       <div class="card-desc" style="margin-bottom:12px">
-        덧셈·뺄셈이 아닌 연산(예: <strong>나눗셈·곱셈</strong>)을 포함하는 모든 과정은 비선형적입니다.
+        덧셈·뺄셈이 아닌 연산(<strong>나눗셈, 곱셈 등</strong>)을 포함하는 모든 과정은 비선형적입니다.
         Helmholtz가 발견한 "광원 할인"은 뇌가 조명 강도 <em>c</em>로 <strong>나누어</strong>
         실제 반사율 <em>r</em>을 복원하는 과정입니다. 이 할인 과정 없이는 조명이 바뀔 때마다
         같은 물체가 다른 색으로 보여야 하지만, 실제 지각은 그렇지 않습니다.
@@ -252,30 +253,33 @@
     <div class="card">
       <div class="card-title">
         <span class="n-badge n-nonstat">N³ Nonstationary</span>
-        비정상성 — 변화하는 세계에 적응하는 LTM
+        비정상성(非定常性) — 시간에 따라 변하는 LTM
       </div>
       <div class="card-desc" style="margin-bottom:12px">
-        19세기 물리학 방정식의 계수는 고정되어 있습니다(정상적, stationary).
-        그러나 Helmholtz가 발견한 "무의식적 추론"은 과거 경험이 지각에 영향을 미친다는 것을 보여줍니다.
-        이는 뇌의 가중치(LTM 흔적 <em>z</em>)가 <strong>시간에 따라 변해야</strong> 함을 의미합니다.
-        상향식·하향식 학습 과정은 모두 변화하는 세계에 적응하기 위해 LTM 흔적을 갱신합니다.
+        19세기 물리학의 주류 수학적 도구는 <strong>선형적·국소적·정상(定常)</strong>이었습니다.
+        그러나 Helmholtz의 연구는 시각 지각을 이해하려면 이 세 가지를 <strong>동시에 넘어서야</strong> 함을 보여주었습니다.
+        개별적으로는 19세기에도 다룰 수 있었지만, 비선형·비국소·비정상(非定常)이 결합된 시스템을
+        다룰 수학적 직관과 도구가 당시 물리학자들에게는 부재했습니다.
+        Grossberg는 이 간극이 20세기 초 물리학과 뇌 과학의 <strong>분열을 초래한 역사적 원인</strong>이라고 주장합니다.
+        뇌의 LTM 가중치 <em>z</em>는 경험을 통해 변하며, 이 학습 과정이 비선형·비국소적 네트워크 안에서
+        동시에 작동하는 것이 핵심 난제입니다.
       </div>
 
       <div class="eq-row">
         <div class="eq-box">
-          <div class="eq-label"><span class="bad">정상적 — 고정 가중치</span></div>
+          <div class="eq-label"><span class="bad">정상(定常) — 고정 가중치</span></div>
           <div id="eq-stat"></div>
         </div>
         <div class="eq-box">
-          <div class="eq-label"><span class="good">비정상적 — LTM 학습 규칙</span></div>
+          <div class="eq-label"><span class="good">비정상(非定常) — LTM 학습 규칙</span></div>
           <div id="eq-nonstat"></div>
         </div>
       </div>
 
       <div class="card-desc" style="margin:10px 0 14px">
         환경 <em>x(t)</em>가 여러 차례 <strong>단계 변화(step change)</strong>합니다.
-        <span style="color:#ef4444">고정 가중치(정상적)</span>는 초기값에 묶여 변화를 전혀 따라가지 못합니다.
-        <span style="color:#22c55e">LTM z(t)(비정상적)</span>는 각 변화를 추적하며 새 환경에 수렴합니다.
+        <span style="color:#ef4444">고정 가중치(정상(定常))</span>는 초기값에 묶여 변화를 전혀 따라가지 못합니다.
+        <span style="color:#22c55e">LTM z(t)(비정상(非定常))</span>는 각 변화를 추적하며 새 환경에 수렴합니다.
         학습률 <em>ε</em>를 조절하면 추적 속도가 달라집니다.
       </div>
       <div class="controls-row">
@@ -292,9 +296,11 @@
     <div class="card">
       <div class="card-title">세 개의 N — 요약</div>
       <div class="card-desc" style="margin-bottom:14px">
-        Helmholtz의 색채 지각 실험 하나가 세 가지 새로운 수학적 개념의 필요성을 동시에 드러냈습니다.
-        이 세 가지는 독립적이지 않습니다 — 광원 할인(비선형)을 하려면 장면 전체 평균(비국소)이 필요하고,
-        그 계산에 쓰이는 가중치는 경험으로 갱신(비정상)되어야 합니다.
+        Helmholtz의 색채 지각 연구가 세 가지 수학적 성질의 필요성을 동시에 드러냈습니다.
+        광원 할인(비선형)을 하려면 장면 전체 평균(비국소)이 필요하고,
+        그 계산에 쓰이는 가중치는 경험을 통해 갱신(비정상(非定常))되어야 합니다.
+        각각은 19세기에도 다룰 수 있었지만, <strong>셋의 동시 결합</strong>을 다룰 직관과 도구가 당시에는 부재했고,
+        이것이 물리학과 뇌 과학의 분열을 초래했다는 것이 Grossberg의 역사적 분석입니다.
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
         <div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:14px">
@@ -316,12 +322,12 @@
           </ul>
         </div>
         <div style="background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#22c55e;margin-bottom:8px">Nonstationary 비정상</div>
+          <div style="font-size:12px;font-weight:700;color:#22c55e;margin-bottom:8px">Nonstationary 비정상(非定常)</div>
           <ul style="font-size:12px;color:var(--text);line-height:1.9;padding-left:16px;margin:0">
-            <li>LTM이 경험으로 갱신됨</li>
-            <li>상향식·하향식 학습 모두 적응</li>
-            <li>실시간 자율 학습 가능</li>
-            <li>파국적 망각 방지</li>
+            <li>LTM 가중치가 경험을 통해 갱신됨</li>
+            <li>상향식·하향식 학습이 모두 적응적</li>
+            <li>비선형·비국소와 결합 시 새로운 난제</li>
+            <li>이 결합의 부재가 역사적 분열의 원인</li>
           </ul>
         </div>
       </div>

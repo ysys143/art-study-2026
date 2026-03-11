@@ -146,12 +146,12 @@ function initThreeNs() {
       },
       {
         x: ts, y: ts.map(() => z0),
-        name: '정상적 가중치 z = z₀ (고정)',
+        name: '정상(定常) 가중치 z = z₀ (고정)',
         line: { color: '#c06058', width: 2, dash: 'dot' }
       },
       {
         x: ts, y: zs,
-        name: 'LTM z(t) — 비정상적, 환경 추적',
+        name: 'LTM z(t) — 비정상(非定常), 환경 추적',
         line: { color: '#5a9a72', width: 2.5 }
       }
     ], {
