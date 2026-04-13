@@ -15,11 +15,6 @@
 </figure>
 
 <figure>
-<img src="../images/fig3_10.jpeg" alt="Figure 3.10" width="50%">
-<figcaption><strong>그림 3.10</strong> — 네온 색 확산. 빨간 십자가들이 검은 십자가 안에 삽입되면, 빨간색이 십자가 경계 밖으로 퍼져나가 원형으로 지각된다.</figcaption>
-</figure>
-
-<figure>
 <img src="../images/fig3_11.jpeg" alt="Figure 3.11" width="50%">
 <figcaption><strong>그림 3.11</strong> — 네온 색 확산에서의 경계와 채우기. 각 빨간 십자가 끝의 검은 선분 4개가 에렌슈타인 환상적 윤곽을 형성하여 색의 확산을 차단한다.</figcaption>
 </figure>
