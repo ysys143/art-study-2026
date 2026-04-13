@@ -129,6 +129,12 @@
   },
   "hotPaths": [
     {
+      "path": "docs/grossberg_ch4_p136.md",
+      "accessCount": 9,
+      "lastAccessed": 1776081113341,
+      "type": "file"
+    },
+    {
       "path": "pdf/grossberg_ch4.pdf",
       "accessCount": 2,
       "lastAccessed": 1776080843964,
@@ -138,12 +144,6 @@
       "path": "docs/grossberg_ch4.md",
       "accessCount": 1,
       "lastAccessed": 1776080856921,
-      "type": "file"
-    },
-    {
-      "path": "docs/grossberg_ch4_p136.md",
-      "accessCount": 1,
-      "lastAccessed": 1776080942797,
       "type": "file"
     }
   ],
