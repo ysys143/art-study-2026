@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1774610143300,
+  "lastScanned": 1776080748573,
   "projectRoot": "/Users/jaesolshin/Documents/GitHub/icarus",
   "techStack": {
     "languages": [],
@@ -37,14 +37,14 @@
       "path": "components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1774610143247,
+      "lastAccessed": 1776080748480,
       "keyFiles": []
     },
     "css": {
       "path": "css",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1774610143248,
+      "lastAccessed": 1776080748480,
       "keyFiles": [
         "common.css"
       ]
@@ -53,7 +53,7 @@
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 6,
-      "lastAccessed": 1774610143249,
+      "lastAccessed": 1776080748480,
       "keyFiles": [
         "grossberg_ch1.md",
         "grossberg_ch2.md",
@@ -66,7 +66,7 @@
       "path": "images",
       "purpose": null,
       "fileCount": 168,
-      "lastAccessed": 1774610143249,
+      "lastAccessed": 1776080748481,
       "keyFiles": [
         "fig1_01.jpeg",
         "fig1_02.jpeg",
@@ -79,7 +79,7 @@
       "path": "js",
       "purpose": null,
       "fileCount": 16,
-      "lastAccessed": 1774610143250,
+      "lastAccessed": 1776080748481,
       "keyFiles": [
         "fig2_09.js",
         "fig2_11.js",
@@ -92,7 +92,7 @@
       "path": "manim",
       "purpose": null,
       "fileCount": 6,
-      "lastAccessed": 1774610143250,
+      "lastAccessed": 1776080748481,
       "keyFiles": [
         "main.py",
         "pyproject.toml",
@@ -104,7 +104,7 @@
       "path": "pages",
       "purpose": "Page components",
       "fileCount": 15,
-      "lastAccessed": 1774610143250,
+      "lastAccessed": 1776080748481,
       "keyFiles": [
         "fig2_09.html",
         "fig2_11.html",
@@ -117,7 +117,7 @@
       "path": "pdf",
       "purpose": null,
       "fileCount": 7,
-      "lastAccessed": 1774610143251,
+      "lastAccessed": 1776080748481,
       "keyFiles": [
         "export.pdf",
         "grossberg.pdf",
@@ -127,6 +127,25 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "pdf/grossberg_ch4.pdf",
+      "accessCount": 2,
+      "lastAccessed": 1776080843964,
+      "type": "file"
+    },
+    {
+      "path": "docs/grossberg_ch4.md",
+      "accessCount": 1,
+      "lastAccessed": 1776080856921,
+      "type": "file"
+    },
+    {
+      "path": "docs/grossberg_ch4_p136.md",
+      "accessCount": 1,
+      "lastAccessed": 1776080942797,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }

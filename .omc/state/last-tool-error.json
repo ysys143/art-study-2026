@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"git reset --soft HEAD~2 && git restore --staged pdf/grossberg.pdf && git commit -m \\\"chore: add pdf files to gitignore\\\" && git push\",\"description\":\"Undo last 2 commits, unstage PDF, recom...",
-  "error": "Exit code 1\nerror: pathspec 'pdf/grossberg.pdf' did not match any file(s) known to git",
-  "timestamp": "2026-03-27T11:43:39.956Z",
-  "retry_count": 2
-}
