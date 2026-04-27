@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1776080748573,
+  "lastScanned": 1776592825572,
   "projectRoot": "/Users/jaesolshin/Documents/GitHub/icarus",
   "techStack": {
     "languages": [],
@@ -37,14 +37,14 @@
       "path": "components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1776080748480,
+      "lastAccessed": 1776592825563,
       "keyFiles": []
     },
     "css": {
       "path": "css",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1776080748480,
+      "lastAccessed": 1776592825564,
       "keyFiles": [
         "common.css"
       ]
@@ -52,21 +52,21 @@
     "docs": {
       "path": "docs",
       "purpose": "Documentation",
-      "fileCount": 6,
-      "lastAccessed": 1776080748480,
+      "fileCount": 7,
+      "lastAccessed": 1776592825567,
       "keyFiles": [
         "grossberg_ch1.md",
         "grossberg_ch2.md",
         "grossberg_ch3.md",
         "grossberg_ch4.md",
-        "instruction.md"
+        "grossberg_ch4_p136.md"
       ]
     },
     "images": {
       "path": "images",
       "purpose": null,
       "fileCount": 168,
-      "lastAccessed": 1776080748481,
+      "lastAccessed": 1776592825568,
       "keyFiles": [
         "fig1_01.jpeg",
         "fig1_02.jpeg",
@@ -79,7 +79,7 @@
       "path": "js",
       "purpose": null,
       "fileCount": 16,
-      "lastAccessed": 1776080748481,
+      "lastAccessed": 1776592825568,
       "keyFiles": [
         "fig2_09.js",
         "fig2_11.js",
@@ -92,7 +92,7 @@
       "path": "manim",
       "purpose": null,
       "fileCount": 6,
-      "lastAccessed": 1776080748481,
+      "lastAccessed": 1776592825569,
       "keyFiles": [
         "main.py",
         "pyproject.toml",
@@ -104,7 +104,7 @@
       "path": "pages",
       "purpose": "Page components",
       "fileCount": 15,
-      "lastAccessed": 1776080748481,
+      "lastAccessed": 1776592825570,
       "keyFiles": [
         "fig2_09.html",
         "fig2_11.html",
@@ -116,34 +116,70 @@
     "pdf": {
       "path": "pdf",
       "purpose": null,
-      "fileCount": 7,
-      "lastAccessed": 1776080748481,
+      "fileCount": 8,
+      "lastAccessed": 1776592825570,
       "keyFiles": [
         "export.pdf",
         "grossberg.pdf",
         "grossberg_ch1.pdf",
-        "grossberg_ch2.pdf",
-        "grossberg_ch3.pdf"
+        "grossberg_ch1.txt",
+        "grossberg_ch2.pdf"
       ]
     }
   },
   "hotPaths": [
     {
-      "path": "docs/grossberg_ch4_p136.md",
-      "accessCount": 35,
-      "lastAccessed": 1776083113818,
-      "type": "file"
-    },
-    {
-      "path": "pdf/grossberg_ch4.pdf",
-      "accessCount": 4,
-      "lastAccessed": 1776081845915,
-      "type": "file"
-    },
-    {
       "path": "docs/grossberg_ch4.md",
+      "accessCount": 57,
+      "lastAccessed": 1776622911218,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk01_pp122-136.md",
       "accessCount": 1,
-      "lastAccessed": 1776080856921,
+      "lastAccessed": 1776593400717,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/presentation_sec27_28.md",
+      "accessCount": 1,
+      "lastAccessed": 1776593774430,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk02_pp136-142.md",
+      "accessCount": 1,
+      "lastAccessed": 1776594280154,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk03_pp142-148.md",
+      "accessCount": 1,
+      "lastAccessed": 1776594410102,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk04_pp148-153.md",
+      "accessCount": 1,
+      "lastAccessed": 1776594579055,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk05_pp153-163.md",
+      "accessCount": 1,
+      "lastAccessed": 1776594755559,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk06_pp163-173.md",
+      "accessCount": 1,
+      "lastAccessed": 1776594907929,
+      "type": "file"
+    },
+    {
+      "path": "docs/ch4_notes/chunk07_pp173-183.md",
+      "accessCount": 1,
+      "lastAccessed": 1776595077254,
       "type": "file"
     }
   ],
