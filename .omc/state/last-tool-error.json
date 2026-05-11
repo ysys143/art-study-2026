@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+  "tool_input_preview": "{}",
+  "error": "MCP error -32602: Input validation error: Invalid arguments for tool ctx_batch_execute: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"array\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"commands\"\n    ],\n    \"message\": \"Required\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"array\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"queries\"\n    ],\n    \"message\": \"Required\"\n  }\n]",
+  "timestamp": "2026-05-11T00:21:24.141Z",
+  "retry_count": 1
+}
